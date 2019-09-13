@@ -1,0 +1,54 @@
+@import '../lib/Vars.scss';
+
+@mixin label-collected {
+    font-size: 12px;
+    top: -2px;
+    left: 10px;
+    transition: .3s;
+    color: $d-primary-color
+}
+
+.text-input__container {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    margin: 5px auto;
+}
+
+.text-input__input {
+    font-family: $d-font-family;
+    height: 2em;
+    border: none;
+    border-bottom: 1.5px solid #00d1f7;
+    background: transparent;
+    margin: 10px;
+    outline: none;
+    color: white;
+    padding: 0 8px;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .1px;
+    width: calc(100% - 26px);
+    &::placeholder {
+        color: white;
+    }
+
+    &:focus ~ .text-input__label {
+        @include label-collected;
+    }
+}
+
+.text-input__label {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: calc(50% - 14px);
+    left: 16px;
+    cursor: text;
+    transition: .3s;
+}
+
+.text-input__label--collected {
+    @include label-collected;
+    transition: 0;
+}

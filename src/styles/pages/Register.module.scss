@@ -1,0 +1,16 @@
+@import '../lib/Vars.scss';
+
+.register__container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.register__description {
+    flex-grow: 1;
+}
+
+.register__form {
+    width: calc(40% - 60px);
+    padding: 60px 30px;
+    background-color: $d-secondary-color-background;
+}

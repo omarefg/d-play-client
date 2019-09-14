@@ -11,15 +11,15 @@
 .text-input__container {
     display: inline-block;
     position: relative;
-    width: 80%;
-    margin: 5px auto;
+    width: 90%;
+    margin: 5px 0;
 }
 
 .text-input__input {
     font-family: $d-font-family;
     height: 2em;
     border: none;
-    border-bottom: 1.5px solid #00d1f7;
+    border-bottom: 1.5px solid $d-primary-color;
     background: transparent;
     margin: 10px;
     outline: none;
@@ -46,6 +46,7 @@
     left: 16px;
     cursor: text;
     transition: .3s;
+    letter-spacing: .2px;
 }
 
 .text-input__label--collected {

@@ -46,19 +46,7 @@
     align-items: flex-start;
     overflow-y: auto;
 
-    &::-webkit-scrollbar {
-        width:  5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        width: 5px;
-        height: 5em;
-        background:  $d-primary-color;
-    }
-  
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
+    @include scrollbar;
 
     @media screen and (max-width: $d-media-m) {
         width: calc(60% - 60px);

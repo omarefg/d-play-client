@@ -1,0 +1,5 @@
+export * from './HouseIcon'
+export * from './HeadphoneIcon'
+export * from './PlaylistIcon'
+export * from './SearchIcon'
+export * from './AddIcon'

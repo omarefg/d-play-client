@@ -10,3 +10,18 @@ $d-media-l: 1200px;
 $d-media-m: 1024px;
 $d-media-s: 800px;
 $d-media-xs: 600px;
+
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        width:  5px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $d-primary-color;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+}

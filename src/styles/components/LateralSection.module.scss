@@ -1,0 +1,14 @@
+@import '../lib/Vars.scss';
+
+.lateral-section__container {
+    margin: 15px 0;
+    font-weight: bold;
+    color: white;
+    font-family: $d-font-family;
+        &:hover {
+            svg {
+                fill: $d-primary-color;
+                transition: .5s;
+            }
+        }
+}

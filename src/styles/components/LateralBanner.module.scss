@@ -1,0 +1,12 @@
+@import '../lib/Vars.scss';
+
+.lateran-banner__container {
+    background-color: $d-secondary-color;
+    width: calc(20% - 40px);
+    padding: 20px;
+    height: calc(100vh - 40px);
+    overflow-y: scroll;
+    cursor: pointer;
+    
+    @include scrollbar;
+}

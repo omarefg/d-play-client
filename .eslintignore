@@ -1,1 +1,2 @@
-src/frontend/utils/service-workers
+src/frontend/utils/service-workers/
+node_modules/

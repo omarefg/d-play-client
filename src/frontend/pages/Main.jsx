@@ -1,7 +1,12 @@
 import React from 'react'
+import { Header, Search } from '../components'
 
 export const Main = props => {
     return (
-        <div/>
+        <div>
+            <Header>
+                <Search/>
+            </Header>
+        </div>
     )
 }

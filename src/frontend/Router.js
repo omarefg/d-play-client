@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { Register, Main } from './pages'
+import { Register, Main, Login } from './pages'
 
 const App = () => {
     return (
@@ -14,6 +14,11 @@ const App = () => {
                 <Route
                     path='/registrate'
                     component={Register}
+                    exact
+                />
+                <Route
+                    path='/inicia-sesion'
+                    component={Login}
                     exact
                 />
             </Switch>

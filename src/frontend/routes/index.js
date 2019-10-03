@@ -1,4 +1,4 @@
-import { Main, Register } from '../pages'
+import { Main, Register, Login } from '../pages'
 
 export const serverRoutes = isLogged => ([
     {
@@ -9,6 +9,11 @@ export const serverRoutes = isLogged => ([
     {
         path: '/registrate',
         component: Register,
+        exact: true,
+    },
+    {
+        path: '/inicia-sesion',
+        component: Login,
         exact: true,
     },
 ])

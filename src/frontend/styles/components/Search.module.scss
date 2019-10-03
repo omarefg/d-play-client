@@ -1,0 +1,29 @@
+@import '../lib/Vars.scss';
+
+.search__container {
+    background-color: #4a4a4a;
+    border-radius: 16px;
+    width: 200px;
+    display: flex;
+    height: 25px;
+    padding: 2.5px 10px;
+    align-items: center;
+
+    input {
+        background: transparent;
+        border: none;
+        border-left: 1.5px solid #777777;
+        outline: none;
+        padding: 2.5px 5px;
+        font-family: $d-font-family;
+        color: #777777;
+        font-size: 14px;
+        font-weight: 400;
+        width: 80%;
+
+        &::placeholder {
+            color: #777777;
+            font-weight: 400;
+        }
+    }
+}

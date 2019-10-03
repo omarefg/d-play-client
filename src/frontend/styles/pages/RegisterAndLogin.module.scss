@@ -1,6 +1,6 @@
 @import '../lib/Vars.scss';
 
-.register__container {
+.container {
     display: flex;
     height: 100vh;
     max-height: 100vh;
@@ -22,7 +22,7 @@
     }
 }
 
-.register__title {
+.title {
     color: white;
     text-align: center;
     @media screen and (max-width: $d-media-xs) {
@@ -30,14 +30,14 @@
     }
 }
 
-.register__description {
+.description {
     flex-grow: 1;
     @media screen and (max-width: $d-media-s) {
         display: none;
     }
 }
 
-.register__form {
+.form {
     width: calc(40% - 60px);
     padding: 60px 30px;
     background-color: rgba($d-secondary-color, 0.95);
@@ -62,17 +62,18 @@
     }
 }
 
-.register__social-media {
+.social-media {
     display: flex;
     width: calc(90% + 5px);
 }
 
-.register__change-to-login {
+.redirect {
     color: white;
     padding-left: 8px;
-    span {
+    a {
         color: $d-third-color;
         cursor: pointer;
+        text-decoration: none;
         &:hover {
             text-decoration: underline;
         }

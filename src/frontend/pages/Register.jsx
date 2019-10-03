@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { TextInput, DateInput, Select, Button } from '../components'
 import data from '../../../db'
 
-import styles from '../styles/pages/Register.module.scss'
+import styles from '../styles/pages/RegisterAndLogin.module.scss'
 import google from '../assets/Containers/Register/icons8-google-50.png'
 import twitter from '../assets/Containers/Register/icons8-twitter-52.png'
 
@@ -23,6 +24,7 @@ export const Register = () => {
         email: '',
         username: '',
         country: '',
+        password: '',
     })
 
     const formHandler = event => setForm({
@@ -40,16 +42,16 @@ export const Register = () => {
     const countrySelectValue = countries.find(country => country.code === form.country)
 
     return (
-        <div className={styles['register__container']}>
+        <div className={styles['container']}>
             <div
-                className={styles['register__description']}
+                className={styles['description']}
             />
             <form
-                className={styles['register__form']}
+                className={styles['form']}
                 autoComplete='off'
             >
-                <h3 className={styles['register__title']}>¡Crea una cuenta y que suene la música!</h3>
-                <div className={styles['register__social-media']}>
+                <h3 className={styles['title']}>¡Crea una cuenta y que suene la música!</h3>
+                <div className={styles['social-media']}>
                     <Button className='btn--social-media'>
                         <img src={google} alt='google-social-media'/>
                         Regístrate con Google
@@ -104,12 +106,21 @@ export const Register = () => {
                     value={countrySelectValue}
                     required
                 />
+                <TextInput
+                    placeholder='Contraseña'
+                    id='password'
+                    name='password'
+                    onChange={formHandler}
+                    value={form.password}
+                    required
+                    type='password'
+                />
                 <Button type='submit'>
                     Regístrate
                 </Button>
-                <p className={styles['register__change-to-login']}>
+                <p className={styles['redirect']}>
                     ¿Ya tienes cuenta?&nbsp;
-                    <span>Inicia sesión</span>
+                    <Link to='/inicia-sesion'>Inicia sesión</Link>
                 </p>
             </form>
         </div>

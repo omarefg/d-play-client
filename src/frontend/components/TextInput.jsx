@@ -16,6 +16,7 @@ export const TextInput = props => {
         labelClassName,
         inputClassName,
         required,
+        type,
     } = props
 
     const cx = classNames.bind(styles)
@@ -44,7 +45,7 @@ export const TextInput = props => {
                 value={value}
                 onChange={onChange}
                 name={name}
-                type={isPassword ? 'password' : 'text'}
+                type={type || isPassword ? 'password' : 'text'}
                 required={required}
             />
             <label

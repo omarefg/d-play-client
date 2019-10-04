@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { ServerStyleSheets } from '@material-ui/styles'
+import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { StaticRouter } from 'react-router'
@@ -8,6 +8,7 @@ import { renderRoutes } from 'react-router-config'
 import { serverRoutes } from '../../frontend/routes'
 import reducer from '../../frontend/reducers'
 import { render } from '../render'
+import theme from '../../frontend/styles/lib/theme'
 
 export const main = async (req, res, next) => {
     const sheets = new ServerStyleSheets()
@@ -16,14 +17,16 @@ export const main = async (req, res, next) => {
         const store = createStore(reducer, initialState)
         const html = renderToString(
             sheets.collect(
-                <Provider store={store}>
-                    <StaticRouter
-                        location={req.url}
-                        context={{}}
-                    >
-                        {renderRoutes(serverRoutes())}
-                    </StaticRouter>
-                </Provider>,
+                <ThemeProvider theme={theme}>
+                    <Provider store={store}>
+                        <StaticRouter
+                            location={req.url}
+                            context={{}}
+                        >
+                            {renderRoutes(serverRoutes())}
+                        </StaticRouter>
+                    </Provider>
+                </ThemeProvider>,
             ),
         )
         const preloadedState = store.getState()

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Search } from '../components'
+import { Header, Search, CardsSection } from '../components'
 
 export const Main = props => {
     return (
@@ -7,6 +7,12 @@ export const Main = props => {
             <Header>
                 <Search/>
             </Header>
+            <CardsSection
+                title='Escuchados recientemente'
+            />
+            <CardsSection
+                title='Artistas Relacionados'
+            />
         </div>
     )
 }

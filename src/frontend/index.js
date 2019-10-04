@@ -3,8 +3,10 @@ import { hydrate } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
+import { ThemeProvider } from '@material-ui/styles'
 import App from './Router'
 import store from './store'
+import theme from './styles/lib/theme'
 
 const history = createBrowserHistory()
 
@@ -12,11 +14,13 @@ const history = createBrowserHistory()
 
 if (typeof window !== 'undefined') {
     hydrate(
-        <Provider store={store}>
-            <Router history={history}>
-                <App/>
-            </Router>
-        </Provider>,
+        <ThemeProvider theme={theme}>
+            <Provider store={store}>
+                <Router history={history}>
+                    <App/>
+                </Router>
+            </Provider>
+        </ThemeProvider>,
         document.getElementById('root'),
     )
 }

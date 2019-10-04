@@ -1,11 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const primaryColor = '#00d1f7'
-const secondaryColor = '#181313'
-const secondaryColorLight = 'rgba(24,19,19,0.95)'
-const thirdColor = '#f6ba00'
-
-const DateInputStyles = makeStyles(() => ({
+const DateInputStyles = makeStyles(theme => ({
     'date-input__input': {
         width: 'calc(90% - 8px)',
         margin: '10px !important',
@@ -15,29 +10,29 @@ const DateInputStyles = makeStyles(() => ({
             fontSize: '14px',
         },
         '& .MuiInput-underline:before': {
-            borderBottom: `2px solid ${primaryColor}`,
+            borderBottom: `2px solid ${theme.dPrimary}`,
         },
         '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-            borderBottom: `2px solid ${primaryColor}`,
+            borderBottom: `2px solid ${theme.dPrimary}`,
         },
         '& .MuiInput-underline:after': {
-            borderBottom: `2px solid ${primaryColor}`,
+            borderBottom: `2px solid ${theme.dPrimary}`,
         },
         '& .MuiButtonBase-root': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
             '&:hover': {
                 backgroundColor: 'rgba(0, 209, 247, .08)',
             },
         },
         '& .MuiFormLabel-root': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
             top: '-5px',
             left: '0',
             fontSize: '1.1em',
             transition: '.3s',
         },
         '& .MuiFormLabel-root.Mui-focused[data-shrink="true"]': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
             top: '-5px',
             left: '0',
             fontSize: '1.1em',
@@ -50,21 +45,21 @@ const DateInputStyles = makeStyles(() => ({
     },
     'date-input__modal': {
         '& .MuiPickersToolbar-toolbar': {
-            backgroundColor: `${secondaryColorLight}`,
+            backgroundColor: `${theme.dSecondaryLight}`,
         },
         '& .MuiPickersToolbarText-toolbarBtnSelected': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
         },
         '& .MuiPickersToolbarText-toolbarTxt': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
         },
         '& .MuiPickersYear-root:focus': {
             color: 'white',
         },
         '& .MuiPaper-root': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
             transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-            backgroundColor: `${secondaryColorLight}`,
+            backgroundColor: `${theme.dSecondaryLight}`,
         },
         '& .MuiTypography-colorPrimary': {
             color: 'white',
@@ -75,30 +70,30 @@ const DateInputStyles = makeStyles(() => ({
             },
         },
         '& .MuiButton-textPrimary': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
         },
         '& .MuiPickersDay-day': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
         },
         '& .MuiPickersCalendarHeader-dayLabel': {
-            color: `${primaryColor}`,
+            color: `${theme.dPrimary}`,
         },
         '& .MuiPickersDay-daySelected': {
-            color: `${secondaryColor}`,
+            color: `${theme.dSecondary}`,
             fontWeight: '500',
-            backgroundColor: `${thirdColor}`,
+            backgroundColor: `${theme.dThird}`,
             '&:hover': {
-                backgroundColor: `${thirdColor} !important`,
-                color: `${secondaryColor} !important`,
+                backgroundColor: `${theme.dThird} !important`,
+                color: `${theme.dSecondary} !important`,
             },
         },
         '& .MuiPickersCalendarHeader-iconButton': {
-            backgroundColor: `${primaryColor}`,
-            color: `${secondaryColor}`,
+            backgroundColor: `${theme.dPrimary}`,
+            color: `${theme.dSecondary}`,
         },
         '& .MuiIconButton-root:hover': {
-            backgroundColor: `${secondaryColor}`,
-            color: `${primaryColor}`,
+            backgroundColor: `${theme.dSecondary}`,
+            color: `${theme.dPrimary}`,
         },
         '& .MuiPickersCalendarHeader-switchHeader': {
             padding: '0 12px',
@@ -107,21 +102,21 @@ const DateInputStyles = makeStyles(() => ({
             padding: '5px',
         },
         '& .MuiPickersYearSelection-container': {
-            background: `${secondaryColorLight}`,
+            background: `${theme.dSecondaryLight}`,
             '&::-webkit-scrollbar': {
                 width: '5px',
             },
             '&::-webkit-scrollbar-thumb': {
                 width: '5px',
                 height: '5em',
-                background: `${primaryColor}`,
+                background: `${theme.dPrimary}`,
             },
             '&::-webkit-scrollbar-track': {
                 background: 'transparent',
             },
         },
         '& .MuiPickersBasePicker-pickerView, .MuiDialogActions-root': {
-            backgroundColor: `${secondaryColorLight}`,
+            backgroundColor: `${theme.dSecondaryLight}`,
         },
         '& .MuiTypography-subtitle1, .MuiButton-root, .MuiTypography-body1, .MuiTypography-caption, .MuiTypography-body2': {
             fontFamily: '\'Ubuntu\', sans-serif',

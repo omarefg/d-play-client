@@ -12,7 +12,10 @@ export const CarouselChevron = props => {
     })
 
     return (
-        <Fade in={checked}>
+        <Fade
+            in={checked}
+            timeout={500}
+        >
             <div className={chevStyles}>
                 {chevron}
             </div>

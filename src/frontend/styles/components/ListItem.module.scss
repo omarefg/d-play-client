@@ -1,0 +1,11 @@
+@import '../lib/Vars.scss';
+
+.list-item__item {
+    background: transparent;
+    padding: 5px 8px;
+    font-family: $d-font-family;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+}

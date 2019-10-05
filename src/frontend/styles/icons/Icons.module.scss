@@ -6,3 +6,11 @@
     fill: white;
     margin-right: 8px;
 }
+
+.icon__container--card-control {
+    font-size: 3em;
+    &:hover {
+        font-size: 4em;
+        transition: .5s;
+    }
+}

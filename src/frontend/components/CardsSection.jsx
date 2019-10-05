@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import ItemsCarousel from 'react-items-carousel'
-import { useMediaQuery } from '@material-ui/core'
+import { useWindowDimensions } from '../hooks'
 import { Card } from './Card'
 import { CarouselChevron } from './CarouselChevron'
 
+import styles from '../styles/components/CardsSection.module.scss'
+
 export const CardsSection = props => {
     const [state, setState] = useState({ index: null, checked: false })
-    const matches = useMediaQuery('(max-width:600px)')
+    const { width } = useWindowDimensions()
+    const numberOfCards = Math.floor(width / 200)
 
     const { title } = props
     const { index, checked } = state
@@ -25,12 +28,16 @@ export const CardsSection = props => {
                 <ItemsCarousel
                     gutter={12}
                     chevronWidth={60}
-                    numberOfCards={matches ? 1 : 4}
+                    numberOfCards={numberOfCards}
                     slidesToScroll={1}
                     activeItemIndex={index}
                     requestToChangeActive={requestToChangeActive}
                     rightChevron={<CarouselChevron checked={checked} chevron='>'/>}
                     leftChevron={<CarouselChevron checked={checked} chevron='<'/>}
+                    classes={{
+                        itemsInnerWrapper: styles['cards-section__itemsInnerWrapper'],
+                        itemWrapper: styles['cars-section__itemWrapper'],
+                    }}
                 >
                     <Card/>
                     <Card/>

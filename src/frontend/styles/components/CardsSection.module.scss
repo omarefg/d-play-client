@@ -1,20 +1,36 @@
-.cards-section__itemsInnerWrapper {
-    width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: nowrap;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    transform: translateX(0px);
-}
+@import '../lib/Vars.scss';
 
-.cars-section__itemWrapper {
-    max-width: 200px;
-    -webkit-flex-shrink: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    margin-right: 6px;
-    margin-left: 0px;
+.cards-section__container {
+    padding: 0 30px;
+    margin: 70px 0;
+
+    h3 {
+        color: white;
+        font-family: $d-font-family;
+    }
+
+    .cards-section__itemsInnerWrapper {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        transform: translateX(0px);
+    }
+
+    .cards-section__itemWrapper {
+        max-width: 200px;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        margin-right: 6px;
+        margin-left: 0px;
+    }
+
+    .cards-section__itemsWrapper {
+        height: 200px;
+    }
 }

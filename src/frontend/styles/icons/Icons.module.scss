@@ -9,8 +9,26 @@
 
 .icon__container--card-control {
     font-size: 3em;
+    transition: .5s;
     &:hover {
         font-size: 4em;
         transition: .5s;
+    }
+}
+
+.icon__container--player-menu-play {
+    @include menu-icon;
+    font-size: 1.5em;
+}
+
+.icon__container--player-menu {
+    @include menu-icon;
+}
+
+.icon__container--player-menu-turned {
+    @include menu-icon;
+    transform: rotateY(180deg);
+    &:hover {
+        transform: rotateY(180deg) scale(1.1);
     }
 }

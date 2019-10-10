@@ -3,7 +3,7 @@ import { CirclePlayIcon } from '../icons'
 
 import styles from '../styles/components/Card.module.scss'
 
-export const Card = () => {
+export const Card = ({ artist, album, src, title }) => {
     return (
         <div className={styles['card__container']}>
             <div
@@ -14,11 +14,13 @@ export const Card = () => {
                 />
             </div>
             <img
-                alt='Contemplative Reptile'
+                alt={title}
                 height='140'
-                src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                title='Contemplative Reptile'
+                src={src}
+                title={title}
             />
+            <p>{artist}</p>
+            <p>{album}</p>
         </div>
     )
 }

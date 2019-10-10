@@ -25,3 +25,12 @@ $d-media-xs: 600px;
         background: transparent;
     }
 }
+
+@mixin menu-icon {
+    font-size: 1.1em;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+        fill: $d-third-color;
+    }
+}

@@ -8,6 +8,7 @@ export const Main = () => {
         <div className={styles['main__container']}>
             <Header>
                 <Search/>
+                <div className={styles['main__flex-grow']}/>
                 <ul>
                     <ListItem
                         title='Mis favoritos'

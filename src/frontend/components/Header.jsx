@@ -10,7 +10,7 @@ export const Header = props => {
                 src='https://es.dplay.com/004914/static/resources/images/dplay-logo-white.svg'
                 alt='logo'
             />
-            <div>
+            <div className={styles['header__childs-container']}>
                 {children}
             </div>
         </header>

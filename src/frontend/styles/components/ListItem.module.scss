@@ -2,10 +2,14 @@
 
 .list-item__item {
     background: transparent;
-    padding: 5px 8px;
+    padding: 5px 16px;
     font-family: $d-font-family;
     color: white;
     font-weight: 500;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
+    &:hover {
+        color: $d-third-color;
+    }
 }

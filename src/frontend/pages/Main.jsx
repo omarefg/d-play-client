@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Search, CardsSection, ListItem } from '../components'
+import { Header, Search, CardsSection, ListItem, Player } from '../components'
 
 import styles from '../styles/pages/Main.module.scss'
 
@@ -33,6 +33,7 @@ export const Main = () => {
             <CardsSection
                 title='Artistas Relacionados'
             />
+            <Player/>
         </div>
     )
 }

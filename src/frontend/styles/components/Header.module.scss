@@ -1,0 +1,20 @@
+@import '../lib/Vars.scss';
+
+.header__container {
+    background-color: rgba($d-secondary-color, .95);
+    height: calc(10vh - 10px);
+    padding: 5px 30px;
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 5vh;
+        margin-right: 5vw;
+    }
+
+    .header__childs-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+}

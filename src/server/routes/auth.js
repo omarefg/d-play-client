@@ -19,11 +19,15 @@ export const auth = app => {
                     data: user,
                 })
 
-                console.log(data)
-
                 res.status(status).json(data)
             } catch (error) {
-                next(error)
+                if (error.response) {
+                    next(error.response)
+                } else if (error.request) {
+                    next(error.request)
+                } else {
+                    next(error)
+                }
             }
         },
     )

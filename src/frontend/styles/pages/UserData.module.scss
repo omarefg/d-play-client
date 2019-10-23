@@ -1,0 +1,29 @@
+@import '../lib/Vars.scss';
+* {
+    background-color: #181313;
+}
+
+.nameuser {
+    color: $d-primary-color;
+    text-align: center;
+}
+.img-profile {
+    width: 200px;
+    height: 200px;
+    margin-top: 30px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    border: solid 1px $d-primary-color;
+    border-radius: 50%;
+    
+    object-fit: cover;
+    
+}
+
+.btn--user-data {
+    width: 20%;
+    height: 20px;
+    display: block;
+    margin: auto;
+}

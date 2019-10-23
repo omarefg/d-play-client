@@ -4,15 +4,17 @@
     border: none;
     padding: 12px 16px;
     border-radius: 16px;
-    margin: 10px 5px;
-    display: inline-block;
-    width: 90%;
+    margin: 100px 50px;
+    display: block;
+    width: 30%;
     font-weight: bold;
     font-size: 14px;
     background: transparent;
     color: white;
     letter-spacing: 1px;
     outline: none;
+    display: block;
+    margin: auto;
     box-shadow: 0px 0px 3px 1px $d-primary-color;
     cursor: pointer;
     &:hover {

@@ -3,8 +3,8 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
-import { main } from './routes'
-import config from './config'
+import { main, auth } from './routes'
+import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
 const { nodeEnv, port } = config
@@ -33,6 +33,9 @@ if (nodeEnv === 'development') {
     app.use(helmet.permittedCrossDomainPolicies())
     app.disable('x-powered-by')
 }
+
+//Routes
+auth(app)
 
 app.get('*', main)
 

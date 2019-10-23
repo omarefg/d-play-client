@@ -1,5 +1,5 @@
 import { getManifest } from '../utils'
-import config from '../config'
+import { config } from '../../../config'
 
 const { nodeEnv } = config
 const isProd = nodeEnv === 'production'

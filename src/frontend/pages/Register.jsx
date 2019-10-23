@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { registerRequest } from '../actions/user'
 import { TextInput, DateInput, Select, Button } from '../components'
 import data from '../../../db'
 
 import styles from '../styles/pages/RegisterAndLogin.module.scss'
-import google from '../assets/Containers/Register/icons8-google-50.png'
-import twitter from '../assets/Containers/Register/icons8-twitter-52.png'
 
 let { countries } = data
 
@@ -16,13 +16,24 @@ countries = Object.keys(countries).map(key => {
     return { value, label }
 })
 
-export const Register = () => {
+const mapStateToProps = state => {
+    return {
+        ...state.user,
+    }
+}
+
+const mapDispatchToProps = {
+    registerRequest,
+}
+
+export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
+    const { registerRequest } = props
+
     const [form, setForm] = useState({
         name: '',
         lastName: '',
         birthdate: new Date(),
         email: '',
-        username: '',
         country: '',
         password: '',
     })
@@ -39,6 +50,11 @@ export const Register = () => {
         setForm({ ...form, country })
     }
 
+    const submit = event => {
+        event.preventDefault()
+        registerRequest(form)
+    }
+
     const countrySelectValue = countries.find(country => country.code === form.country)
 
     return (
@@ -49,18 +65,9 @@ export const Register = () => {
             <form
                 className={styles['form']}
                 autoComplete='off'
+                onSubmit={submit}
             >
                 <h3 className={styles['title']}>¡Crea una cuenta y que suene la música!</h3>
-                <div className={styles['social-media']}>
-                    <Button className='btn--social-media'>
-                        <img src={google} alt='google-social-media'/>
-                        Regístrate con Google
-                    </Button>
-                    <Button className='btn--social-media'>
-                        <img src={twitter} alt='twitter-social-media'/>
-                        Regístrate con Twitter
-                    </Button>
-                </div>
                 <TextInput
                     placeholder='Nombre'
                     id='name'
@@ -92,14 +99,6 @@ export const Register = () => {
                     value={form.email}
                     required
                 />
-                <TextInput
-                    placeholder='Nombre de usuario'
-                    id='username'
-                    name='username'
-                    onChange={formHandler}
-                    value={form.username}
-                    required
-                />
                 <Select
                     options={countries}
                     onChange={countryHandler}
@@ -125,4 +124,4 @@ export const Register = () => {
             </form>
         </div>
     )
-}
+})

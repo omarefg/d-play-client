@@ -5,13 +5,11 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const path = require('path')
 const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
-const dotenv = require('dotenv')
+const { config } = require('./config')
 
-dotenv.config()
+const { nodeEnv } = config
 
-const { NODE_ENV } = process.env
-
-const isProd = NODE_ENV === 'production'
+const isProd = nodeEnv === 'production'
 
 const plugins = isProd ? [
     new webpack.HotModuleReplacementPlugin(),
@@ -47,7 +45,7 @@ const plugins = isProd ? [
 module.exports = {
     devtool: isProd ? 'hidden-source-map' : 'cheap-source-map',
     entry: './src/frontend/index.js',
-    mode: NODE_ENV,
+    mode: nodeEnv,
     output: {
         path: isProd ? path.join(process.cwd(), './src/server/public') : '/',
         filename: isProd ? 'assets/app-[hash].js' : 'assets/app.js',

@@ -7,6 +7,8 @@ import { main, auth } from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
+const { errorHandler, errorTypeHandler } = require('./utils/middlewares/error-handlers')
+
 const { nodeEnv, port } = config
 
 const app = express()
@@ -38,6 +40,10 @@ if (nodeEnv === 'development') {
 auth(app)
 
 app.get('*', main)
+
+// Errors Middlewares
+app.use(errorTypeHandler)
+app.use(errorHandler)
 
 app.listen(port, error => {
     if (error) {

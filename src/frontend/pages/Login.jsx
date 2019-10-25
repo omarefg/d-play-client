@@ -1,13 +1,29 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { TextInput, Button } from '../components'
+import { justRegisteredHandler } from '../actions'
+import { TextInput, Button, Modal } from '../components'
 
 import styles from '../styles/pages/RegisterAndLogin.module.scss'
 import google from '../assets/Containers/Register/icons8-google-50.png'
 import twitter from '../assets/Containers/Register/icons8-twitter-52.png'
 
-export const Login = () => {
+const mapStateToProps = state => {
+    return {
+        justRegistered: state.user.justRegistered,
+    }
+}
+
+const mapDispatchToProps = {
+    justRegisteredHandler,
+}
+
+export const Login = connect(mapStateToProps, mapDispatchToProps)(props => {
+    const { justRegistered, justRegisteredHandler } = props
+
     const [form, setForm] = useState({ email: '', password: '' })
+
+    const modalCloseHandler = () => justRegisteredHandler({ justRegistered: false })
 
     const formHandler = event => setForm({
         ...form,
@@ -16,6 +32,12 @@ export const Login = () => {
 
     return (
         <div className={styles['container']}>
+            <Modal
+                open={justRegistered}
+                onClose={modalCloseHandler}
+                title='¡Felicidades, ya casi eres un dplayer!'
+                description=' Sólo falta que confirmes tu correo, para ello ve a tu bandeja de entrada y busca el increíble correo de confirmación que te enviamos.'
+            />
             <div
                 className={styles['description']}
             />
@@ -61,4 +83,4 @@ export const Login = () => {
             </form>
         </div>
     )
-}
+})

@@ -21,13 +21,7 @@ export const auth = app => {
 
                 res.status(status).json(data)
             } catch (error) {
-                if (error.response) {
-                    next(error.response)
-                } else if (error.request) {
-                    next(error.request)
-                } else {
-                    next(error)
-                }
+                next(error)
             }
         },
     )

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { registerRequest } from '../actions/user'
-import { TextInput, DateInput, Select, Button } from '../components'
+import { registerRequest, deleteRegisterUserErrorMessage } from '../actions'
+import { TextInput, DateInput, Select, Button, SnackbarNotification, Loader } from '../components'
 import data from '../../../db'
 
 import styles from '../styles/pages/RegisterAndLogin.module.scss'
@@ -24,10 +24,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     registerRequest,
+    deleteRegisterUserErrorMessage,
 }
 
 export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
-    const { registerRequest } = props
+    const {
+        registerRequest,
+        deleteRegisterUserErrorMessage,
+        error,
+        isLoading,
+        history,
+    } = props
 
     const [form, setForm] = useState({
         name: '',
@@ -52,13 +59,27 @@ export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
 
     const submit = event => {
         event.preventDefault()
-        registerRequest(form)
+        registerRequest(form, () => history.push('inicia-sesion'))
+    }
+
+    const closeHandler = (_event, reason) => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        deleteRegisterUserErrorMessage()
     }
 
     const countrySelectValue = countries.find(country => country.code === form.country)
 
     return (
         <div className={styles['container']}>
+            <SnackbarNotification
+                variant='error'
+                message={error}
+                onClose={closeHandler}
+                open={!!error}
+            />
             <div
                 className={styles['description']}
             />
@@ -115,7 +136,21 @@ export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
                     type='password'
                 />
                 <Button type='submit'>
-                    Regístrate
+                    {isLoading ? (
+                        <>
+                            <span
+                                role='img'
+                                aria-label='magic'
+                            >
+                                Estamos haciendo magia✨
+                            </span>
+                            <Loader
+                                type='Audio'
+                                size={30}
+                                color='white'
+                            />
+                        </>
+                    ) : 'Regístrate'}
                 </Button>
                 <p className={styles['redirect']}>
                     ¿Ya tienes cuenta?&nbsp;

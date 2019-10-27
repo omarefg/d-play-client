@@ -3,17 +3,27 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
-import { main, auth } from './routes'
+import cookieParser from 'cookie-parser'
+import passport from 'passport'
+import { main, auth, recommendations, player } from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
-const { errorHandler, errorTypeHandler } = require('./utils/middlewares/error-handlers')
+const {
+    errorHandler,
+    errorTypeHandler,
+    notFoundHandler,
+    unauthorizedErrorHandler,
+} = require('./utils/middlewares/error-handlers')
 
 const { nodeEnv, port } = config
 
 const app = express()
 app.use(express.json())
 app.use(helmet())
+app.use(cookieParser())
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.static(`${__dirname}/public`))
 
 if (nodeEnv === 'development') {
@@ -38,11 +48,17 @@ if (nodeEnv === 'development') {
 
 //Routes
 auth(app)
+recommendations(app)
+player(app)
 
 app.get('*', main)
 
+// Catch 404
+app.use(notFoundHandler)
+
 // Errors Middlewares
 app.use(errorTypeHandler)
+app.use(unauthorizedErrorHandler)
 app.use(errorHandler)
 
 app.listen(port, error => {

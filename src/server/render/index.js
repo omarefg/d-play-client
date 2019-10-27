@@ -1,4 +1,4 @@
-import { getManifest } from '../utils'
+import { getManifest } from '../utils/get-manifest'
 import { config } from '../../../config'
 
 const { nodeEnv } = config

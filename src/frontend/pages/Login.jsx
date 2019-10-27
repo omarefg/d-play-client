@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { justRegisteredHandler } from '../actions'
-import { TextInput, Button, Modal } from '../components'
+import { setUserIsJustRegistered, signInUserRequest, deleteAuthErrorMessage } from '../actions'
+import { TextInput, Button, Modal, ButtonLoader, SnackbarNotification } from '../components'
 
 import styles from '../styles/pages/RegisterAndLogin.module.scss'
 import google from '../assets/Containers/Register/icons8-google-50.png'
@@ -10,33 +10,62 @@ import twitter from '../assets/Containers/Register/icons8-twitter-52.png'
 
 const mapStateToProps = state => {
     return {
-        justRegistered: state.user.justRegistered,
+        ...state.auth,
     }
 }
 
 const mapDispatchToProps = {
-    justRegisteredHandler,
+    setUserIsJustRegistered,
+    signInUserRequest,
+    deleteAuthErrorMessage,
 }
 
 export const Login = connect(mapStateToProps, mapDispatchToProps)(props => {
-    const { justRegistered, justRegisteredHandler } = props
+    const {
+        userIsJustRegistered,
+        setUserIsJustRegistered,
+        signInUserRequest,
+        history,
+        isLoading,
+        error,
+        deleteAuthErrorMessage,
+    } = props
 
     const [form, setForm] = useState({ email: '', password: '' })
 
-    const modalCloseHandler = () => justRegisteredHandler({ justRegistered: false })
+    const modalCloseHandler = () => setUserIsJustRegistered({ userIsJustRegistered: false })
 
     const formHandler = event => setForm({
         ...form,
         [event.target.name]: event.target.value,
     })
 
+    const onSubmitHandler = event => {
+        event.preventDefault()
+        signInUserRequest(form, () => history.push('/'))
+    }
+
+    const closeSnackbarHandler = (_event, reason) => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        deleteAuthErrorMessage()
+    }
+
     return (
         <div className={styles['container']}>
             <Modal
-                open={justRegistered}
+                open={userIsJustRegistered}
                 onClose={modalCloseHandler}
                 title='¡Felicidades, ya casi eres un dplayer!'
                 description=' Sólo falta que confirmes tu correo, para ello ve a tu bandeja de entrada y busca el increíble correo de confirmación que te enviamos.'
+            />
+            <SnackbarNotification
+                variant='error'
+                message={error}
+                onClose={closeSnackbarHandler}
+                open={!!error}
             />
             <div
                 className={styles['description']}
@@ -44,6 +73,7 @@ export const Login = connect(mapStateToProps, mapDispatchToProps)(props => {
             <form
                 className={styles['form']}
                 autoComplete='off'
+                onSubmit={onSubmitHandler}
             >
                 <h3 className={styles['title']}>¡Inicia sesión y que suene la música!</h3>
                 <div className={styles['social-media']}>
@@ -73,8 +103,11 @@ export const Login = connect(mapStateToProps, mapDispatchToProps)(props => {
                     type='password'
                     required
                 />
-                <Button type='submit'>
-                    Inicia Sesión
+                <Button
+                    type='submit'
+                    disabled={isLoading}
+                >
+                    {isLoading ? <ButtonLoader/> : 'Inicia Sesión'}
                 </Button>
                 <p className={styles['redirect']}>
                     ¿No tienes cuenta?&nbsp;

@@ -13,6 +13,10 @@
         p {
             color: white;
             margin: 0;
+            max-width: 150px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 }

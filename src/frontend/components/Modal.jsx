@@ -1,11 +1,12 @@
 import React from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions } from '@material-ui/core'
+import { Button } from './Button'
+
+import styles from '../styles/components/Modal'
 
 export const Modal = props => {
     const { open, onClose, title, description } = props
+    const classes = styles()
 
     return (
         <Dialog
@@ -14,14 +15,32 @@ export const Modal = props => {
             aria-labelledby='alert-dialog-title'
             aria-describedby='alert-dialog-description'
         >
-            <DialogTitle id='alert-dialog-title'>
+            <DialogTitle
+                className={classes.title}
+                id='alert-dialog-title'
+            >
                 {title}
             </DialogTitle>
-            <DialogContent>
-                <DialogContentText id='alert-dialog-description'>
+            <DialogContent
+                className={classes.content}
+            >
+                <DialogContentText
+                    className={classes.text}
+                    id='alert-dialog-description'
+                >
                     {description}
                 </DialogContentText>
             </DialogContent>
+            <DialogActions
+                className={classes.actions}
+            >
+                <Button
+                    onClick={onClose}
+                    className='btn--modal'
+                >
+                    Cerrar
+                </Button>
+            </DialogActions>
         </Dialog>
     )
 }

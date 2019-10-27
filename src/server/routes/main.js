@@ -8,12 +8,14 @@ import { renderRoutes } from 'react-router-config'
 import { serverRoutes } from '../../frontend/routes'
 import reducer from '../../frontend/reducers'
 import { render } from '../render'
+import { setInitialState } from '../utils/initialState'
 import theme from '../../frontend/styles/lib/theme'
 
 export const main = async (req, res, next) => {
     const sheets = new ServerStyleSheets()
     try {
-        const initialState = {}
+        const initialState = await setInitialState(req, res)
+        const isLogged = initialState.auth.user
         const store = createStore(reducer, initialState)
         const html = renderToString(
             sheets.collect(
@@ -23,7 +25,7 @@ export const main = async (req, res, next) => {
                             location={req.url}
                             context={{}}
                         >
-                            {renderRoutes(serverRoutes())}
+                            {renderRoutes(serverRoutes(isLogged))}
                         </StaticRouter>
                     </Provider>
                 </ThemeProvider>,

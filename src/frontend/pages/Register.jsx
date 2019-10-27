@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { registerRequest, deleteRegisterUserErrorMessage } from '../actions'
-import { TextInput, DateInput, Select, Button, SnackbarNotification, Loader } from '../components'
+import { registerUserRequest, deleteAuthErrorMessage } from '../actions'
+import {
+    TextInput,
+    DateInput,
+    Select,
+    Button,
+    SnackbarNotification,
+    ButtonLoader,
+} from '../components'
 import data from '../../../db'
 
 import styles from '../styles/pages/RegisterAndLogin.module.scss'
@@ -18,19 +25,19 @@ countries = Object.keys(countries).map(key => {
 
 const mapStateToProps = state => {
     return {
-        ...state.user,
+        ...state.auth,
     }
 }
 
 const mapDispatchToProps = {
-    registerRequest,
-    deleteRegisterUserErrorMessage,
+    registerUserRequest,
+    deleteAuthErrorMessage,
 }
 
 export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
-        registerRequest,
-        deleteRegisterUserErrorMessage,
+        registerUserRequest,
+        deleteAuthErrorMessage,
         error,
         isLoading,
         history,
@@ -59,15 +66,15 @@ export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
 
     const submit = event => {
         event.preventDefault()
-        registerRequest(form, () => history.push('inicia-sesion'))
+        registerUserRequest(form, () => history.push('inicia-sesion'))
     }
 
-    const closeHandler = (_event, reason) => {
+    const closeSnackbarHandler = (_event, reason) => {
         if (reason === 'clickaway') {
             return
         }
 
-        deleteRegisterUserErrorMessage()
+        deleteAuthErrorMessage()
     }
 
     const countrySelectValue = countries.find(country => country.code === form.country)
@@ -77,7 +84,7 @@ export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
             <SnackbarNotification
                 variant='error'
                 message={error}
-                onClose={closeHandler}
+                onClose={closeSnackbarHandler}
                 open={!!error}
             />
             <div
@@ -136,21 +143,7 @@ export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
                     type='password'
                 />
                 <Button type='submit'>
-                    {isLoading ? (
-                        <>
-                            <span
-                                role='img'
-                                aria-label='magic'
-                            >
-                                Estamos haciendo magia✨
-                            </span>
-                            <Loader
-                                type='Audio'
-                                size={30}
-                                color='white'
-                            />
-                        </>
-                    ) : 'Regístrate'}
+                    {isLoading ? <ButtonLoader/> : 'Regístrate'}
                 </Button>
                 <p className={styles['redirect']}>
                     ¿Ya tienes cuenta?&nbsp;

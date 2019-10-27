@@ -1,19 +1,19 @@
 import {
-    REGISTER_USER,
-    DELETE_REGISTER_USER_ERROR_MESSAGE,
-    LOADER_HANDLER,
-    JUST_REGISTERED_HANDLER,
+    MAIN_LOADER_HANDLER,
+    DELETE_MAIN_ERROR_MESSAGE,
+    SET_RECOMMENDATION_PAGE_DATA,
 } from '../actions/types'
 
 const initialState = {
+    newReleases: { items: [] },
+    featuredPlaylists: { items: [] },
     error: '',
-    justRegistered: false,
     isLoading: false,
 }
 
-const user = (state = initialState, action) => {
+const main = (state = initialState, action) => {
     switch (action.type) {
-    case REGISTER_USER: {
+    case SET_RECOMMENDATION_PAGE_DATA: {
         if (action.error) {
             return {
                 ...state,
@@ -22,25 +22,20 @@ const user = (state = initialState, action) => {
         }
         return {
             ...state,
-            justRegistered: true,
+            featuredPlaylists: action.payload.playlists,
+            newReleases: action.payload.recommendations,
         }
     }
-    case DELETE_REGISTER_USER_ERROR_MESSAGE: {
+    case DELETE_MAIN_ERROR_MESSAGE: {
         return {
             ...state,
             error: '',
         }
     }
-    case LOADER_HANDLER: {
+    case MAIN_LOADER_HANDLER: {
         return {
             ...state,
             isLoading: action.payload.isLoading,
-        }
-    }
-    case JUST_REGISTERED_HANDLER: {
-        return {
-            ...state,
-            justRegistered: action.payload.justRegistered,
         }
     }
     default: {
@@ -51,4 +46,4 @@ const user = (state = initialState, action) => {
     }
 }
 
-export default user
+export default main

@@ -3,6 +3,16 @@
     background-color: #181313;
 }
 
+.user--data-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.user--data-container-profile {
+    flex: 1;
+}
+
 .nameuser {
     color: $d-primary-color;
     text-align: center;
@@ -16,7 +26,5 @@
     text-align: center;
     border: solid 1px $d-primary-color;
     border-radius: 50%;
-    
     object-fit: cover;
-    
 }

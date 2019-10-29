@@ -4,7 +4,7 @@ import classNames from 'classnames/bind'
 import styles from '../styles/icons/Icons.module.scss'
 
 export const SpeakerNonIcon = props => {
-    const { className } = props
+    const { className, onClick } = props
 
     const cx = classNames.bind(styles)
 
@@ -19,6 +19,7 @@ export const SpeakerNonIcon = props => {
             x='0px'
             y='0px'
             viewBox='0 0 54 54'
+            onClick={onClick}
         >
             <path
                 d='M46.414,26l7.293-7.293c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0L45,24.586l-7.293-7.293c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414L43.586,26l-7.293,7.293c-0.391,0.391-0.391,1.023,0,1.414C36.488,34.902,36.744,35,37,35s0.512-0.098,0.707-0.293L45,27.414l7.293,7.293C52.488,34.902,52.744,35,53,35s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L46.414,26z'

@@ -4,7 +4,7 @@ const { config } = require('../../../config')
 
 export const recommendations = app => {
     const router = express.Router()
-    app.use('/recommendations', router)
+    app.use('/server/recommendations', router)
 
     const { apiUrl } = config
 

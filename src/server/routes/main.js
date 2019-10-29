@@ -14,8 +14,7 @@ import theme from '../../frontend/styles/lib/theme'
 export const main = async (req, res, next) => {
     const sheets = new ServerStyleSheets()
     try {
-        const initialState = await setInitialState(req, res)
-        const isLogged = initialState.auth.user
+        const initialState = await setInitialState(req)
         const store = createStore(reducer, initialState)
         const html = renderToString(
             sheets.collect(
@@ -25,12 +24,13 @@ export const main = async (req, res, next) => {
                             location={req.url}
                             context={{}}
                         >
-                            {renderRoutes(serverRoutes(isLogged))}
+                            {renderRoutes(serverRoutes)}
                         </StaticRouter>
                     </Provider>
                 </ThemeProvider>,
             ),
         )
+
         const preloadedState = store.getState()
         const css = sheets.toString()
         res.send(render(html, preloadedState, css))

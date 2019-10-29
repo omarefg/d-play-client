@@ -5,7 +5,7 @@ import {
     setPlayerGroupFromAlbum,
     setPlayerGroupFromPlaylist,
 } from '../actions'
-import { CardsSection, MainLayout } from '../components'
+import { CardsSection, MainLayout, RedirectLayout } from '../components'
 
 const mapStateToProps = state => {
     return {
@@ -32,7 +32,9 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
     } = props
 
     useEffect(() => {
-        setRecommendationPageDataRequest({ country: user.country })
+        if (user) {
+            setRecommendationPageDataRequest({ country: user.country })
+        }
     }, [])
 
     const cardClickHandler = card => {
@@ -42,19 +44,21 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
     }
 
     return (
-        <MainLayout
-            pathname={location.pathname}
-        >
-            <CardsSection
-                title='Nuevos lanzamientos'
-                cards={newReleases.items}
-                onClick={cardClickHandler}
-            />
-            <CardsSection
-                title='Lo último en playlists'
-                cards={featuredPlaylists.items}
-                onClick={cardClickHandler}
-            />
-        </MainLayout>
+        <RedirectLayout>
+            <MainLayout
+                pathname={location.pathname}
+            >
+                <CardsSection
+                    title='Nuevos lanzamientos'
+                    cards={newReleases.items}
+                    onClick={cardClickHandler}
+                />
+                <CardsSection
+                    title='Lo último en playlists'
+                    cards={featuredPlaylists.items}
+                    onClick={cardClickHandler}
+                />
+            </MainLayout>
+        </RedirectLayout>
     )
 })

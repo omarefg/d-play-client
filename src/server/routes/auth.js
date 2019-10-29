@@ -7,7 +7,7 @@ require('../utils/auth/strategies/basic')
 
 export const auth = app => {
     const router = express.Router()
-    app.use('/auth', router)
+    app.use('/server/auth', router)
 
     const { apiUrl, nodeEnv } = config
 

@@ -65,8 +65,14 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
     useEffect(() => {
         const { current } = musicPlayer
         if (current) {
-            current.pause()
-            setPlayerIsPlaying({ playerIsPlaying: false })
+            if (src) {
+                current.play()
+                setPlayerIsPlaying({ playerIsPlaying: true })
+            } else {
+                current.pause()
+                setPlayerIsPlaying({ playerIsPlaying: false })
+            }
+            current.currentTime = 0
             setPlayerTrackTimePosition({ trackTimePosition: 0 })
         }
     }, [name])
@@ -132,6 +138,17 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
         setPlayerVolume({ playerVolume })
     }
 
+    const volumeIconclickHandler = () => {
+        const { current } = musicPlayer
+        if (current.volume) {
+            current.volume = 0
+            setPlayerVolume({ playerVolume: 0 })
+        } else {
+            current.volume = 1
+            setPlayerVolume({ playerVolume: 100 })
+        }
+    }
+
     return (
         <div
             className={styles['player__container']}
@@ -171,6 +188,7 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
                     isPlaying={playerIsPlaying}
                     volume={playerVolume}
                     volumeHandler={volumeHandler}
+                    volumeClickHandler={volumeIconclickHandler}
                 />
             </div>
         </div>

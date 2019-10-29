@@ -5,7 +5,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import { main, auth, recommendations, player } from './routes'
+import { main, auth, recommendations, player, search } from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
@@ -13,7 +13,6 @@ const {
     errorHandler,
     errorTypeHandler,
     notFoundHandler,
-    unauthorizedErrorHandler,
 } = require('./utils/middlewares/error-handlers')
 
 const { nodeEnv, port } = config
@@ -50,6 +49,7 @@ if (nodeEnv === 'development') {
 auth(app)
 recommendations(app)
 player(app)
+search(app)
 
 app.get('*', main)
 
@@ -58,7 +58,6 @@ app.use(notFoundHandler)
 
 // Errors Middlewares
 app.use(errorTypeHandler)
-app.use(unauthorizedErrorHandler)
 app.use(errorHandler)
 
 app.listen(port, error => {

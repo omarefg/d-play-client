@@ -14,9 +14,6 @@ export const setInitialState = async (req, res) => {
             user = data.data
         }
     } catch (error) {
-        if (req.url !== '/inicia-sesion') {
-            res.redirect('/inicia-sesion')
-        }
         console.log(error)
     }
 

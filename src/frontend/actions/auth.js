@@ -43,7 +43,7 @@ export const signInUserError = payload => ({
 export const registerUserRequest = (payload, cb) => async dispatch => {
     dispatch(setAuthIsLoading({ isLoading: true }))
     try {
-        await axios.post('/auth/sign-up', payload)
+        await axios.post('/server/auth/sign-up', payload)
         dispatch(registerUser())
         cb && cb()
     } catch (error) {
@@ -53,7 +53,7 @@ export const registerUserRequest = (payload, cb) => async dispatch => {
 }
 export const signInUserRequest = ({ email, password }, cb) => async dispatch => {
     const auth = { username: email, password }
-    const axiosData = { url: '/auth/sign-in', method: 'post', auth }
+    const axiosData = { url: '/server/auth/sign-in', method: 'post', auth }
     dispatch(setAuthIsLoading({ isLoading: true }))
     try {
         const { data } = await axios(axiosData)

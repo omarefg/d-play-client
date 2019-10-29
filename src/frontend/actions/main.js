@@ -4,6 +4,7 @@ import {
     DELETE_MAIN_ERROR_MESSAGE,
     SET_RECOMMENDATION_PAGE_DATA,
 } from './types'
+import { signInUser } from './auth'
 import { requestErrorHandler } from '../utils/error-handler'
 
 export const handleMainLoader = payload => ({
@@ -28,10 +29,16 @@ export const setRecommendationPageDataError = payload => ({
 export const setRecommendationPageDataRequest = ({ country }) => async dispatch => {
     dispatch(handleMainLoader({ isLoading: true }))
     try {
-        const { data } = await axios.get(`/recommendations/recommendation-page?country=${country}`)
+        const { data } = await axios.get(`/server/recommendations/recommendation-page?country=${country}`)
         dispatch(setRecommendationPageData(data))
     } catch (error) {
-        dispatch(setRecommendationPageDataError(requestErrorHandler(error)))
+        const err = requestErrorHandler(error)
+        const { statusCode } = err
+        if (statusCode === 401) {
+            dispatch(signInUser(null))
+        } else {
+            dispatch(setRecommendationPageDataError(err))
+        }
     }
     dispatch(handleMainLoader({ isLoading: false }))
 }

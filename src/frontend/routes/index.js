@@ -6,7 +6,7 @@ import {
     Genres,
 } from '../pages'
 
-export const serverRoutes = isLogged => ([
+export const serverRoutes = [
     {
         path: '/inicia-sesion',
         component: Login,
@@ -18,18 +18,18 @@ export const serverRoutes = isLogged => ([
         exact: true,
     },
     {
-        path: isLogged ? '/recomendaciones' : '/inicia-sesion',
-        component: isLogged ? Recommendations : Login,
+        path: '/recomendaciones',
+        component: Recommendations,
         exact: true,
     },
     {
-        path: isLogged ? '/mis-listas' : '/inicia-sesion',
-        component: isLogged ? MyLists : Login,
+        path: '/mis-listas',
+        component: MyLists,
         exact: true,
     },
     {
-        path: isLogged ? '/generos' : '/inicia-sesion',
-        component: isLogged ? Genres : Login,
+        path: '/generos',
+        component: Genres,
         exact: true,
     },
-])
+]

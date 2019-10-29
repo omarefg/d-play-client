@@ -48,7 +48,7 @@ export const setPlayerGroupError = payload => ({
 export const setPlayerGroupFromAlbum = ({ id, images, name }) => async dispatch => {
     dispatch(setPlayerIsLoading({ isLoading: true }))
     try {
-        const { data } = await axios.get(`/recommendations/albums/${id}/tracks`)
+        const { data } = await axios.get(`/server/recommendations/albums/${id}/tracks`)
         dispatch(setPlayerGroup({ ...data, images, name }))
     } catch (error) {
         dispatch(setPlayerGroupError(requestErrorHandler(error)))
@@ -58,7 +58,7 @@ export const setPlayerGroupFromAlbum = ({ id, images, name }) => async dispatch 
 export const setPlayerGroupFromPlaylist = ({ id, images, name }) => async dispatch => {
     dispatch(setPlayerIsLoading({ isLoading: true }))
     try {
-        const { data } = await axios.get(`/recommendations/playlists/${id}/tracks`)
+        const { data } = await axios.get(`/server/recommendations/playlists/${id}/tracks`)
         dispatch(setPlayerGroup({ ...data, images, name }))
     } catch (error) {
         dispatch(setPlayerGroupError(requestErrorHandler(error)))

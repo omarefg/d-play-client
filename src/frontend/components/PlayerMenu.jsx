@@ -22,6 +22,7 @@ export const PlayerMenu = props => {
         isPlaying,
         volume,
         volumeHandler,
+        volumeClickHandler,
     } = props
 
     return (
@@ -62,6 +63,7 @@ export const PlayerMenu = props => {
             <VolumeSlider
                 value={volume}
                 onChange={volumeHandler}
+                volumeClickHandler={volumeClickHandler}
             />
         </div>
     )

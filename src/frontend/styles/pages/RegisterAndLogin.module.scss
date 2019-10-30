@@ -1,0 +1,81 @@
+@import '../lib/Vars.scss';
+
+.container {
+    display: flex;
+    height: 100vh;
+    max-height: 100vh;
+    background-image: url('../../assets/Containers/Register/background1.jpeg');
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: -15vw;
+    background-size: cover;
+    background-color: $d-third-color;
+    @media screen and (max-width: $d-media-m) {
+        background-color: $d-primary-color;
+        background-image: url('../../assets/Containers/Register/background2.jpeg');
+        justify-content: center;
+        background-position-x: center;
+    }
+
+    @media screen and (max-width: $d-media-xs) {
+        background-image: url('../../assets/Containers/Register/background3.jpeg');
+    }
+}
+
+.title {
+    color: white;
+    text-align: center;
+    @media screen and (max-width: $d-media-xs) {
+        color: $d-third-color;
+    }
+}
+
+.description {
+    flex-grow: 1;
+    @media screen and (max-width: $d-media-s) {
+        display: none;
+    }
+}
+
+.form {
+    width: calc(40% - 60px);
+    padding: 60px 30px;
+    background-color: rgba($d-secondary-color, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+
+    @include scrollbar;
+
+    @media screen and (max-width: $d-media-m) {
+        width: calc(60% - 60px);
+        background-color: rgba($d-secondary-color, 0.5);
+    }
+
+    @media screen and (max-width: $d-media-s) {
+        width: calc(80% - 60px);
+    }
+
+    @media screen and (max-width: $d-media-xs) {
+        width: calc(100% - 60px);
+    }
+}
+
+.social-media {
+    display: flex;
+    width: calc(90% + 5px);
+}
+
+.redirect {
+    color: white;
+    padding-left: 8px;
+    a {
+        color: $d-third-color;
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

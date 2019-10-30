@@ -1,0 +1,9 @@
+@import '../lib/Vars.scss';
+
+.main__container {
+    background-color: $d-secondary-color;
+
+    .main__flex-grow {
+        flex: 1;
+    }
+}

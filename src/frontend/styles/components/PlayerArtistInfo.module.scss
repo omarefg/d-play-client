@@ -1,0 +1,18 @@
+.player-artist-info__container {
+    display: flex;
+    justify-content: space-around;
+
+    img {
+        height: 60px;
+    }
+
+    .artist-info {
+        display: flex;
+        flex-direction: column;
+        margin: 0 20px;
+        p {
+            color: white;
+            margin: 0;
+        }
+    }
+}

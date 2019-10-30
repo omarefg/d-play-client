@@ -1,0 +1,39 @@
+@import '../lib/Vars.scss';
+
+.btn--principal {
+    border: none;
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin: 10px 5px;
+    display: inline-block;
+    width: 90%;
+    font-weight: bold;
+    font-size: 14px;
+    background: transparent;
+    color: white;
+    letter-spacing: 1px;
+    outline: none;
+    box-shadow: 0px 0px 3px 1px $d-primary-color;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0px 0px 3px 1px $d-third-color;
+    }
+}
+
+.btn--social-media {
+    padding: 12px;
+    font-size: 12px;
+    letter-spacing: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    img {
+        width: 1.5em;
+    }
+}
+
+.btn--user-data {
+    width: 20%;
+    display: block;
+    margin: 10px auto;
+}

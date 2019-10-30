@@ -1,0 +1,75 @@
+@import '../lib/Vars.scss';
+
+h2, h3 {
+	color: white;
+}
+
+.container {
+	max-width: 50%;
+	height: auto;
+	margin: 5% auto;
+	
+}
+
+.form__title {
+	width: 40%;
+	text-align: center;
+	padding: 2rem 0 1rem;
+	border-radius: 16px;
+	border: none;
+	margin-bottom: 1rem;
+}
+
+.form__title h2 {
+	font-weight: bold;
+	color: #CAC8C8;
+	font-size: 18px;
+}
+
+.form {
+	padding: 0 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.btn__form {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 1rem;
+}
+
+.input, .btn__submit{
+	background-color: #EFEFEF;
+	padding: .5rem;
+	margin: .5rem 0;
+	border: none;
+	border-bottom: solid $d-primary-color .2rem;
+	transition: all .5s;
+}
+
+.input:focus {
+	border-bottom: solid $d-primary-color .2rem;
+}
+
+.btn__submit {
+	width: 20%;
+	border-bottom: none;
+	background-color: $d-primary-color;
+	color: white;
+	display: block;
+	margin: 10px auto;
+}
+
+.btn__reset {
+	background-color: $d-third-color;
+}
+
+.btn__submit:hover {
+	border-bottom: solid $d-primary-color .2rem;
+	background-color: #4C9ED9;
+}
+
+.btn__reset:hover{
+	background-color: $d-third-color;
+}

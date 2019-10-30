@@ -1,12 +1,10 @@
 @import '../lib/Vars.scss';
-* {
-    background-color: #181313;
-}
 
 .user--data-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: $d-secondary-color;
 }
 
 .user--data-container-profile {

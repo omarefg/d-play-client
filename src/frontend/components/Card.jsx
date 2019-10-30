@@ -3,7 +3,15 @@ import { CirclePlayIcon } from '../icons'
 
 import styles from '../styles/components/Card.module.scss'
 
-export const Card = ({ artist, album, src, title }) => {
+export const Card = props => {
+    const {
+        artist,
+        album,
+        src,
+        title,
+        onClick,
+    } = props
+
     return (
         <div className={styles['card__container']}>
             <div
@@ -11,6 +19,7 @@ export const Card = ({ artist, album, src, title }) => {
             >
                 <CirclePlayIcon
                     className='icon__container--card-control'
+                    onClick={onClick}
                 />
             </div>
             <img

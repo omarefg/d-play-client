@@ -4,6 +4,7 @@
     position: relative;
     cursor: pointer;
     height: 140px;
+    user-select: none;
 
     .card__controls {
         position: absolute;

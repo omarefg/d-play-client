@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ItemsCarousel from 'react-items-carousel'
+import PropTypes from 'prop-types'
 import { useWindowDimensions } from '../hooks'
 import { Card } from './Card'
 import { CarouselChevron } from './CarouselChevron'
@@ -7,11 +8,11 @@ import { CarouselChevron } from './CarouselChevron'
 import styles from '../styles/components/CardsSection.module.scss'
 
 export const CardsSection = props => {
-    const [state, setState] = useState({ index: null, checked: false })
+    const [state, setState] = useState({ index: 0, checked: false })
     const { width } = useWindowDimensions()
     const numberOfCards = Math.ceil(width / 200) - 1
 
-    const { title } = props
+    const { title, cards, onClick } = props
     const { index, checked } = state
 
     const onMouseEnter = () => setState(state => ({ ...state, checked: true }))
@@ -42,80 +43,31 @@ export const CardsSection = props => {
                         itemWrapper: styles['cards-section__itemWrapper'],
                     }}
                 >
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
-                    <Card
-                        artist='Reptile'
-                        title='Under the sun'
-                        src='https://material-ui.com/static/images/cards/contemplative-reptile.jpg'
-                        album='Cold blood'
-                    />
+                    {cards.map(card => {
+                        const artist = card.artists ? card.artists[0].name : card.name
+                        const album = card.artists ? card.name : ''
+
+                        return (
+                            <Card
+                                key={card.id}
+                                src={card.images[0].url}
+                                title={card.name}
+                                artist={artist}
+                                album={album}
+                                onClick={() => onClick(card)}
+                            />
+                        )
+                    })}
                 </ItemsCarousel>
             </div>
         </div>
     )
+}
+
+CardsSection.propTypes = {
+    cards: PropTypes.array,
+}
+
+CardsSection.defaultProps = {
+    cards: [],
 }

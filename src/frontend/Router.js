@@ -1,35 +1,38 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { Register, Main, Login } from './pages'
-import UserData from './pages/UserData'
+import { connect } from 'react-redux'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { serverRoutes } from './routes'
 
-const App = () => {
+const mapStateToProps = state => {
+    return {
+        auth: { ...state.auth },
+    }
+}
+
+const App = connect(mapStateToProps)(({ auth }) => {
+    const isLogged = auth.user
+
     return (
         <BrowserRouter>
             <Switch>
-                <Route
-                    path='/'
-                    component={Main}
-                    exact
-                />
-                <Route
-                    path='/registrate'
-                    component={Register}
-                    exact
-                />
-                <Route
-                    path='/inicia-sesion'
-                    component={Login}
-                    exact
-                />
-                <Route
-                    path='/perfil-usuario'
-                    component={UserData}
+                {serverRoutes.map(({ path, component, exact }) => {
+                    return (
+                        <Route
+                            path={path}
+                            component={component}
+                            exact={exact}
+                            key={path}
+                        />
+                    )
+                })}
+                <Redirect
+                    from='/'
+                    to={isLogged ? '/recomendaciones' : '/inicia-sesion'}
                     exact
                 />
             </Switch>
         </BrowserRouter>
     )
-}
+})
 
 export default App

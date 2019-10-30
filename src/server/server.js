@@ -5,7 +5,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import { main, auth, recommendations, player, search } from './routes'
+import { main, auth, recommendations, player, search, categories } from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
@@ -50,6 +50,7 @@ auth(app)
 recommendations(app)
 player(app)
 search(app)
+categories(app)
 
 app.get('*', main)
 

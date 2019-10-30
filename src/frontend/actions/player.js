@@ -8,7 +8,7 @@ import {
     SET_PLAYER_IS_PLAYING,
     SET_PLAYER_VOLUME,
 } from './types'
-import { requestErrorHandler } from '../utils/error-handler'
+import { errorDispatcher } from '../utils/error-handler'
 
 export const setPlayerIsLoading = payload => ({
     type: SET_PLAYER_IS_LOADING,
@@ -51,7 +51,8 @@ export const setPlayerGroupFromAlbum = ({ id, images, name }) => async dispatch 
         const { data } = await axios.get(`/server/recommendations/albums/${id}/tracks`)
         dispatch(setPlayerGroup({ ...data, images, name }))
     } catch (error) {
-        dispatch(setPlayerGroupError(requestErrorHandler(error)))
+        const errorHandler = error => dispatch(setPlayerGroupError(error))
+        errorDispatcher(error, errorHandler, errorHandler)
     }
     dispatch(setPlayerIsLoading({ isLoading: false }))
 }
@@ -61,7 +62,8 @@ export const setPlayerGroupFromPlaylist = ({ id, images, name }) => async dispat
         const { data } = await axios.get(`/server/recommendations/playlists/${id}/tracks`)
         dispatch(setPlayerGroup({ ...data, images, name }))
     } catch (error) {
-        dispatch(setPlayerGroupError(requestErrorHandler(error)))
+        const errorHandler = error => dispatch(setPlayerGroupError(error))
+        errorDispatcher(error, errorHandler, errorHandler)
     }
     dispatch(setPlayerIsLoading({ isLoading: false }))
 }

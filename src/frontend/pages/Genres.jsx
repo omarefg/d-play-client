@@ -1,24 +1,37 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { MainLayout } from '../components'
+import { setGenresPlaylistsRequest } from '../actions'
+import { MainLayout, RedirectBoundary } from '../components'
 
 const mapStateToProps = state => {
     return {
-        ...state.main,
+        ...state.genres,
         user: state.auth.user,
     }
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    setGenresPlaylistsRequest,
+}
 
 export const Genres = connect(mapStateToProps, mapDispatchToProps)(props => {
-    const { user, location } = props
+    const {
+        location,
+        user,
+        setGenresPlaylistsRequest,
+    } = props
 
-    useEffect(() => {}, [])
+    useEffect(() => {
+        if (user) {
+            setGenresPlaylistsRequest({ country: user.country, offset: 0 })
+        }
+    }, [])
 
     return (
-        <MainLayout
-            pathname={location.pathname}
-        />
+        <RedirectBoundary>
+            <MainLayout
+                pathname={location.pathname}
+            />
+        </RedirectBoundary>
     )
 })

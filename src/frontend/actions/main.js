@@ -5,7 +5,7 @@ import {
     SET_RECOMMENDATION_PAGE_DATA,
 } from './types'
 import { signInUser } from './auth'
-import { requestErrorHandler } from '../utils/error-handler'
+import { errorDispatcher } from '../utils/error-handler'
 
 export const handleMainLoader = payload => ({
     type: MAIN_LOADER_HANDLER,
@@ -32,13 +32,9 @@ export const setRecommendationPageDataRequest = ({ country }) => async dispatch 
         const { data } = await axios.get(`/server/recommendations/recommendation-page?country=${country}`)
         dispatch(setRecommendationPageData(data))
     } catch (error) {
-        const err = requestErrorHandler(error)
-        const { statusCode } = err
-        if (statusCode === 401) {
-            dispatch(signInUser(null))
-        } else {
-            dispatch(setRecommendationPageDataError(err))
-        }
+        const unauthorizedErrorCalback = _err => dispatch(signInUser(null))
+        const otherErrorCallback = err => dispatch(setRecommendationPageDataError(err))
+        errorDispatcher(error, unauthorizedErrorCalback, otherErrorCallback)
     }
     dispatch(handleMainLoader({ isLoading: false }))
 }

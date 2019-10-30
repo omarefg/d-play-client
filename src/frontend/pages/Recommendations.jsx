@@ -5,7 +5,7 @@ import {
     setPlayerGroupFromAlbum,
     setPlayerGroupFromPlaylist,
 } from '../actions'
-import { CardsSection, MainLayout, RedirectLayout } from '../components'
+import { CardsSection, MainLayout, RedirectBoundary } from '../components'
 
 const mapStateToProps = state => {
     return {
@@ -44,7 +44,7 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
     }
 
     return (
-        <RedirectLayout>
+        <RedirectBoundary>
             <MainLayout
                 pathname={location.pathname}
             >
@@ -59,6 +59,6 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
                     onClick={cardClickHandler}
                 />
             </MainLayout>
-        </RedirectLayout>
+        </RedirectBoundary>
     )
 })

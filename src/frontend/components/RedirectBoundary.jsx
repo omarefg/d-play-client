@@ -8,7 +8,7 @@ const mapStateToProps = state => {
     }
 }
 
-export const RedirectLayout = connect(mapStateToProps)(({ children, user }) => {
+export const RedirectBoundary = connect(mapStateToProps)(({ children, user }) => {
     if (!user) {
         return (
             <Redirect

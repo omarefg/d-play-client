@@ -6,7 +6,7 @@ import {
     SET_USER_IS_JUST_REGISTERED,
     SIGN_IN_USER,
 } from './types'
-import { requestErrorHandler } from '../utils/error-handler'
+import { errorDispatcher } from '../utils/error-handler'
 
 export const deleteAuthErrorMessage = () => ({
     type: DELETE_AUTH_ERROR_MESSAGE,
@@ -47,7 +47,8 @@ export const registerUserRequest = (payload, cb) => async dispatch => {
         dispatch(registerUser())
         cb && cb()
     } catch (error) {
-        dispatch(registerUserError(requestErrorHandler(error)))
+        const errorHandler = error => dispatch(registerUserError(error))
+        errorDispatcher(error, errorHandler, errorHandler)
     }
     dispatch(setAuthIsLoading({ isLoading: false }))
 }
@@ -60,7 +61,8 @@ export const signInUserRequest = ({ email, password }, cb) => async dispatch => 
         dispatch(signInUser(data))
         cb && cb()
     } catch (error) {
-        dispatch(signInUserError(requestErrorHandler(error)))
+        const errorHandler = error => dispatch(signInUserError(error))
+        errorDispatcher(error, errorHandler, errorHandler)
     }
     dispatch(setAuthIsLoading({ isLoading: false }))
 }

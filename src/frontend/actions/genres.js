@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import axios from 'axios'
 import {
     SET_GENRES_PLAYLISTS,
@@ -34,11 +36,18 @@ export const setGenresPlaylistsError = payload => ({
 export const setGenresPlaylistsRequest = ({ country, offset }) => async dispatch => {
     dispatch(setGenreIsLoading({ isLoading: true }))
     try {
+        const playlists = []
         let { data: categories } = await axios.get(`/server/categories?country=${country}&offset=${offset}`)
         categories = categories.categories.items.map(({ id, name }) => ({ id, name }))
-        console.log(categories)
-        // dispatch(setGenresCategories(data))
-        // dispatch(setGenresPlaylistsIndex({ genresPlaylistsIndex: offset + 10 }))
+        for (const categorie of categories) {
+            const { id, name } = categorie
+            try {
+                const { data: { playlists: { items } } } = await axios.get(`/server/categories/${id}/playlists?country=${country}`)
+                playlists.push({ items, name })
+            } catch (error) {}
+        }
+        dispatch(setGenresPlaylists({ genresPlaylists: playlists }))
+        dispatch(setGenresPlaylistsIndex({ genresPlaylistsIndex: offset + 10 }))
     } catch (error) {
         const unauthorizedErrorCalback = _err => dispatch(signInUser(null))
         const otherErrorCallback = err => dispatch(setGenresPlaylistsError(err))

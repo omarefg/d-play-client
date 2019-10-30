@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {}
 
 export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
-    const { user, location } = props
+    const { location } = props
 
     useEffect(() => {}, [])
 

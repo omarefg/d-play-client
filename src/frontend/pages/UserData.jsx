@@ -4,7 +4,7 @@ import { Header, Button, Footer, Form } from '../components'
 
 import styles from '../styles/pages/UserData.module.scss'
 
-const UserData = () => {
+export const UserData = () => {
     return (
         <div className={styles['user--data-container']}>
             <Header/>
@@ -20,5 +20,3 @@ const UserData = () => {
         </div>
     )
 }
-
-export default UserData

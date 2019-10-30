@@ -1,9 +1,16 @@
-import { Main, Register, Login } from '../pages'
+import {
+    Login,
+    Register,
+    Recommendations,
+    MyLists,
+    Genres,
+    UserData,
+} from '../pages'
 
-export const serverRoutes = isLogged => ([
+export const serverRoutes = [
     {
-        path: '/',
-        component: Main,
+        path: '/inicia-sesion',
+        component: Login,
         exact: true,
     },
     {
@@ -12,8 +19,23 @@ export const serverRoutes = isLogged => ([
         exact: true,
     },
     {
-        path: '/inicia-sesion',
-        component: Login,
+        path: '/recomendaciones',
+        component: Recommendations,
         exact: true,
     },
-])
+    {
+        path: '/mis-listas',
+        component: MyLists,
+        exact: true,
+    },
+    {
+        path: '/generos',
+        component: Genres,
+        exact: true,
+    },
+    {
+        path: '/perfil-usuario',
+        component: UserData,
+        exact: true,
+    },
+]

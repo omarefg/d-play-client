@@ -9,6 +9,7 @@ import {
     Button,
     SnackbarNotification,
     ButtonLoader,
+    RedirectBoundary,
 } from '../components'
 import data from '../../../db'
 
@@ -80,76 +81,78 @@ export const Register = connect(mapStateToProps, mapDispatchToProps)(props => {
     const countrySelectValue = countries.find(country => country.code === form.country)
 
     return (
-        <div className={styles['container']}>
-            <SnackbarNotification
-                variant='error'
-                message={error}
-                onClose={closeSnackbarHandler}
-                open={!!error}
-            />
-            <div
-                className={styles['description']}
-            />
-            <form
-                className={styles['form']}
-                autoComplete='off'
-                onSubmit={submit}
-            >
-                <h3 className={styles['title']}>¡Crea una cuenta y que suene la música!</h3>
-                <TextInput
-                    placeholder='Nombre'
-                    id='name'
-                    name='name'
-                    onChange={formHandler}
-                    value={form.name}
-                    required
+        <RedirectBoundary inverse>
+            <div className={styles['container']}>
+                <SnackbarNotification
+                    variant='error'
+                    message={error}
+                    onClose={closeSnackbarHandler}
+                    open={!!error}
                 />
-                <TextInput
-                    placeholder='Apellido'
-                    id='lastName'
-                    name='lastName'
-                    onChange={formHandler}
-                    value={form.lastName}
-                    required
+                <div
+                    className={styles['description']}
                 />
-                <DateInput
-                    label='Fecha de nacimiento'
-                    onChange={birthdateHandler}
-                    value={form.birthdate}
-                    disableFuture
-                    required
-                />
-                <TextInput
-                    placeholder='Email'
-                    id='email'
-                    name='email'
-                    onChange={formHandler}
-                    value={form.email}
-                    required
-                />
-                <Select
-                    options={countries}
-                    onChange={countryHandler}
-                    value={countrySelectValue}
-                    required
-                />
-                <TextInput
-                    placeholder='Contraseña'
-                    id='password'
-                    name='password'
-                    onChange={formHandler}
-                    value={form.password}
-                    required
-                    type='password'
-                />
-                <Button type='submit'>
-                    {isLoading ? <ButtonLoader/> : 'Regístrate'}
-                </Button>
-                <p className={styles['redirect']}>
+                <form
+                    className={styles['form']}
+                    autoComplete='off'
+                    onSubmit={submit}
+                >
+                    <h3 className={styles['title']}>¡Crea una cuenta y que suene la música!</h3>
+                    <TextInput
+                        placeholder='Nombre'
+                        id='name'
+                        name='name'
+                        onChange={formHandler}
+                        value={form.name}
+                        required
+                    />
+                    <TextInput
+                        placeholder='Apellido'
+                        id='lastName'
+                        name='lastName'
+                        onChange={formHandler}
+                        value={form.lastName}
+                        required
+                    />
+                    <DateInput
+                        label='Fecha de nacimiento'
+                        onChange={birthdateHandler}
+                        value={form.birthdate}
+                        disableFuture
+                        required
+                    />
+                    <TextInput
+                        placeholder='Email'
+                        id='email'
+                        name='email'
+                        onChange={formHandler}
+                        value={form.email}
+                        required
+                    />
+                    <Select
+                        options={countries}
+                        onChange={countryHandler}
+                        value={countrySelectValue}
+                        required
+                    />
+                    <TextInput
+                        placeholder='Contraseña'
+                        id='password'
+                        name='password'
+                        onChange={formHandler}
+                        value={form.password}
+                        required
+                        type='password'
+                    />
+                    <Button type='submit'>
+                        {isLoading ? <ButtonLoader/> : 'Regístrate'}
+                    </Button>
+                    <p className={styles['redirect']}>
                     ¿Ya tienes cuenta?&nbsp;
-                    <Link to='/inicia-sesion'>Inicia sesión</Link>
-                </p>
-            </form>
-        </div>
+                        <Link to='/inicia-sesion'>Inicia sesión</Link>
+                    </p>
+                </form>
+            </div>
+        </RedirectBoundary>
     )
 })

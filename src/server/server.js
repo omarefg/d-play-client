@@ -5,7 +5,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import { main, auth, recommendations, player, search, categories } from './routes'
+import { main, auth, recommendations, player, search, categories, users } from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(helmet())
 app.use(cookieParser())
 app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.session({ secret: config.sessionSecret }))
 app.use(express.static(`${__dirname}/public`))
 
 if (nodeEnv === 'development') {
@@ -51,6 +51,7 @@ recommendations(app)
 player(app)
 search(app)
 categories(app)
+users(app)
 
 app.get('*', main)
 

@@ -11,6 +11,7 @@ function errorTypeHandler(error, req, res, next) {
 }
 
 function errorHandler(error, req, res, next) {
+    console.log(error)
     const { status, data } = error
     res.status(status).json(data)
     next()

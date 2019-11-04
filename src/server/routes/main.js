@@ -14,7 +14,7 @@ import theme from '../../frontend/styles/lib/theme'
 export const main = async (req, res, next) => {
     const sheets = new ServerStyleSheets()
     try {
-        const initialState = await setInitialState(req)
+        const initialState = await setInitialState(req, res)
         const store = createStore(reducer, initialState)
         const html = renderToString(
             sheets.collect(

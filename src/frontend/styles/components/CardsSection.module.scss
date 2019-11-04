@@ -33,4 +33,15 @@
     .cards-section__itemsWrapper {
         height: 200px;
     }
+
+    .cards-section__add-playlist-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        color: white;
+        user-select: none;
+    }
+
 }

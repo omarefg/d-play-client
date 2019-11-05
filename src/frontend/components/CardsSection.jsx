@@ -13,7 +13,14 @@ export const CardsSection = props => {
     const { width } = useWindowDimensions()
     const numberOfCards = Math.ceil(width / 200) - 1
 
-    const { title, cards, onClick, isForPlaylists, addPlaylist } = props
+    const {
+        title,
+        cards,
+        onClick,
+        isForPlaylists,
+        addPlaylist,
+        isLoading,
+    } = props
     const { index, checked } = state
 
     const onMouseEnter = () => setState(state => ({ ...state, checked: true }))
@@ -44,6 +51,15 @@ export const CardsSection = props => {
                         itemWrapper: styles['cards-section__itemWrapper'],
                     }}
                 >
+                    {isLoading && [0, 1, 2, 3, 4, 5, 6, 7].map(key => {
+                        return (
+                            <Card
+                                key={key}
+                                isLoading
+                            />
+                        )
+                    })}
+
                     {isForPlaylists && (
                         <div className={styles['cards-section__add-playlist-container']}>
                             <AddIcon
@@ -54,7 +70,7 @@ export const CardsSection = props => {
                         </div>
                     )}
                     {cards.map(card => {
-                        const title = card.name || card.title
+                        const title = card.name
                         const artist = card.artists ? card.artists[0].name : title
                         const album = card.artists ? card.name : ''
                         const image = card.images ? card.images[0].url : card.image

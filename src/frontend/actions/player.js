@@ -7,6 +7,7 @@ import {
     DELETE_PLAYER_ERROR_MESSAGE,
     SET_PLAYER_IS_PLAYING,
     SET_PLAYER_VOLUME,
+    SET_SONG_IS_IN_FAVORITES,
 } from './types'
 import { errorDispatcher } from '../utils/error-handler'
 
@@ -36,6 +37,10 @@ export const setPlayerIsPlaying = payload => ({
 })
 export const setPlayerVolume = payload => ({
     type: SET_PLAYER_VOLUME,
+    payload,
+})
+export const setSongIsInFavorites = payload => ({
+    type: SET_SONG_IS_IN_FAVORITES,
     payload,
 })
 

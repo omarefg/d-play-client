@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteMainErrorMessage } from '../actions'
+import { setMainErrorMessage } from '../actions'
 import { Header } from './Header'
 import { Search } from './Search'
 import { ListItem } from './ListItem'
 import { Player } from './Player'
 import { SnackbarNotification } from './SnackbarNotification'
+import { CardsSection } from './CardsSection'
 
 import styles from '../styles/components/MainLayout.module.scss'
 
@@ -17,17 +18,24 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    deleteMainErrorMessage,
+    setMainErrorMessage,
 }
 
 export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => {
-    const { error, deleteMainErrorMessage, children, pathname } = props
+    const {
+        error,
+        setMainErrorMessage,
+        children,
+        pathname,
+        isLoading,
+        loadingRows,
+    } = props
     const closeSnackbarHandler = (_event, reason) => {
         if (reason === 'clickaway') {
             return
         }
 
-        deleteMainErrorMessage()
+        setMainErrorMessage({ message: '' })
     }
 
     return (
@@ -60,6 +68,14 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
                 </ul>
             </Header>
             <section className={styles['main-layout__flex-grow']}>
+                {isLoading && loadingRows.map(key => {
+                    return (
+                        <CardsSection
+                            key={key}
+                            isLoading
+                        />
+                    )
+                })}
                 {children}
             </section>
             <Player/>

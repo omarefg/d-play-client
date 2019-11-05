@@ -1,70 +1,76 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import {
-    setPlayerGroupFromAlbum,
-    setPlayerGroupFromPlaylist,
-    setMyListsIsCreatingList,
-    setPlaylistFormInputValue,
-    setPlaylistFormTextAreaValue,
-    setPlaylistFormImgSrc,
-    setMyListsRequest,
+    setMainIsCreatingPlaylist,
+    setMainPlaylistFormInputValue,
+    setMainPlaylistFormTextAreaValue,
+    setMainPlaylistFormImgSrc,
+    setMainMyListsRequest,
+    setPlayerGroup,
+    setMainErrorMessage,
 } from '../actions'
-import { MainLayout, CardsSection, RedirectBoundary, Modal, PlaylistForm } from '../components'
+import {
+    MainLayout,
+    CardsSection,
+    RedirectBoundary,
+    Modal,
+    PlaylistForm,
+} from '../components'
 
 const mapStateToProps = state => {
     return {
-        ...state.myLists,
+        ...state.main,
         user: state.auth.user,
     }
 }
 
 const mapDispatchToProps = {
-    setPlayerGroupFromAlbum,
-    setPlayerGroupFromPlaylist,
-    setMyListsIsCreatingList,
-    setPlaylistFormInputValue,
-    setPlaylistFormTextAreaValue,
-    setPlaylistFormImgSrc,
-    setMyListsRequest,
+    setMainIsCreatingPlaylist,
+    setMainPlaylistFormInputValue,
+    setMainPlaylistFormTextAreaValue,
+    setMainPlaylistFormImgSrc,
+    setMainMyListsRequest,
+    setPlayerGroup,
+    setMainErrorMessage,
 }
 
 export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
         user,
         location,
-        isCreatingList,
-        setPlayerGroupFromAlbum,
-        setPlayerGroupFromPlaylist,
-        setMyListsIsCreatingList,
+        setMainIsCreatingPlaylist,
+        myLists,
+        setMainPlaylistFormInputValue,
+        setMainPlaylistFormTextAreaValue,
+        setMainPlaylistFormImgSrc,
+        setMainMyListsRequest,
+        setPlayerGroup,
+        setMainErrorMessage,
+    } = props
+
+    const {
         creatingListTextInputValue,
         creatingListTextAreaValue,
         creatingListImageSrc,
-        setPlaylistFormInputValue,
-        setPlaylistFormTextAreaValue,
-        setPlaylistFormImgSrc,
-        setMyListsRequest,
-    } = props
-
-    useEffect(() => {}, [])
+        isCreatingList,
+    } = myLists
 
     const cardClickHandler = card => {
-        const { id, type, name, images } = card
-        type === 'album' && setPlayerGroupFromAlbum({ id, name, images })
-        type === 'playlist' && setPlayerGroupFromPlaylist({ id, name, images })
+        setPlayerGroup(card)
     }
 
-    const openPlaylistModal = () => setMyListsIsCreatingList({ isCreatingList: true })
+    const openPlaylistModal = () => setMainIsCreatingPlaylist({ isCreatingList: true })
 
     const closePlaylistModal = () => {
-        setMyListsIsCreatingList({ isCreatingList: false })
-        setPlaylistFormInputValue({ creatingListTextInputValue: '' })
-        setPlaylistFormTextAreaValue({ creatingListTextAreaValue: '' })
-        setPlaylistFormImgSrc({ creatingListImageSrc: '' })
+        setMainIsCreatingPlaylist({ isCreatingList: false })
+        setMainPlaylistFormInputValue({ creatingListTextInputValue: '' })
+        setMainPlaylistFormTextAreaValue({ creatingListTextAreaValue: '' })
+        setMainPlaylistFormImgSrc({ creatingListImageSrc: '' })
     }
 
-    const onTextInputChange = event => setPlaylistFormInputValue({ creatingListTextInputValue: event.target.value })
+    const onTextInputChange = event => setMainPlaylistFormInputValue({ creatingListTextInputValue: event.target.value })
 
-    const onTextAreaChange = event => setPlaylistFormTextAreaValue({ creatingListTextAreaValue: event.target.value })
+    const onTextAreaChange = event => setMainPlaylistFormTextAreaValue({ creatingListTextAreaValue: event.target.value })
 
     const onFileInputChange = event => {
         const { files } = event.target
@@ -74,7 +80,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
             const FR = new FileReader()
             FR.addEventListener('load', fileReaderEvent => {
                 const { result } = fileReaderEvent.target
-                setPlaylistFormImgSrc({ creatingListImageSrc: result })
+                setMainPlaylistFormImgSrc({ creatingListImageSrc: result })
             })
             FR.readAsDataURL(file)
         }
@@ -83,17 +89,22 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
     const onModalSubmit = event => {
         event.preventDefault()
         const list = {
-            title: creatingListTextInputValue,
+            name: creatingListTextInputValue,
             description: creatingListTextAreaValue,
             image: creatingListImageSrc,
             items: [],
+        }
+        const playlistExists = user.lists.find(l => l.name.toUpperCase() === list.name.toUpperCase())
+        if (playlistExists) {
+            setMainErrorMessage({ message: `La lista ${list.name} ya existe` })
+            return
         }
         const lists = [...user.lists, list]
         const payload = {
             id: user._id,
             lists,
         }
-        setMyListsRequest(payload)
+        setMainMyListsRequest(payload)
         closePlaylistModal()
     }
 
@@ -126,7 +137,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
                     onClick={cardClickHandler}
                     isForPlaylists
                     addPlaylist={openPlaylistModal}
-                    cards={user.lists}
+                    cards={user ? user.lists : []}
                 />
             </MainLayout>
         </RedirectBoundary>

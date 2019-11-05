@@ -10,10 +10,10 @@ export const categories = app => {
     const { apiUrl } = config
 
     router.get('/', async (req, res, next) => {
-        const { offset, country } = req.query
+        const { offset, country, limit } = req.query
         const { token } = req.cookies
         const request = payloadToken => axios({
-            url: `${apiUrl}/api/categories?country=${country}&limit=10&offset=${offset}`,
+            url: `${apiUrl}/api/categories?country=${country}&limit=${limit}&offset=${offset}`,
             headers: { Authorization: `Bearer ${payloadToken}` },
             method: 'get',
         })

@@ -5,6 +5,7 @@ import {
     SET_AUTH_IS_LOADING,
     SET_USER_IS_JUST_REGISTERED,
     SIGN_IN_USER,
+    UPDATE_USER,
 } from './types'
 import { errorDispatcher } from '../utils/error-handler'
 
@@ -27,6 +28,10 @@ export const registerUser = payload => ({
 export const signInUser = payload => ({
     payload,
     type: SIGN_IN_USER,
+})
+export const updateUser = payload => ({
+    payload,
+    type: UPDATE_USER,
 })
 
 export const registerUserError = payload => ({

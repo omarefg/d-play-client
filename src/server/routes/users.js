@@ -3,19 +3,21 @@ const axios = require('axios')
 const { config } = require('../../../config')
 const { localErrorHandler } = require('../utils/local-error-handlers')
 
-export const player = app => {
+export const users = app => {
     const router = express.Router()
-    app.use('/server/player', router)
+    app.use('/server/users', router)
 
     const { apiUrl } = config
 
-    router.get('playing-group/albums/:id/tracks', async (req, res, next) => {
+    router.put('/:id', async (req, res, next) => {
         const { id } = req.params
+        const { body: user } = req
         const { token } = req.cookies
         const request = payloadToken => axios({
-            url: `${apiUrl}/api/albums/${id}/tracks?limit=50&offset=0`,
+            url: `${apiUrl}/api/users/${id}`,
             headers: { Authorization: `Bearer ${payloadToken}` },
-            method: 'get',
+            method: 'put',
+            data: user,
         })
         try {
             const { data: { data }, status } = await request(token)

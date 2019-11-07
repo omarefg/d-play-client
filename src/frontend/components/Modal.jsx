@@ -5,7 +5,7 @@ import { Button } from './Button'
 import styles from '../styles/components/Modal'
 
 export const Modal = props => {
-    const { open, onClose, title, description } = props
+    const { open, onClose, title, description, showSubmit, formID } = props
     const classes = styles()
 
     return (
@@ -34,6 +34,15 @@ export const Modal = props => {
             <DialogActions
                 className={classes.actions}
             >
+                {showSubmit && (
+                    <Button
+                        className='btn--modal'
+                        type='submit'
+                        form={formID}
+                    >
+                    Aceptar
+                    </Button>
+                )}
                 <Button
                     onClick={onClose}
                     className='btn--modal'

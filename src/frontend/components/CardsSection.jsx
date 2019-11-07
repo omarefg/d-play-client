@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useWindowDimensions } from '../hooks'
 import { Card } from './Card'
 import { CarouselChevron } from './CarouselChevron'
+import { AddIcon } from '../icons'
 
 import styles from '../styles/components/CardsSection.module.scss'
 
@@ -12,7 +13,14 @@ export const CardsSection = props => {
     const { width } = useWindowDimensions()
     const numberOfCards = Math.ceil(width / 200) - 1
 
-    const { title, cards, onClick } = props
+    const {
+        title,
+        cards,
+        onClick,
+        isForPlaylists,
+        addPlaylist,
+        isLoading,
+    } = props
     const { index, checked } = state
 
     const onMouseEnter = () => setState(state => ({ ...state, checked: true }))
@@ -43,15 +51,35 @@ export const CardsSection = props => {
                         itemWrapper: styles['cards-section__itemWrapper'],
                     }}
                 >
+                    {isLoading && [0, 1, 2, 3, 4, 5, 6, 7].map(key => {
+                        return (
+                            <Card
+                                key={key}
+                                isLoading
+                            />
+                        )
+                    })}
+
+                    {isForPlaylists && (
+                        <div className={styles['cards-section__add-playlist-container']}>
+                            <AddIcon
+                                className='icon__container--add-playlist-control'
+                                onClick={addPlaylist}
+                            />
+                            <p>Nueva lista</p>
+                        </div>
+                    )}
                     {cards.map(card => {
-                        const artist = card.artists ? card.artists[0].name : card.name
+                        const title = card.name
+                        const artist = card.artists ? card.artists[0].name : title
                         const album = card.artists ? card.name : ''
+                        const image = card.images ? card.images[0].url : card.image
 
                         return (
                             <Card
                                 key={card.id}
-                                src={card.images[0].url}
-                                title={card.name}
+                                src={image}
+                                title={title}
                                 artist={artist}
                                 album={album}
                                 onClick={() => onClick(card)}

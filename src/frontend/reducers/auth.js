@@ -4,6 +4,7 @@ import {
     SET_AUTH_IS_LOADING,
     SET_USER_IS_JUST_REGISTERED,
     SIGN_IN_USER,
+    UPDATE_USER,
 } from '../actions/types'
 
 const initialState = {
@@ -55,6 +56,15 @@ const user = (state = initialState, action) => {
         return {
             ...state,
             userIsJustRegistered: action.payload.userIsJustRegistered,
+        }
+    }
+    case UPDATE_USER: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload.user,
+            },
         }
     }
     default: {

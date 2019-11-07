@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
-    setGenresPlaylistsRequest,
+    setMainGenresPlaylistsRequest,
     setPlayerGroupFromAlbum,
     setPlayerGroupFromPlaylist,
 } from '../actions'
@@ -9,13 +9,13 @@ import { MainLayout, RedirectBoundary, CardsSection } from '../components'
 
 const mapStateToProps = state => {
     return {
-        ...state.genres,
+        ...state.main,
         user: state.auth.user,
     }
 }
 
 const mapDispatchToProps = {
-    setGenresPlaylistsRequest,
+    setMainGenresPlaylistsRequest,
     setPlayerGroupFromAlbum,
     setPlayerGroupFromPlaylist,
 }
@@ -24,15 +24,17 @@ export const Genres = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
         location,
         user,
-        genresPlaylists,
-        setGenresPlaylistsRequest,
+        genres,
+        setMainGenresPlaylistsRequest,
         setPlayerGroupFromAlbum,
         setPlayerGroupFromPlaylist,
     } = props
 
+    const { genresPlaylists, isLoading } = genres
+
     useEffect(() => {
         if (user && !genresPlaylists.length) {
-            setGenresPlaylistsRequest({ country: user.country, offset: 0 })
+            setMainGenresPlaylistsRequest({ country: user.country, offset: 0, limit: 2 })
         }
     }, [])
 
@@ -46,6 +48,8 @@ export const Genres = connect(mapStateToProps, mapDispatchToProps)(props => {
         <RedirectBoundary>
             <MainLayout
                 pathname={location.pathname}
+                isLoading={isLoading}
+                loadingRows={[0, 1]}
             >
                 {genresPlaylists.map(section => {
                     return (

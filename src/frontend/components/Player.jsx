@@ -6,6 +6,8 @@ import {
     setPlayerIsPlaying,
     setPlayerTrackTimePosition,
     setPlayerVolume,
+    setMainMyListsRequest,
+    setSongIsInFavorites,
 } from '../actions'
 import { PlayerArtistInfo } from './PlayerArtistInfo'
 import { PlayerMenu } from './PlayerMenu'
@@ -17,6 +19,7 @@ import styles from '../styles/components/Player.module.scss'
 const mapStateToProps = state => {
     return {
         ...state.player,
+        user: state.auth.user,
     }
 }
 
@@ -26,6 +29,8 @@ const mapDispatchToProps = {
     setPlayerIsPlaying,
     setPlayerTrackTimePosition,
     setPlayerVolume,
+    setMainMyListsRequest,
+    setSongIsInFavorites,
 }
 
 export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
@@ -42,11 +47,26 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
         setPlayerTrackTimePosition,
         playerVolume,
         setPlayerVolume,
+        setMainMyListsRequest,
+        setSongIsInFavorites,
+        songIsInFavorites,
+        user,
     } = props
 
     const track = playerGroup.items[playerTrackIndex] || { preview_url: null, artists: [{ name: null }] }
     const { preview_url: src } = track
     const { name } = playerGroup
+
+    const songIsInFavoritesHandler = lists => {
+        const { id } = track
+        const listsToUse = lists || user.lists
+        const favorites = listsToUse.find(l => l.name === 'Favoritas')
+        let song = null
+        if (favorites) {
+            song = favorites.items.find(f => f.id === id)
+        }
+        return song
+    }
 
     useEffect(() => {
         const { current } = musicPlayer
@@ -60,6 +80,7 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
             current.play()
             setPlayerTrackTimePosition({ trackTimePosition: 0 })
         }
+        setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler() })
     }, [src])
 
     useEffect(() => {
@@ -78,7 +99,7 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
     }, [name])
 
     const nextTrackHandler = () => {
-        if (playerTrackIndex < playerGroup.total - 1) {
+        if (playerTrackIndex < playerGroup.total - 1 || playerTrackIndex < playerGroup.items.length - 1) {
             setPlayerTrackIndex({ playerTrackIndex: playerTrackIndex + 1 })
         }
     }
@@ -149,6 +170,26 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
         }
     }
 
+    const toggleSongInFavorites = () => {
+        const favorites = user.lists.find(l => l.name === 'Favoritas')
+        if (favorites) {
+            const song = favorites.items.find(f => f.id === track.id)
+            if (song) {
+                favorites.items = favorites.items.filter(f => f.id !== track.id)
+            } else {
+                favorites.items.push(track)
+            }
+        }
+        const nonFavorites = user.lists.filter(l => l.name !== 'Favoritas')
+        const lists = [favorites, ...nonFavorites]
+        const payload = {
+            id: user._id,
+            lists,
+        }
+        setMainMyListsRequest(payload, false)
+        setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler(lists) })
+    }
+
     return (
         <div
             className={styles['player__container']}
@@ -177,18 +218,21 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
                     artist={track.artists[0].name}
                     name={track.name}
                     album={playerGroup.name}
-                    img={playerGroup.images[0].url}
+                    img={playerGroup.images ? playerGroup.images[0].url : playerGroup.image}
                 />
                 <PlayerMenu
                     nextHandler={nextTrackHandler}
                     prevHandler={prevTrackHandler}
                     playPauseHandler={playPauseHandler}
-                    track={track.name}
+                    trackName={track.name}
                     audio={src}
                     isPlaying={playerIsPlaying}
                     volume={playerVolume}
                     volumeHandler={volumeHandler}
                     volumeClickHandler={volumeIconclickHandler}
+                    toggleSongInFavorites={toggleSongInFavorites}
+                    songIsInFavorites={songIsInFavorites}
+                    track={track}
                 />
             </div>
         </div>

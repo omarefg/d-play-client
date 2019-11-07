@@ -32,3 +32,12 @@
         transform: rotateY(180deg) scale(1.1);
     }
 }
+
+.icon__container--add-playlist-control {
+    font-size: 7em;
+    cursor: pointer;
+}
+
+.icon__container--is-filled {
+    fill: $d-third-color
+}

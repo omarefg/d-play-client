@@ -6,6 +6,7 @@ import {
     DELETE_PLAYER_ERROR_MESSAGE,
     SET_PLAYER_IS_PLAYING,
     SET_PLAYER_VOLUME,
+    SET_SONG_IS_IN_FAVORITES,
 } from '../actions/types'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
     isLoading: false,
     playerIsPlaying: false,
     playerVolume: 100,
+    songIsInFavorites: null,
 }
 
 const main = (state = initialState, action) => {
@@ -68,6 +70,12 @@ const main = (state = initialState, action) => {
         return {
             ...state,
             playerVolume: action.payload.playerVolume,
+        }
+    }
+    case SET_SONG_IS_IN_FAVORITES: {
+        return {
+            ...state,
+            songIsInFavorites: action.payload.songIsInFavorites,
         }
     }
     default: {

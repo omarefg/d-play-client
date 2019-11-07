@@ -12,6 +12,7 @@ export const Button = props => {
         onClick,
         className,
         disabled,
+        form,
     } = props
 
     const cx = classNames.bind(styles)
@@ -27,6 +28,7 @@ export const Button = props => {
             onClick={onClick}
             className={btn}
             disabled={disabled}
+            form={form}
         >
             {children}
         </button>

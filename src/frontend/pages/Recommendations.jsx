@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
-    setRecommendationPageDataRequest,
+    setMainRecommendationPageDataRequest,
     setPlayerGroupFromAlbum,
     setPlayerGroupFromPlaylist,
 } from '../actions'
@@ -15,25 +15,26 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    setRecommendationPageDataRequest,
+    setMainRecommendationPageDataRequest,
     setPlayerGroupFromAlbum,
     setPlayerGroupFromPlaylist,
 }
 
 export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
-        setRecommendationPageDataRequest,
+        setMainRecommendationPageDataRequest,
         setPlayerGroupFromAlbum,
         setPlayerGroupFromPlaylist,
         user,
-        newReleases,
-        featuredPlaylists,
+        recommendations,
         location,
     } = props
 
+    const { newReleases, featuredPlaylists, isLoading } = recommendations
+
     useEffect(() => {
         if (user) {
-            setRecommendationPageDataRequest({ country: user.country })
+            setMainRecommendationPageDataRequest({ country: user.country })
         }
     }, [])
 
@@ -47,6 +48,8 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
         <RedirectBoundary>
             <MainLayout
                 pathname={location.pathname}
+                isLoading={isLoading}
+                loadingRows={[0, 1]}
             >
                 <CardsSection
                     title='Nuevos lanzamientos'

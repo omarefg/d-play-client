@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
     PlayIcon,
     RepeatIcon,
@@ -7,28 +8,92 @@ import {
     LikeIcon,
     PauseIcon,
     SadFaceIcon,
+    FilledLikeIcon,
+    AddToPlaylistIcon,
 } from '../icons'
+import { setMainMyListsRequest } from '../actions'
 import { VolumeSlider } from './VolumeSlider'
+import { SelectableMenu } from './SelectableMenu'
 
 import styles from '../styles/components/PlayerMenu.module.scss'
 
-export const PlayerMenu = props => {
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user,
+    }
+}
+
+const mapDispatchToProps = {
+    setMainMyListsRequest,
+}
+
+export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => {
+    const [anchorEl, setAnchorEl] = useState(null)
+
     const {
         nextHandler,
         prevHandler,
         playPauseHandler,
-        track,
+        trackName,
         audio,
         isPlaying,
         volume,
         volumeHandler,
         volumeClickHandler,
+        toggleSongInFavorites,
+        songIsInFavorites,
+        user,
+        setMainMyListsRequest,
+        track,
     } = props
+
+    const closeSelectableMenu = () => setAnchorEl(null)
+
+    const openSelectableMenu = event => setAnchorEl(event.target)
+
+    const addToPlaylist = index => {
+        const listsBeforeUpdate = [...user.lists]
+        const list = listsBeforeUpdate[index]
+        const song = list.items.find(f => f.id === track.id)
+        if (song) {
+            list.items = list.items.filter(f => f.id !== track.id)
+        } else {
+            list.items.push(track)
+        }
+        listsBeforeUpdate[index] = list
+        const payload = {
+            id: user._id,
+            lists: listsBeforeUpdate,
+        }
+        setMainMyListsRequest(payload, false)
+        closeSelectableMenu()
+    }
 
     return (
         <div className={styles['player-menu__container']}>
-            <LikeIcon
-                className='icon__container--player-menu'
+            {songIsInFavorites ? (
+                <FilledLikeIcon
+                    className='icon__container--player-menu'
+                    onClick={toggleSongInFavorites}
+                />
+            ) : (
+                <LikeIcon
+                    className='icon__container--player-menu'
+                    onClick={toggleSongInFavorites}
+                />
+            )}
+            {user.lists.length && (
+                <AddToPlaylistIcon
+                    className='icon__container--player-menu'
+                    onClick={openSelectableMenu}
+                />
+            )}
+            <SelectableMenu
+                items={user.lists.filter(l => l.name !== 'Favoritas')}
+                anchorEl={anchorEl}
+                id='player-menu__selectable--menu'
+                onClose={closeSelectableMenu}
+                onItemClick={addToPlaylist}
             />
             <RandomIcon
                 className='icon__container--player-menu'
@@ -38,7 +103,7 @@ export const PlayerMenu = props => {
                 onClick={prevHandler}
             />
             {!isPlaying ?
-                ((!track && !audio) || (track && audio)) ? (
+                ((!trackName && !audio) || (trackName && audio)) ? (
                     <PlayIcon
                         className='icon__container--player-menu-play'
                         onClick={playPauseHandler}
@@ -67,4 +132,4 @@ export const PlayerMenu = props => {
             />
         </div>
     )
-}
+})

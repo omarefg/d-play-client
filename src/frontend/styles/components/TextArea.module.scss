@@ -1,0 +1,57 @@
+@import '../lib/Vars.scss';
+
+@mixin text-area-label-collected {
+    font-size: 12px;
+    top: -17px;
+    left: 10px;
+    transition: .3s;
+    color: $d-primary-color;
+    background-color: transparent;
+}
+
+.text-area__container {
+    display: inline-block;
+    position: relative;
+    width: 90%;
+    margin: 5px 0;
+    flex: 1;
+}
+
+.text-area__text {
+    background-color: #3a3a3a;
+    height: calc(100% - 10px);
+    padding: 8px;
+    resize: none;
+    font-family: $d-font-family;
+    border: none;
+    margin: 0 10px;
+    outline: none;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .1px;
+    width: calc(100% - 26px);
+    &::placeholder {
+        color: white;
+    }
+
+    &:focus ~ .text-area__label {
+        @include text-area-label-collected;
+    }
+}
+
+.text-area__label {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 10px;
+    left: 16px;
+    cursor: text;
+    transition: .3s;
+    letter-spacing: .2px;
+}
+
+.text-area__label--collected {
+    @include text-area-label-collected;
+    transition: 0;
+}

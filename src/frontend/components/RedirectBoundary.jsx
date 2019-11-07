@@ -8,11 +8,19 @@ const mapStateToProps = state => {
     }
 }
 
-export const RedirectBoundary = connect(mapStateToProps)(({ children, user }) => {
-    if (!user) {
+export const RedirectBoundary = connect(mapStateToProps)(({ children, user, inverse }) => {
+    if (!inverse && !user) {
         return (
             <Redirect
                 to='/inicia-sesion'
+            />
+        )
+    }
+
+    if (inverse && user) {
+        return (
+            <Redirect
+                to='/recomendaciones'
             />
         )
     }

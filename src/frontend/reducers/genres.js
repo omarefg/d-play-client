@@ -6,7 +6,7 @@ import {
 } from '../actions/types'
 
 const initialState = {
-    genresPlaylists: { items: [] },
+    genresPlaylists: [],
     genresPlaylistsIndex: 0,
     error: '',
     isLoading: false,
@@ -23,7 +23,7 @@ const genres = (state = initialState, action) => {
         }
         return {
             ...state,
-            genresPlaylists: action.payload.genresPlaylists,
+            genresPlaylists: action.payload.genresPlaylists.filter(playlist => playlist.items.length),
         }
     }
     case SET_GENRES_PLAYLISTS_INDEX: {

@@ -1,0 +1,43 @@
+@import '../lib/Vars.scss';
+
+.song-details {
+    width: 50%;
+}
+
+.song-details a {
+
+    justify-content: space-around;
+}
+
+.song-details p {
+    display: inline;
+    justify-content: space-around;
+
+}
+
+.artist--top-song-title {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    color: #D7D7D7;
+}
+
+.artist--top-song-title-buttons-container button {
+    background: none;
+    border: none;
+}
+
+.artist--top-song-details {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+}
+
+
+.artist--top-song-details-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+}

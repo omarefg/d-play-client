@@ -26,10 +26,11 @@ export const categories = app => {
 
     router.get('/:id/playlists', async (req, res, next) => {
         const { id } = req.params
+        const { country } = req.query
         const { token } = req.cookies
         try {
             const { data: { data }, status } = await axios({
-                url: `${apiUrl}/api/categories/${id}/playlists`,
+                url: `${apiUrl}/api/categories/${id}/playlists?country=${country}`,
                 headers: { Authorization: `Bearer ${token}` },
                 method: 'get',
             })

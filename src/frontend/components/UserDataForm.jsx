@@ -1,5 +1,6 @@
 import React from 'react'
 import TextInput from './TextInput'
+import { Button } from './Button'
 
 import styles from '../styles/components/UserDataForm.module.scss'
 
@@ -21,7 +22,9 @@ export const UserDataForm = () => (
             <input className={styles['input']} type='password' placeholder='&#9919;  Nueva Contraseña' required/>
             <input className={styles['input']} type='password' placeholder='&#9919;  Confirmación Contraseña' required/>
             <div className='btn__form'>
-                <input className={styles['btn__submit']} type='submit' value='Guardar cambios'/>
+                <Button className={styles['btn__submit']}>
+                    Guardar Cambios
+                </Button>
             </div>
         </form>
     </div>

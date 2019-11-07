@@ -1,11 +1,13 @@
 import React from 'react'
-import { Header, Search, CardsSection, ListItem, Player } from '../components'
-import styles from '../styles/components/Artist.module.scss'
+import { Header, CardArtist, Song, Player, CardsSection, Card } from '../components'
 
-const Artist = () => (
+export const Artist = props => (
     <div>
-        
+        <Header/>
+        <CardArtist/>
+        <Song/>
+        <CardsSection/>
+        <Card/>
+        <Player/>
     </div>
-);
-
-export default Artist
+)

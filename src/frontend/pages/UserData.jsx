@@ -5,6 +5,7 @@ import { Header, Button, Footer, UserDataForm } from '../components'
 import styles from '../styles/pages/UserData.module.scss'
 
 export const UserData = () => {
+
     return (
         <div className={styles['user--data-container']}>
             <Header/>

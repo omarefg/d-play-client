@@ -5,6 +5,7 @@ import {
     MyLists,
     Genres,
     UserData,
+    Artist,
 } from '../pages'
 
 export const serverRoutes = [
@@ -36,6 +37,11 @@ export const serverRoutes = [
     {
         path: '/perfil-usuario',
         component: UserData,
+        exact: true,
+    },
+    {
+        path: '/artista',
+        component: Artist,
         exact: true,
     },
 ]

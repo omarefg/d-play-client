@@ -28,6 +28,7 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
         user,
         recommendations,
         location,
+        history,
     } = props
 
     const { newReleases, featuredPlaylists, isLoading } = recommendations
@@ -47,9 +48,10 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
     return (
         <RedirectBoundary>
             <MainLayout
-                pathname={location.pathname}
+                location={location}
                 isLoading={isLoading}
                 loadingRows={[0, 1]}
+                history={history}
             >
                 <CardsSection
                     title='Nuevos lanzamientos'

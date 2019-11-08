@@ -13,6 +13,9 @@ import {
     SET_MAIN_PLAYLIST_FORM_INPUT_VALUE,
     SET_MAIN_PLAYLIST_FORM_TEXT_AREA_VALUE,
     SET_MAIN_PLAYLIST_FORM_IMG_SRC,
+    SET_MAIN_SEARCH_VALUE,
+    SET_MAIN_SEARCH_RESULTS,
+    SET_MAIN_SEARCH_IS_LOADING,
 } from './types'
 import { signInUser, updateUser } from './auth'
 import { errorDispatcher } from '../utils/error-handler'
@@ -27,6 +30,10 @@ export const setMainGenresIsLoading = payload => ({
 })
 export const setMainMyListsIsLoading = payload => ({
     type: SET_MAIN_MY_LISTS_IS_LOADING,
+    payload,
+})
+export const setMainSearchIsLoading = payload => ({
+    type: SET_MAIN_SEARCH_IS_LOADING,
     payload,
 })
 export const setMainErrorMessage = payload => ({
@@ -60,6 +67,14 @@ export const setMainPlaylistFormTextAreaValue = payload => ({
 })
 export const setMainPlaylistFormImgSrc = payload => ({
     type: SET_MAIN_PLAYLIST_FORM_IMG_SRC,
+    payload,
+})
+export const setMainSearchValue = payload => ({
+    type: SET_MAIN_SEARCH_VALUE,
+    payload,
+})
+export const setMainSearchResults = payload => ({
+    type: SET_MAIN_SEARCH_RESULTS,
     payload,
 })
 
@@ -112,4 +127,17 @@ export const setMainMyListsRequest = ({ id, ...payload }, setLoading = true) => 
         errorDispatcher(error, unauthorizedErrorCalback, errorHandler)
     }
     setLoading && dispatch(setMainMyListsIsLoading({ isLoading: false }))
+}
+
+export const setMainSearchResultsRequest = ({ query }, setLoading = true) => async dispatch => {
+    setLoading && dispatch(setMainSearchIsLoading({ isLoading: true }))
+    try {
+        const { data: searchResults } = await axios.get(`server/search?q=${query}`)
+        dispatch(setMainSearchResults({ searchResults }))
+    } catch (error) {
+        const unauthorizedErrorCalback = _err => dispatch(signInUser(null))
+        const errorHandler = error => dispatch(setMainErrorMessage(error))
+        errorDispatcher(error, unauthorizedErrorCalback, errorHandler)
+    }
+    setLoading && dispatch(setMainSearchIsLoading({ isLoading: false }))
 }

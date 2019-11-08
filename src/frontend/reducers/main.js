@@ -10,6 +10,9 @@ import {
     SET_MAIN_PLAYLIST_FORM_INPUT_VALUE,
     SET_MAIN_PLAYLIST_FORM_TEXT_AREA_VALUE,
     SET_MAIN_PLAYLIST_FORM_IMG_SRC,
+    SET_MAIN_SEARCH_VALUE,
+    SET_MAIN_SEARCH_RESULTS,
+    SET_MAIN_SEARCH_IS_LOADING,
 } from '../actions/types'
 
 const initialState = {
@@ -28,6 +31,11 @@ const initialState = {
         creatingListTextInputValue: '',
         creatingListTextAreaValue: '',
         creatingListImageSrc: null,
+        isLoading: false,
+    },
+    search: {
+        searchValue: '',
+        searchResults: {},
         isLoading: false,
     },
     error: '',
@@ -129,6 +137,33 @@ const main = (state = initialState, action) => {
             myLists: {
                 ...state.myLists,
                 creatingListImageSrc: action.payload.creatingListImageSrc,
+            },
+        }
+    }
+    case SET_MAIN_SEARCH_VALUE: {
+        return {
+            ...state,
+            search: {
+                ...state.search,
+                searchValue: action.payload.searchValue,
+            },
+        }
+    }
+    case SET_MAIN_SEARCH_IS_LOADING: {
+        return {
+            ...state,
+            search: {
+                ...state.search,
+                isLoading: action.payload.isLoading,
+            },
+        }
+    }
+    case SET_MAIN_SEARCH_RESULTS: {
+        return {
+            ...state,
+            search: {
+                ...state.search,
+                searchResults: action.payload.searchResults,
             },
         }
     }

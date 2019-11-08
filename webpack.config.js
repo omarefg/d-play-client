@@ -123,7 +123,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|gif|jpg|jpeg|webp|ttf|eot|woff)$/,
+                test: /\.(png|gif|jpg|jpeg|webp|ttf|eot|woff|svg)$/,
                 use: [
                     {
                         loader: 'file-loader',

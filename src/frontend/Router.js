@@ -5,7 +5,7 @@ import { serverRoutes } from './routes'
 
 const mapStateToProps = state => {
     return {
-        auth: { ...state.auth },
+        auth: state.auth,
     }
 }
 

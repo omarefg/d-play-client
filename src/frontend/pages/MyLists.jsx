@@ -46,6 +46,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
         setMainMyListsRequest,
         setPlayerGroup,
         setMainErrorMessage,
+        history,
     } = props
 
     const {
@@ -130,7 +131,8 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
                 formID='my-lists--playlists__form-modal'
             />
             <MainLayout
-                pathname={location.pathname}
+                location={location}
+                history={history}
             >
                 <CardsSection
                     title='Mis listas'

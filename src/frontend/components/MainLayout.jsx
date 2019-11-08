@@ -26,10 +26,13 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
         error,
         setMainErrorMessage,
         children,
-        pathname,
+        location,
         isLoading,
         loadingRows,
+        history,
     } = props
+
+    const { pathname } = location
     const closeSnackbarHandler = (_event, reason) => {
         if (reason === 'clickaway') {
             return
@@ -47,7 +50,10 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
                 open={!!error}
             />
             <Header>
-                <Search/>
+                <Search
+                    history={history}
+                    pathname={pathname}
+                />
                 <div className={styles['main-layout__flex-grow']}/>
                 <ul>
                     <ListItem

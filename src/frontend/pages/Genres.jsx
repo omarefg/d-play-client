@@ -22,13 +22,11 @@ const mapDispatchToProps = {
 
 export const Genres = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
-        location,
         user,
         genres,
         setMainGenresPlaylistsRequest,
         setPlayerGroupFromAlbum,
         setPlayerGroupFromPlaylist,
-        history,
     } = props
 
     const { genresPlaylists, isLoading } = genres
@@ -48,10 +46,8 @@ export const Genres = connect(mapStateToProps, mapDispatchToProps)(props => {
     return (
         <RedirectBoundary>
             <MainLayout
-                location={location}
                 isLoading={isLoading}
                 loadingRows={[0, 1]}
-                history={history}
             >
                 {genresPlaylists.map(section => {
                     return (

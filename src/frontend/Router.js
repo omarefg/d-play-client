@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { serverRoutes } from './routes'
+import { Player, Header } from './components'
 
 const mapStateToProps = state => {
     return {
@@ -14,6 +15,7 @@ const App = connect(mapStateToProps)(({ auth }) => {
 
     return (
         <BrowserRouter>
+            <Header/>
             <Switch>
                 {serverRoutes.map(({ path, component, exact }) => {
                     return (
@@ -31,6 +33,7 @@ const App = connect(mapStateToProps)(({ auth }) => {
                     exact
                 />
             </Switch>
+            <Player/>
         </BrowserRouter>
     )
 })

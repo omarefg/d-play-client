@@ -37,7 +37,6 @@ const mapDispatchToProps = {
 export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
         user,
-        location,
         setMainIsCreatingPlaylist,
         myLists,
         setMainPlaylistFormInputValue,
@@ -46,7 +45,6 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
         setMainMyListsRequest,
         setPlayerGroup,
         setMainErrorMessage,
-        history,
     } = props
 
     const {
@@ -130,10 +128,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
                 onClose={closePlaylistModal}
                 formID='my-lists--playlists__form-modal'
             />
-            <MainLayout
-                location={location}
-                history={history}
-            >
+            <MainLayout>
                 <CardsSection
                     title='Mis listas'
                     onClick={cardClickHandler}

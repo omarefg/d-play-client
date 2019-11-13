@@ -74,10 +74,11 @@ export const CardsSection = props => {
                         const artist = card.artists ? card.artists[0].name : title
                         const album = card.artists ? card.name : ''
                         const image = card.images ? card.images[0].url : card.image
+                        const key = card.id || card.name
 
                         return (
                             <Card
-                                key={card.id}
+                                key={key}
                                 src={image}
                                 title={title}
                                 artist={artist}

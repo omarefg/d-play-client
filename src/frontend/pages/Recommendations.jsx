@@ -27,8 +27,6 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
         setPlayerGroupFromPlaylist,
         user,
         recommendations,
-        location,
-        history,
     } = props
 
     const { newReleases, featuredPlaylists, isLoading } = recommendations
@@ -48,10 +46,8 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
     return (
         <RedirectBoundary>
             <MainLayout
-                location={location}
                 isLoading={isLoading}
                 loadingRows={[0, 1]}
-                history={history}
             >
                 <CardsSection
                     title='Nuevos lanzamientos'

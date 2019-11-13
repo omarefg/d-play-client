@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import {
     setPlayerTrackIndex,
     deletePlayerErrorMessage,
@@ -33,7 +34,7 @@ const mapDispatchToProps = {
     setSongIsInFavorites,
 }
 
-export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
+export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(props => {
     const musicPlayer = useRef(null)
     const {
         playerGroup,
@@ -69,32 +70,36 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
     }
 
     useEffect(() => {
-        const { current } = musicPlayer
-        if (!src && current) {
-            current.pause()
-            setPlayerIsPlaying({ playerIsPlaying: false })
-            setPlayerTrackTimePosition({ trackTimePosition: 0 })
-            return
+        if (user) {
+            const { current } = musicPlayer
+            if (!src && current) {
+                current.pause()
+                setPlayerIsPlaying({ playerIsPlaying: false })
+                setPlayerTrackTimePosition({ trackTimePosition: 0 })
+                return
+            }
+            if (current && playerIsPlaying) {
+                current.play()
+                setPlayerTrackTimePosition({ trackTimePosition: 0 })
+            }
+            setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler() })
         }
-        if (current && playerIsPlaying) {
-            current.play()
-            setPlayerTrackTimePosition({ trackTimePosition: 0 })
-        }
-        setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler() })
     }, [src])
 
     useEffect(() => {
-        const { current } = musicPlayer
-        if (current) {
-            if (src) {
-                current.play()
-                setPlayerIsPlaying({ playerIsPlaying: true })
-            } else {
-                current.pause()
-                setPlayerIsPlaying({ playerIsPlaying: false })
+        if (user) {
+            const { current } = musicPlayer
+            if (current) {
+                if (src) {
+                    current.play()
+                    setPlayerIsPlaying({ playerIsPlaying: true })
+                } else {
+                    current.pause()
+                    setPlayerIsPlaying({ playerIsPlaying: false })
+                }
+                current.currentTime = 0
+                setPlayerTrackTimePosition({ trackTimePosition: 0 })
             }
-            current.currentTime = 0
-            setPlayerTrackTimePosition({ trackTimePosition: 0 })
         }
     }, [name])
 
@@ -190,51 +195,56 @@ export const Player = connect(mapStateToProps, mapDispatchToProps)(props => {
         setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler(lists) })
     }
 
-    return (
-        <div
-            className={styles['player__container']}
-        >
-            <SnackbarNotification
-                variant='error'
-                message={error}
-                onClose={closeSnackbarHandler}
-                open={!!error}
-            />
-            <audio
-                hidden
-                ref={musicPlayer}
-                src={src}
-                onTimeUpdate={updateSliderBar}
-                onEnded={audioEndedHandler}
-            />
-            <ProgressBar
-                value={trackTimePosition}
-                onChange={sliderChangeHandler}
-            />
+    if (user) {
+        return (
             <div
-                className={styles['player__menu-container']}
+                className={styles['player__container']}
             >
-                <PlayerArtistInfo
-                    artist={track.artists[0].name}
-                    name={track.name}
-                    album={playerGroup.name}
-                    img={playerGroup.images ? playerGroup.images[0].url : playerGroup.image}
+                <SnackbarNotification
+                    variant='error'
+                    message={error}
+                    onClose={closeSnackbarHandler}
+                    open={!!error}
                 />
-                <PlayerMenu
-                    nextHandler={nextTrackHandler}
-                    prevHandler={prevTrackHandler}
-                    playPauseHandler={playPauseHandler}
-                    trackName={track.name}
-                    audio={src}
-                    isPlaying={playerIsPlaying}
-                    volume={playerVolume}
-                    volumeHandler={volumeHandler}
-                    volumeClickHandler={volumeIconclickHandler}
-                    toggleSongInFavorites={toggleSongInFavorites}
-                    songIsInFavorites={songIsInFavorites}
-                    track={track}
+                <audio
+                    hidden
+                    ref={musicPlayer}
+                    src={src}
+                    onTimeUpdate={updateSliderBar}
+                    onEnded={audioEndedHandler}
                 />
+                <ProgressBar
+                    value={trackTimePosition}
+                    onChange={sliderChangeHandler}
+                />
+                <div
+                    className={styles['player__menu-container']}
+                >
+                    <PlayerArtistInfo
+                        artist={track.artists[0].name}
+                        name={track.name}
+                        album={playerGroup.name}
+                        img={playerGroup.images ? playerGroup.images[0].url : playerGroup.image}
+                    />
+                    <PlayerMenu
+                        nextHandler={nextTrackHandler}
+                        prevHandler={prevTrackHandler}
+                        playPauseHandler={playPauseHandler}
+                        trackName={track.name}
+                        audio={src}
+                        isPlaying={playerIsPlaying}
+                        volume={playerVolume}
+                        volumeHandler={volumeHandler}
+                        volumeClickHandler={volumeIconclickHandler}
+                        toggleSongInFavorites={toggleSongInFavorites}
+                        songIsInFavorites={songIsInFavorites}
+                        track={track}
+                    />
+                </div>
             </div>
-        </div>
-    )
-})
+        )
+    }
+
+    return null
+
+}))

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setMainSearchValue, setMainSearchResultsRequest } from '../actions'
 import { SearchIcon } from '../icons'
@@ -17,30 +18,25 @@ const mapDispatchToProps = {
     setMainSearchResultsRequest,
 }
 
-export const Search = connect(mapStateToProps, mapDispatchToProps)(props => {
+export const Search = withRouter(connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
         history,
         search,
         setMainSearchValue,
-        pathname,
+        location,
         setMainSearchResultsRequest,
     } = props
+
+    const { pathname } = location
 
     const { searchValue } = search
     const { push } = history
 
-    const searchInput = useRef(null)
-
     const [lastValue, setLastValue] = useState('')
 
     useEffect(() => {
-        const { current } = searchInput
-        if (pathname === '/buscar' && current) {
-            current.focus()
-            return
-        }
         setMainSearchValue({ searchValue: '' })
-    }, [])
+    }, [pathname])
 
     const onFocus = () => {
         push('/buscar')
@@ -75,10 +71,9 @@ export const Search = connect(mapStateToProps, mapDispatchToProps)(props => {
                 value={searchValue}
                 onChange={onChange}
                 onFocus={onFocus}
-                ref={searchInput}
                 onBlur={onBlur}
                 onKeyPress={onKeyPress}
             />
         </div>
     )
-})
+}))

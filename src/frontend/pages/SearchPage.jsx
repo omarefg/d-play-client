@@ -22,9 +22,7 @@ const mapDispatchToProps = {
 
 export const SearchPage = connect(mapStateToProps, mapDispatchToProps)(props => {
     const {
-        location,
         search,
-        history,
     } = props
 
     const { isLoading, searchResults } = search
@@ -33,10 +31,8 @@ export const SearchPage = connect(mapStateToProps, mapDispatchToProps)(props => 
     return (
         <RedirectBoundary>
             <MainLayout
-                location={location}
                 isLoading={isLoading}
                 loadingRows={[0, 1]}
-                history={history}
             >
                 {albums && Object.keys(albums).length && albums.items.length && (
                     <CardsSection

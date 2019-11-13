@@ -2,11 +2,12 @@
 
 .cards-section__container {
     padding: 0 30px;
-    margin: 70px 0;
+    margin: 50px 0;
 
     h3 {
-        color: white;
+        color: $d-fourth-color;
         font-family: $d-font-family;
+        font-size: 1.6em;
     }
 
     .cards-section__itemsInnerWrapper {
@@ -26,7 +27,7 @@
         -webkit-flex-shrink: 0;
         -ms-flex-negative: 0;
         flex-shrink: 0;
-        margin-right: 6px;
+        margin-right: 24px;
         margin-left: 0px;
     }
 
@@ -48,7 +49,6 @@
             margin: 10px;
             font-size: 0.8em;
             width: 70%;
-        }
+        }     
     }
-
 }

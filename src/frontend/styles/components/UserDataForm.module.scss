@@ -18,7 +18,7 @@
 .form__title h2, h3 {
 	font-family: $d-font-family;	
 	font-weight: bold;
-	color: $s-fourth-color;
+	color: $d-fourth-color;
 	font-size: 18px;
 }
 
@@ -53,7 +53,7 @@
 	border-bottom: solid .2rem $d-primary-color;
 	border-radius: 10px;
 	background-color: $d-secondary-color;
-	color: $s-fourth-color;
+	color: $d-fourth-color;
 	display: block;
 	margin: 10px auto;
 }

@@ -9,7 +9,7 @@ export const Song = props => {
             <div className={styles['artist--top-song-title']}>
                 <h1>Canciones mas escuchadas de ARTISTA</h1>
                 <div className={styles['artist--top-song-title-buttons-container']}>
-                    <button>
+                    <button type='submit'>
                         <img src={photo} alt='add'/>
                     </button>
                     <button>

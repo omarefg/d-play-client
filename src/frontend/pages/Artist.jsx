@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, CardArtist, Song, Player, CardsSection, Card } from '../components'
+import { Header, CardArtist, Song, Player, CardsSection } from '../components'
 
 export const Artist = props => (
     <div>
@@ -7,7 +7,6 @@ export const Artist = props => (
         <CardArtist/>
         <Song/>
         <CardsSection/>
-        <Card/>
         <Player/>
     </div>
 )

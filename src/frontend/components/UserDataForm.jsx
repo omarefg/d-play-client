@@ -13,19 +13,19 @@ export const UserDataForm = () => (
 
             <TextInput
                 className={styles['input']}
-                placeholder='&#128100; Nombre'
+                placeholder='Nombre'
                 required
             />
             <TextInput
                 className={styles['input']}
-                placeholder='&#128100; Apellido'
+                placeholder='Apellido'
                 required
             />
 
             <TextInput
                 className={styles['input']}
                 type='email'
-                placeholder='&#9993;  E-mail'
+                placeholder='E-mail'
                 required
             />
 
@@ -35,19 +35,19 @@ export const UserDataForm = () => (
             <TextInput
                 className={styles['input']}
                 type='password'
-                placeholder='&#9919;  Contraseña Actual'
+                placeholder='Contraseña Actual'
                 required
             />
             <TextInput
                 className={styles['input']}
                 type='password'
-                placeholder='&#9919;  Nueva Contraseña'
+                placeholder='Nueva Contraseña'
                 required
             />
             <TextInput
                 className={styles['input']}
                 type='password'
-                placeholder='&#9919;  Confirmación Contraseña'
+                placeholder='Confirmamos tu nueva Contraseña'
                 required
             />
             <div className='btn__form'>

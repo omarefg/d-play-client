@@ -50,15 +50,9 @@
 .btn__submit {
 	font-family: $d-font-family;
 	width: 35%;
-	border-bottom: solid .2rem $d-primary-color;
 	border-radius: 10px;
 	background-color: $d-secondary-color;
 	color: $d-fourth-color;
 	display: block;
 	margin: 10px auto;
-}
-
-.btn__submit:hover {
-	border-bottom: solid .2rem $d-primary-color;
-	background-color: $d-third-color;
 }

@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import classNames from 'classnames/bind'
 
 import styles from '../styles/components/TextInput.module.scss'
 
 export const TextInput = props => {
-    const [isPassword] = useState(false)
-
     const {
         id,
         placeholder,
@@ -45,7 +43,7 @@ export const TextInput = props => {
                 value={value}
                 onChange={onChange}
                 name={name}
-                type={type || isPassword ? 'password' : 'text'}
+                type={type}
                 required={required}
             />
             <label

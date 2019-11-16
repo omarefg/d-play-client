@@ -1,5 +1,5 @@
 import React from 'react'
-import { CirclePlayIcon, SquareLoaderIcon } from '../icons'
+import { CirclePlayIcon } from '../icons'
 
 import styles from '../styles/components/Card.module.scss'
 

@@ -9,10 +9,10 @@ export const Song = props => {
             <div className={styles['artist--top-song-title']}>
                 <h1>Canciones mas escuchadas de ARTISTA</h1>
                 <div className={styles['artist--top-song-title-buttons-container']}>
-                    <button type='submit'>
+                    <button type='button'>
                         <img src={photo} alt='add'/>
                     </button>
-                    <button>
+                    <button type='button'>
                         <img src={photo} alt='adds'/>
                     </button>
                 </div>
@@ -21,19 +21,19 @@ export const Song = props => {
             <div className={styles['artist--top-song-details']}>
 
                 <div className={styles['artist--top-song-details-button']}>
-                    <button>
+                    <button type='button'>
                         <img src={photo} alt='play'/>
                     </button>
-                    <button>
+                    <button type='button'>
                         <img src={photo} alt='add'/>
                     </button>
                 </div>
                 <div className={styles['artist--top-song-details-info']}>
                     <p>Razor</p>
-                    <a href=''>
+                    <a href='/'>
                         Foo Figthers
                     </a>
-                    <a href=''>
+                    <a href='/'>
                         Skin and Bones
                     </a>
                 </div>

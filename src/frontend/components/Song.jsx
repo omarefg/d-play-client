@@ -10,8 +10,11 @@ export const Song = props => {
             <div className={styles['artist--top-song-title']}>
                 <h1>Canciones mas escuchadas del ARTISTA</h1>
                 <div className={styles['artist--top-song-title-buttons-container']}>
-                    <button type='submit'>
-                        <img src={addSmall} alt='add'/>
+                    <button type='button'>
+                        <img src={photo} alt='add'/>
+                    </button>
+                    <button type='button'>
+                        <img src={addSmall} alt='adds'/>
                     </button>
                 </div>
             </div>
@@ -19,11 +22,11 @@ export const Song = props => {
             <div className={styles['artist--top-song-details']}>
 
                 <div className={styles['artist--top-song-details-button']}>
-                    <button>
-                        <img src={playSong} alt='play song'/>
+                    <button type='button'>
+                        <img src={playSong} alt='play'/>
                     </button>
-                    <button>
-                        <img src={addSmall} alt='add song'/>
+                    <button type='button'>
+                        <img src={addSmall} alt='add'/>
                     </button>
                 </div>
                 <div className={styles['artist--top-song-details-info']}>

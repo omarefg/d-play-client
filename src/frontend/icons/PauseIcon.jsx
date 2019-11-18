@@ -15,19 +15,16 @@ export const PauseIcon = props => {
 
     return (
         <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='510'
-            height='510'
             x='0'
             y='0'
-            enableBackground='new 0 0 510 510'
+            enableBackground='new 0 0 124.5 124.5'
             version='1.1'
-            viewBox='0 0 510 510'
+            viewBox='0 0 124.5 124.5'
             xmlSpace='preserve'
             className={icon}
             onClick={onClick}
         >
-            <path d='M178.5 357h51V153h-51v204zM255 0C114.75 0 0 114.75 0 255s114.75 255 255 255 255-114.75 255-255S395.25 0 255 0zm0 459c-112.2 0-204-91.8-204-204S142.8 51 255 51s204 91.8 204 204-91.8 204-204 204zm25.5-102h51V153h-51v204z'/>
+            <path d='M116.35 124.5c3.3 0 6-2.699 6-6V6c0-3.3-2.7-6-6-6h-36c-3.3 0-6 2.7-6 6v112.5c0 3.301 2.7 6 6 6h36zM44.15 124.5c3.3 0 6-2.699 6-6V6c0-3.3-2.7-6-6-6h-36c-3.3 0-6 2.7-6 6v112.5c0 3.301 2.7 6 6 6h36z'/>
         </svg>
     )
 }

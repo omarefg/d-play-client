@@ -22,7 +22,8 @@ export const auth = app => {
                 req.login(data, { session: false }, error => {
                     if (error) { return next(error) }
                     const { token, user, refreshToken } = data
-                    const cookieConfig = { httpOnly: !isDev, secure: !isDev }
+                    // const cookieConfig = { httpOnly: !isDev, secure: !isDev }
+                    const cookieConfig = { httpOnly: false, secure: !isDev }
                     res.cookie('token', token, cookieConfig)
                     res.cookie('refreshToken', refreshToken, { ...cookieConfig, maxAge: 1000 * 60 * 60 * 24 * 7 })
                     res.cookie('id', user.id, cookieConfig)

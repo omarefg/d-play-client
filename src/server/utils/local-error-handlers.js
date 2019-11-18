@@ -1,7 +1,8 @@
 const axios = require('axios')
-const { config: { apiUrl, nodeEnv } } = require('../../../config')
+// const { config: { apiUrl, nodeEnv } } = require('../../../config')
+const { config: { apiUrl } } = require('../../../config')
 
-const isDev = nodeEnv === 'development'
+// const isDev = nodeEnv === 'development'
 
 function errorTypeHandler(error) {
     if (error.response) {
@@ -20,7 +21,8 @@ async function tokenExpiredHandler(req, res, next, cb) {
             headers: { Authorization: `Bearer ${refreshToken}` },
             method: 'get',
         })
-        const cookieConfig = { httpOnly: !isDev, secure: !isDev }
+        // const cookieConfig = { httpOnly: !isDev, secure: !isDev }
+        const cookieConfig = { httpOnly: false, secure: false }
         res.cookie('token', token, cookieConfig)
         const response = await cb(token)
         return response

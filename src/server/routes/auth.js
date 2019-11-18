@@ -9,9 +9,10 @@ export const auth = app => {
     const router = express.Router()
     app.use('/server/auth', router)
 
-    const { apiUrl, nodeEnv } = config
+    // const { apiUrl, nodeEnv } = config
+    const { apiUrl } = config
 
-    const isDev = nodeEnv === 'development'
+    // const isDev = nodeEnv === 'development'
 
     router.post('/sign-in', (req, res, next) => {
         passport.authenticate('basic', (error, data) => {
@@ -23,7 +24,7 @@ export const auth = app => {
                     if (error) { return next(error) }
                     const { token, user, refreshToken } = data
                     // const cookieConfig = { httpOnly: !isDev, secure: !isDev }
-                    const cookieConfig = { httpOnly: false, secure: !isDev }
+                    const cookieConfig = { httpOnly: false, secure: false }
                     res.cookie('token', token, cookieConfig)
                     res.cookie('refreshToken', refreshToken, { ...cookieConfig, maxAge: 1000 * 60 * 60 * 24 * 7 })
                     res.cookie('id', user.id, cookieConfig)

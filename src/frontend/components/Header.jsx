@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { Search } from './Search'
 import { ListItem } from './ListItem'
+import DplayLogo from '../assets/Logo.png'
 
 import styles from '../styles/components/Header.module.scss'
 import userIcon from '../assets/Containers/Register/user-icon.png'
@@ -22,7 +23,7 @@ export const Header = withRouter(connect(mapStateToProps)(props => {
             <header className={styles['header__container']}>
                 <Link to='/'>
                     <img
-                        src='https://es.dplay.com/004914/static/resources/images/dplay-logo-white.svg'
+                        src={DplayLogo}
                         alt='logo'
                     />
                 </Link>

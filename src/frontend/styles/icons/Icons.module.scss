@@ -1,9 +1,9 @@
 @import '../lib/Vars.scss';
 
 .icon__container--general {
-    width: 1.2em;
-    height: 1.2em;
-    fill: white;
+    width: 1em;
+    height: 1em;
+    fill: $d-fourth-color;
     margin-right: 8px;
 }
 
@@ -18,7 +18,7 @@
 
 .icon__container--player-menu-play {
     @include menu-icon;
-    font-size: 1.5em;
+    font-size: 1.4em;
 }
 
 .icon__container--player-menu {

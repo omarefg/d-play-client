@@ -3,7 +3,7 @@
     justify-content: space-around;
 
     img {
-        height: 60px;
+        height: 40px;
     }
 
     .artist-info {
@@ -17,6 +17,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            font-size: 0.7em;
         }
     }
 }

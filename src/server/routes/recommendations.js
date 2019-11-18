@@ -21,7 +21,7 @@ export const recommendations = app => {
             const { data: { data: { albums } }, status } = await request(token)
             res.status(status).json(albums)
         } catch (error) {
-            const response = await localErrorHandler(req, res, next, error, cb)
+            const response = await localErrorHandler(req, res, next, error, request)
             if (response) {
                 const { data: { data: { albums } }, status } = response
                 res.status(status).json(albums)
@@ -41,7 +41,7 @@ export const recommendations = app => {
             const { data: { data: { playlists } }, status } = await request(token)
             res.status(status).json(playlists)
         } catch (error) {
-            const response = await localErrorHandler(req, res, next, error, cb)
+            const response = await localErrorHandler(req, res, next, error, request)
             if (response) {
                 const { data: { data: { playlists } }, status } = response
                 res.status(status).json(playlists)

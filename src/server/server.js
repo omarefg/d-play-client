@@ -5,6 +5,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
+import https from 'https'
+import fs from 'fs'
 import { main, auth, recommendations, player, search, categories, users } from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
@@ -15,7 +17,9 @@ const {
     notFoundHandler,
 } = require('./utils/middlewares/error-handlers')
 
-const { nodeEnv, port } = config
+const { nodeEnv, port, clientUrlWithoutUrl } = config
+
+const isDev = nodeEnv === 'development'
 
 const app = express()
 app.use(express.json({ limit: '50mb' }))
@@ -25,7 +29,7 @@ app.use(passport.initialize())
 app.use(passport.session({ secret: config.sessionSecret }))
 app.use(express.static(`${__dirname}/public`))
 
-if (nodeEnv === 'development') {
+if (isDev) {
     console.log('Loading development config')
     const compiler = webpack(webpackConfig)
     const serverConfig = {
@@ -62,9 +66,21 @@ app.use(notFoundHandler)
 app.use(errorTypeHandler)
 app.use(errorHandler)
 
-app.listen(port, error => {
-    if (error) {
-        console.log(error)
-    }
-    console.log(`Server running on http://localhost:${port}`)
-})
+if (isDev) {
+    app.listen(port, error => {
+        if (error) {
+            console.log(error)
+        }
+        console.log(`Listening ${clientUrlWithoutUrl}:${port}`)
+    })
+} else {
+    https.createServer({
+        key: fs.readFileSync('/etc/letsenctrypt/live/dplay.cf/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsenctrypt/live/dplay.cf/fullchain.pem'),
+    }, app).listen(port, error => {
+        if (error) {
+            console.log(error)
+        }
+        console.log(`Listening ${clientUrlWithoutUrl}:${port}`)
+    })
+}

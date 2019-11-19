@@ -6,7 +6,6 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import https from 'https'
-import http from 'http'
 import fs from 'fs'
 import { main, auth, recommendations, player, search, categories, users } from './routes'
 import { config } from '../../config'
@@ -75,13 +74,22 @@ if (isDev) {
         console.log(`Listening ${clientUrlWithoutUrl}:${port}`)
     })
 } else {
-    const httpServer = http.createServer(app)
-    httpServer.get('*', (req, res) => {
-        if (!req.secure || req.protocol === 'http') {
-            res.redirect(`https://${req.headers.host}${req.url}`)
-        }
+    const httpApp = express()
+    const httpRouter = express.Router()
+    httpApp.use('*', httpRouter)
+    httpRouter.get('*', (req, res) => {
+        let host = req.get('Host')
+        host = host.replace(/:\d+$/, `:${app.get('port')}`)
+        const destination = ['https://', host, req.url].join('')
+        return res.redirect(destination)
     })
-    httpServer.listen(port)
+    const httpServer = http.createServer(httpApp)
+    httpServer.listen(port, error => {
+        if (error) {
+            console.log(error)
+        }
+        console.log(`Listening ${clientUrlWithoutUrl}:${port}`)
+    })
 
     https.createServer({
         key: fs.readFileSync('/etc/letsencrypt/live/dplay.cf/privkey.pem'),

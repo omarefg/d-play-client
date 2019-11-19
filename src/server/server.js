@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import https from 'https'
+import http from 'http'
 import fs from 'fs'
 import { main, auth, recommendations, player, search, categories, users } from './routes'
 import { config } from '../../config'
@@ -17,7 +18,7 @@ const {
     notFoundHandler,
 } = require('./utils/middlewares/error-handlers')
 
-const { nodeEnv, port, clientUrlWithoutUrl } = config
+const { nodeEnv, port, clientUrlWithoutUrl, securePort } = config
 
 const isDev = nodeEnv === 'development'
 
@@ -74,13 +75,21 @@ if (isDev) {
         console.log(`Listening ${clientUrlWithoutUrl}:${port}`)
     })
 } else {
+    const httpServer = http.createServer(app)
+    httpServer.get('*', (req, res) => {
+        if (!req.secure || req.protocol === 'http') {
+            res.redirect(`https://${req.headers.host}${req.url}`)
+        }
+    })
+    httpServer.listen(port)
+
     https.createServer({
-        key: fs.readFileSync('/etc/letsencrypt/live/www.dplay.cf/privkey.pem'),
-        cert: fs.readFileSync('/etc/letsencrypt/live/www.dplay.cf/fullchain.pem'),
-    }, app).listen(port, error => {
+        key: fs.readFileSync('/etc/letsencrypt/live/dplay.cf/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/dplay.cf/fullchain.pem'),
+    }, app).listen(securePort, error => {
         if (error) {
             console.log(error)
         }
-        console.log(`Listening ${clientUrlWithoutUrl}:${port}`)
+        console.log(`Listening ${clientUrlWithoutUrl}:${securePort}`)
     })
 }

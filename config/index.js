@@ -3,6 +3,7 @@ require('dotenv').config()
 const config = {
     nodeEnv: process.env.NODE_ENV,
     port: process.env.PORT || 3200,
+    securePort: process.env.SECURE_PORT,
     apiUrl: process.env.API_URL,
     clientUrl: process.env.CLIENT_URL,
     clientUrlWithoutUrl: process.env.CLIENT_URL_WITHOUT_PORT,

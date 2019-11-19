@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Button, Footer, UserDataForm, RedirectBoundary } from '../components'
+import { Button, UserDataForm, RedirectBoundary } from '../components'
 import { signInUser } from '../actions'
 
 import styles from '../styles/pages/UserData.module.scss'

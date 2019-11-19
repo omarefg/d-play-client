@@ -5,8 +5,6 @@ import { setUserIsJustRegistered, signInUserRequest, deleteAuthErrorMessage } fr
 import { TextInput, Button, Modal, ButtonLoader, SnackbarNotification, RedirectBoundary } from '../components'
 
 import styles from '../styles/pages/RegisterAndLogin.module.scss'
-import google from '../assets/Containers/Register/icons8-google-50.png'
-import twitter from '../assets/Containers/Register/icons8-twitter-52.png'
 
 const mapStateToProps = state => {
     return {
@@ -77,16 +75,6 @@ export const Login = connect(mapStateToProps, mapDispatchToProps)(props => {
                     onSubmit={onSubmitHandler}
                 >
                     <h3 className={styles['title']}>¡Inicia sesión y que suene la música!</h3>
-                    <div className={styles['social-media']}>
-                        <Button className='btn--social-media'>
-                            <img src={google} alt='google-social-media'/>
-                        Inicia Sesión con Google
-                        </Button>
-                        <Button className='btn--social-media'>
-                            <img src={twitter} alt='twitter-social-media'/>
-                        Inicia Sesión con Twitter
-                        </Button>
-                    </div>
                     <TextInput
                         placeholder='Email'
                         id='email'

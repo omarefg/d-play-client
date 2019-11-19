@@ -12,7 +12,7 @@ export const setInitialState = async (req, res) => {
                 headers: { Authorization: `Bearer ${token}` },
                 method: 'get',
             })
-            user = data.data
+            user = { ...data.data, id: data.data._id }
         }
     } catch (error) {
         const cb = payloadToken => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Button, Footer, UserDataForm } from '../components'
+import { Button, Footer, UserDataForm, RedirectBoundary } from '../components'
+import { signInUser } from '../actions'
 
 import styles from '../styles/pages/UserData.module.scss'
 
@@ -8,8 +9,12 @@ const mapStateToProps = state => ({
     ...state,
 })
 
-export const UserData = connect(mapStateToProps)(props => {
-    const { auth: { user: userGeneralState } } = props
+const mapDispatchToProps = {
+    signInUser,
+}
+
+export const UserData = connect(mapStateToProps, mapDispatchToProps)(props => {
+    const { auth: { user: userGeneralState }, signInUser } = props
     const [isWatchingForm, setIsWatchingForm] = useState(false)
     const [user, modifyUser] = useState(userGeneralState)
     const { profilePic, name, lastName, email } = user
@@ -27,45 +32,53 @@ export const UserData = connect(mapStateToProps)(props => {
         setIsWatchingForm(!isWatchingForm)
     }
 
+    const logout = () => {
+        signInUser(null)
+        document.cookie = 'token=\'\''
+        document.cookie = 'refreshToken==\'\''
+    }
+
     return (
-        <div className={styles['user--data-container']}>
-            <div className={styles['user--data-container-profile']}>
-                <img
-                    className={styles['img-profile']}
-                    src={profilePic}
-                    alt='user-form'
-                />
-                {!isWatchingForm ? (
-                    <>
-                        <h1 className={styles.nameuser}>{`${name} ${lastName}`}</h1>
-                        <Button
-                            className='btn--user-data'
-                            onClick={isWatchingFormHandler}
-                        >
-                            Modificar mi Perfil
-                        </Button>
-                        <Button
-                            className='btn--user-data'
-                        >
-                            Mi Suscripción
-                        </Button>
-                        <Button
-                            className='btn--user-data'
-                        >
-                            Cerrar Sesión
-                        </Button>
-                    </>
-                ) : (
-                    <UserDataForm
-                        name={name}
-                        lastName={lastName}
-                        email={email}
-                        modifyUserHandler={modifyUserHandler}
-                        isWatchingFormHandler={isWatchingFormHandler}
+        <RedirectBoundary>
+            <div className={styles['user--data-container']}>
+                <div className={styles['user--data-container-profile']}>
+                    <img
+                        className={styles['img-profile']}
+                        src={profilePic}
+                        alt='user-form'
                     />
-                )}
+                    {!isWatchingForm ? (
+                        <>
+                            <h1 className={styles.nameuser}>{`${name} ${lastName}`}</h1>
+                            <Button
+                                className='btn--user-data'
+                                onClick={isWatchingFormHandler}
+                            >
+                            Modificar mi Perfil
+                            </Button>
+                            <Button
+                                className='btn--user-data'
+                            >
+                            Mi Suscripción
+                            </Button>
+                            <Button
+                                className='btn--user-data'
+                                onClick={logout}
+                            >
+                            Cerrar Sesión
+                            </Button>
+                        </>
+                    ) : (
+                        <UserDataForm
+                            name={name}
+                            lastName={lastName}
+                            email={email}
+                            modifyUserHandler={modifyUserHandler}
+                            isWatchingFormHandler={isWatchingFormHandler}
+                        />
+                    )}
+                </div>
             </div>
-            <Footer/>
-        </div>
+        </RedirectBoundary>
     )
 })

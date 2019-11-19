@@ -188,7 +188,7 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         const nonFavorites = user.lists.filter(l => l.name !== 'Favoritas')
         const lists = [favorites, ...nonFavorites]
         const payload = {
-            id: user._id,
+            id: user.id,
             lists,
         }
         setMainMyListsRequest(payload, false)

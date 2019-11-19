@@ -100,7 +100,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
         }
         const lists = [...user.lists, list]
         const payload = {
-            id: user._id,
+            id: user.id,
             lists,
         }
         setMainMyListsRequest(payload)

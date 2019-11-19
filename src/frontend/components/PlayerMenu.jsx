@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
     PlayIcon,
-    RepeatIcon,
-    RandomIcon,
     PrevNextIcon,
     LikeIcon,
     PauseIcon,
@@ -62,7 +60,7 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
         }
         listsBeforeUpdate[index] = list
         const payload = {
-            id: user._id,
+            id: user.id,
             lists: listsBeforeUpdate,
         }
         setMainMyListsRequest(payload, false)
@@ -95,9 +93,6 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
                 onClose={closeSelectableMenu}
                 onItemClick={addToPlaylist}
             />
-            <RandomIcon
-                className='icon__container--player-menu'
-            />
             <PrevNextIcon
                 className='icon__container--player-menu'
                 onClick={prevHandler}
@@ -121,9 +116,6 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
             <PrevNextIcon
                 className='icon__container--player-menu-turned'
                 onClick={nextHandler}
-            />
-            <RepeatIcon
-                className='icon__container--player-menu'
             />
             <VolumeSlider
                 value={volume}

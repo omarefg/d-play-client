@@ -16,7 +16,6 @@ if (isProd) {
     srcs.mainCss = files['main.css']
     srcs.mainJs = files['main.js']
     srcs.vendorsJs = files['vendors.js']
-    srcs.favicon = files['favicon.ico']
 }
 
 export const render = (html, preloadedState, css) => {

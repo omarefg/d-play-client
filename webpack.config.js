@@ -29,7 +29,7 @@ const plugins = isProd ? [
         filename: '[path].gz',
     }),
     new ManifestPlugin(),
-    new FaviconsWebpackPlugin('./src/frontend/assets/Logo.png'),
+    new FaviconsWebpackPlugin('./src/frontend/assets/favicon.png'),
 ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
@@ -42,7 +42,7 @@ const plugins = isProd ? [
     new MiniCssExtractPlugin({
         filename: 'assets/app.css',
     }),
-    new FaviconsWebpackPlugin('./src/frontend/assets/favicon-dplay.ico'),
+    new FaviconsWebpackPlugin('./src/frontend/assets/favicon.png'),
 ]
 
 module.exports = {

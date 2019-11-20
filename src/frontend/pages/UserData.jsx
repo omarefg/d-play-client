@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, UserDataForm, RedirectBoundary } from '../components'
 import { signInUser } from '../actions'
+import { deleteCookie } from '../utils/session'
 
 import styles from '../styles/pages/UserData.module.scss'
 
@@ -34,8 +35,8 @@ export const UserData = connect(mapStateToProps, mapDispatchToProps)(props => {
 
     const logout = () => {
         signInUser(null)
-        document.cookie = 'token=\'\''
-        document.cookie = 'refreshToken==\'\''
+        deleteCookie('token')
+        deleteCookie('refreshToken')
     }
 
     return (

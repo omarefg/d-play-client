@@ -16,6 +16,7 @@
     color: $d-primary-color;
     text-align: center;
 }
+
 .img-profile {
     width: 200px;
     height: 200px;
@@ -26,4 +27,8 @@
     border: solid 1px $d-primary-color;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.user__date-profile-pic-intpu {
+    display: none;
 }

@@ -29,7 +29,7 @@ const plugins = isProd ? [
         filename: '[path].gz',
     }),
     new ManifestPlugin(),
-    new FaviconsWebpackPlugin('./src/frontend/assets/favicon-dplay.ico'),
+    new FaviconsWebpackPlugin('./src/frontend/assets/Logo.png'),
 ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({

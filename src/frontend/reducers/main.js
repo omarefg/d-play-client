@@ -13,6 +13,7 @@ import {
     SET_MAIN_SEARCH_VALUE,
     SET_MAIN_SEARCH_RESULTS,
     SET_MAIN_SEARCH_IS_LOADING,
+    SET_MAIN_GENRES_IS_LOADING_OBSERVER,
 } from '../actions/types'
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
         genresPlaylists: [],
         genresPlaylistsIndex: 0,
         isLoading: false,
+        isLoadingObserver: false,
     },
     myLists: {
         isCreatingList: false,
@@ -61,6 +63,15 @@ const main = (state = initialState, action) => {
             },
         }
     }
+    case SET_MAIN_GENRES_IS_LOADING_OBSERVER: {
+        return {
+            ...state,
+            genres: {
+                ...state.genres,
+                isLoadingObserver: action.payload.isLoadingObserver,
+            },
+        }
+    }
     case SET_MAIN_MY_LISTS_IS_LOADING: {
         return {
             ...state,
@@ -91,7 +102,7 @@ const main = (state = initialState, action) => {
             ...state,
             genres: {
                 ...state.genres,
-                genresPlaylists: action.payload.genresPlaylists.filter(playlist => playlist.items.length),
+                genresPlaylists: [...state.genres.genresPlaylists, ...action.payload.genresPlaylists.filter(playlist => playlist.items.length)],
             },
         }
     }

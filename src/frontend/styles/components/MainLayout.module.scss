@@ -4,7 +4,7 @@
     background-color: $d-secondary-color;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: calc(100vh - 160px);
     padding-bottom: 30px;
 
     .main-layout__flex-grow {

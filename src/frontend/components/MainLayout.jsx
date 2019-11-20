@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { InView } from 'react-intersection-observer'
 import { setMainErrorMessage } from '../actions'
 
 import { SnackbarNotification } from './SnackbarNotification'
@@ -25,6 +26,7 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
         children,
         isLoading,
         loadingRows,
+        onObserverChange,
     } = props
 
     const closeSnackbarHandler = (_event, reason) => {
@@ -36,7 +38,9 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
     }
 
     return (
-        <div className={styles['main-layout__container']}>
+        <div
+            className={styles['main-layout__container']}
+        >
             <SnackbarNotification
                 variant='error'
                 message={error}
@@ -54,6 +58,10 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
                 })}
                 {!isLoading && children}
             </section>
+            <InView
+                as='div'
+                onChange={onObserverChange}
+            />
         </div>
     )
 })

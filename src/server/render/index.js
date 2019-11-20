@@ -8,6 +8,7 @@ const srcs = {
     mainCss: 'assets/app.css',
     mainJs: 'assets/app.js',
     vendorsJs: 'assets/vendor.js',
+    favicon: 'assets/favicon.ico',
 }
 
 if (isProd) {
@@ -15,6 +16,7 @@ if (isProd) {
     srcs.mainCss = files['main.css']
     srcs.mainJs = files['main.js']
     srcs.vendorsJs = files['vendors.js']
+    srcs.favicon = files['favicon.ico']
 }
 
 export const render = (html, preloadedState, css) => {
@@ -30,6 +32,7 @@ export const render = (html, preloadedState, css) => {
                 ${css}
             </style>
             <link rel="stylesheet" href="${srcs.mainCss}" type="text/css"></link>
+            <link rel="shortcut icon" href="${srcs.favicon}" type="image/x-icon"></link>
         </head>
         <body>
             <div id="root">${html}</div>

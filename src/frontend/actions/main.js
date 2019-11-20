@@ -16,6 +16,7 @@ import {
     SET_MAIN_SEARCH_VALUE,
     SET_MAIN_SEARCH_RESULTS,
     SET_MAIN_SEARCH_IS_LOADING,
+    SET_MAIN_GENRES_IS_LOADING_OBSERVER,
 } from './types'
 import { signInUser, updateUser } from './auth'
 import { errorDispatcher } from '../utils/error-handler'
@@ -26,6 +27,10 @@ export const setMainRecomendationIsLoading = payload => ({
 })
 export const setMainGenresIsLoading = payload => ({
     type: SET_MAIN_GENRES_IS_LOADING,
+    payload,
+})
+export const setMainGenresIsLoadingObserver = payload => ({
+    type: SET_MAIN_GENRES_IS_LOADING_OBSERVER,
     payload,
 })
 export const setMainMyListsIsLoading = payload => ({
@@ -91,7 +96,8 @@ export const setMainRecommendationPageDataRequest = ({ country }) => async dispa
     dispatch(setMainRecomendationIsLoading({ isLoading: false }))
 }
 export const setMainGenresPlaylistsRequest = ({ country, offset, limit }) => async dispatch => {
-    dispatch(setMainGenresIsLoading({ isLoading: true }))
+    offset === 0 && dispatch(setMainGenresIsLoading({ isLoading: true }))
+    offset > 0 && dispatch(setMainGenresIsLoadingObserver({ isLoadingObserver: true }))
     try {
         const playlists = []
         let { data: categories } = await axios.get(`/server/categories?country=${country}&limit=${limit}&offset=${offset}`)
@@ -110,7 +116,8 @@ export const setMainGenresPlaylistsRequest = ({ country, offset, limit }) => asy
         const otherErrorCallback = err => dispatch(setMainErrorMessage(err))
         errorDispatcher(error, unauthorizedErrorCalback, otherErrorCallback)
     }
-    dispatch(setMainGenresIsLoading({ isLoading: false }))
+    offset === 0 && dispatch(setMainGenresIsLoading({ isLoading: false }))
+    offset > 0 && dispatch(setMainGenresIsLoadingObserver({ isLoadingObserver: false }))
 }
 export const setMainMyListsRequest = ({ id, ...payload }, setLoading = true) => async dispatch => {
     setLoading && dispatch(setMainMyListsIsLoading({ isLoading: true }))

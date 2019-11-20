@@ -8,7 +8,17 @@ import passport from 'passport'
 import https from 'https'
 import http from 'http'
 import fs from 'fs'
-import { main, auth, recommendations, player, search, categories, users } from './routes'
+import {
+    main,
+    auth,
+    recommendations,
+    player,
+    search,
+    categories,
+    users,
+    track,
+    artist,
+} from './routes'
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
@@ -57,6 +67,8 @@ player(app)
 search(app)
 categories(app)
 users(app)
+track(app)
+artist(app)
 
 app.get('*', main)
 

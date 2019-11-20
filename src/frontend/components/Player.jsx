@@ -52,9 +52,10 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         setSongIsInFavorites,
         songIsInFavorites,
         user,
+        isLoading,
     } = props
 
-    const track = playerGroup.items[playerTrackIndex] || { preview_url: null, artists: [{ name: null }] }
+    const track = playerGroup.items[playerTrackIndex] || { preview_url: null, artists: [{ name: null }], isMock: true }
     const { preview_url: src } = track
     const { name } = playerGroup
 
@@ -116,14 +117,16 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
     }
 
     const playPauseHandler = () => {
-        const { current } = musicPlayer
-        if (current) {
-            if (current.paused) {
-                current.play()
-                setPlayerIsPlaying({ playerIsPlaying: true })
-            } else {
-                current.pause()
-                setPlayerIsPlaying({ playerIsPlaying: false })
+        if (!track.isMock) {
+            const { current } = musicPlayer
+            if (current) {
+                if (current.paused) {
+                    current.play()
+                    setPlayerIsPlaying({ playerIsPlaying: true })
+                } else {
+                    current.pause()
+                    setPlayerIsPlaying({ playerIsPlaying: false })
+                }
             }
         }
     }
@@ -176,23 +179,25 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
     }
 
     const toggleSongInFavorites = () => {
-        const favorites = user.lists.find(l => l.name === 'Favoritas')
-        if (favorites) {
-            const song = favorites.items.find(f => f.id === track.id)
-            if (song) {
-                favorites.items = favorites.items.filter(f => f.id !== track.id)
-            } else {
-                favorites.items.push(track)
+        if (!track.isMock) {
+            const favorites = user.lists.find(l => l.name === 'Favoritas')
+            if (favorites) {
+                const song = favorites.items.find(f => f.id === track.id)
+                if (song) {
+                    favorites.items = favorites.items.filter(f => f.id !== track.id)
+                } else {
+                    favorites.items.push(track)
+                }
             }
+            const nonFavorites = user.lists.filter(l => l.name !== 'Favoritas')
+            const lists = [favorites, ...nonFavorites]
+            const payload = {
+                id: user.id,
+                lists,
+            }
+            setMainMyListsRequest(payload, false)
+            setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler(lists) })
         }
-        const nonFavorites = user.lists.filter(l => l.name !== 'Favoritas')
-        const lists = [favorites, ...nonFavorites]
-        const payload = {
-            id: user.id,
-            lists,
-        }
-        setMainMyListsRequest(payload, false)
-        setSongIsInFavorites({ songIsInFavorites: songIsInFavoritesHandler(lists) })
     }
 
     if (user) {
@@ -239,6 +244,7 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
                         toggleSongInFavorites={toggleSongInFavorites}
                         songIsInFavorites={songIsInFavorites}
                         track={track}
+                        isLoading={isLoading}
                     />
                 </div>
             </div>

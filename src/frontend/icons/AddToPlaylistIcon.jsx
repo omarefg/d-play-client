@@ -25,6 +25,7 @@ export const AddToPlaylistIcon = props => {
             className={icon}
             onClick={onClick}
         >
+            <title>Añadir a lista</title>
             <path d='M0 64H256V106.667H0z'/>
             <path d='M0 149.333H256V192H0z'/>
             <path d='M0 234.667H170.667V277.334H0z'/>

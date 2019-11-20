@@ -72,3 +72,27 @@ export const setPlayerGroupFromPlaylist = ({ id, images, name }) => async dispat
     }
     dispatch(setPlayerIsLoading({ isLoading: false }))
 }
+
+export const setPlayerGroupFromTrack = ({ id, images, name }) => async dispatch => {
+    dispatch(setPlayerIsLoading({ isLoading: true }))
+    try {
+        const { data } = await axios.get(`/server/track/${id}`)
+        dispatch(setPlayerGroup({ items: [data], images, name }))
+    } catch (error) {
+        const errorHandler = error => dispatch(setPlayerGroupError(error))
+        errorDispatcher(error, errorHandler, errorHandler)
+    }
+    dispatch(setPlayerIsLoading({ isLoading: false }))
+}
+
+export const setPlayerGroupFromArtist = ({ id, images, name, market }) => async dispatch => {
+    dispatch(setPlayerIsLoading({ isLoading: true }))
+    try {
+        const { data } = await axios.get(`/server/artist/${id}/top-tracks?market=${market}`)
+        dispatch(setPlayerGroup({ items: [...data.tracks], images, name }))
+    } catch (error) {
+        const errorHandler = error => dispatch(setPlayerGroupError(error))
+        errorDispatcher(error, errorHandler, errorHandler)
+    }
+    dispatch(setPlayerIsLoading({ isLoading: false }))
+}

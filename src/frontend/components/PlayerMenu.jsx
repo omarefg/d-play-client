@@ -12,6 +12,7 @@ import {
 import { setMainMyListsRequest } from '../actions'
 import { VolumeSlider } from './VolumeSlider'
 import { SelectableMenu } from './SelectableMenu'
+import { Loader } from './Loader'
 
 import styles from '../styles/components/PlayerMenu.module.scss'
 
@@ -43,28 +44,31 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
         user,
         setMainMyListsRequest,
         track,
+        isLoading,
     } = props
 
     const closeSelectableMenu = () => setAnchorEl(null)
 
-    const openSelectableMenu = event => setAnchorEl(event.target)
+    const openSelectableMenu = event => !track.isMock && setAnchorEl(event.target)
 
     const addToPlaylist = index => {
-        const listsBeforeUpdate = [...user.lists]
-        const list = listsBeforeUpdate[index]
-        const song = list.items.find(f => f.id === track.id)
-        if (song) {
-            list.items = list.items.filter(f => f.id !== track.id)
-        } else {
-            list.items.push(track)
+        if (!track.isMock) {
+            const listsBeforeUpdate = [...user.lists]
+            const list = listsBeforeUpdate[index]
+            const song = list.items.find(f => f.id === track.id)
+            if (song) {
+                list.items = list.items.filter(f => f.id !== track.id)
+            } else {
+                list.items.push(track)
+            }
+            listsBeforeUpdate[index] = list
+            const payload = {
+                id: user.id,
+                lists: listsBeforeUpdate,
+            }
+            setMainMyListsRequest(payload, false)
+            closeSelectableMenu()
         }
-        listsBeforeUpdate[index] = list
-        const payload = {
-            id: user.id,
-            lists: listsBeforeUpdate,
-        }
-        setMainMyListsRequest(payload, false)
-        closeSelectableMenu()
     }
 
     return (
@@ -97,7 +101,12 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
                 className='icon__container--player-menu'
                 onClick={prevHandler}
             />
-            {!isPlaying ?
+            {isLoading ? (
+                <Loader
+                    size={20}
+                    color='#fff'
+                />
+            ) : !isPlaying ?
                 ((!trackName && !audio) || (trackName && audio)) ? (
                     <PlayIcon
                         className='icon__container--player-menu-play'
@@ -116,6 +125,7 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
             <PrevNextIcon
                 className='icon__container--player-menu-turned'
                 onClick={nextHandler}
+                title='Siguiente canción'
             />
             <VolumeSlider
                 value={volume}

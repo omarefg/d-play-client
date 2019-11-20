@@ -2,6 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const path = require('path')
 const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
@@ -28,6 +29,7 @@ const plugins = isProd ? [
         filename: '[path].gz',
     }),
     new ManifestPlugin(),
+    new FaviconsWebpackPlugin('./src/frontend/assets/favicon-dplay.ico'),
 ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
@@ -40,6 +42,7 @@ const plugins = isProd ? [
     new MiniCssExtractPlugin({
         filename: 'assets/app.css',
     }),
+    new FaviconsWebpackPlugin('./src/frontend/assets/favicon-dplay.ico'),
 ]
 
 module.exports = {

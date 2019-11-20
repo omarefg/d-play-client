@@ -48,4 +48,10 @@ export const auth = app => {
             next(error)
         }
     })
+
+    router.get('/sign-out', (req, res, next) => {
+        res.clearCookie('token')
+        res.clearCookie('refreshToken')
+        res.redirect('/inicia-sesion')
+    })
 }

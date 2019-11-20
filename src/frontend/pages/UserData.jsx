@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, UserDataForm, RedirectBoundary } from '../components'
-import { signInUser } from '../actions'
-import { deleteCookie } from '../utils/session'
 
 import styles from '../styles/pages/UserData.module.scss'
 
@@ -10,12 +8,8 @@ const mapStateToProps = state => ({
     ...state,
 })
 
-const mapDispatchToProps = {
-    signInUser,
-}
-
-export const UserData = connect(mapStateToProps, mapDispatchToProps)(props => {
-    const { auth: { user: userGeneralState }, signInUser } = props
+export const UserData = connect(mapStateToProps)(props => {
+    const { auth: { user: userGeneralState } } = props
     const [isWatchingForm, setIsWatchingForm] = useState(false)
     const [user, modifyUser] = useState(userGeneralState)
     const { profilePic, name, lastName, email } = user
@@ -34,9 +28,7 @@ export const UserData = connect(mapStateToProps, mapDispatchToProps)(props => {
     }
 
     const logout = () => {
-        signInUser(null)
-        deleteCookie('token')
-        deleteCookie('refreshToken')
+        window.location.href = '/server/auth/sign-out'
     }
 
     return (

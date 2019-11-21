@@ -1,7 +1,7 @@
 @import '../lib/Vars.scss';
 
 .search__container {
-    background-color: #4a4a4a;
+    background-color: $d-sixth-color;
     border-radius: 16px;
     width: 250px;
     display: flex;
@@ -16,14 +16,20 @@
         outline: none;
         padding: 2.5px 5px;
         font-family: $d-font-family;
-        color: #777777;
+        color: $d-fourth-color;
         font-size: 14px;
         font-weight: 400;
         width: 80%;
 
         &::placeholder {
-            color: #777777;
+            color: $d-seventh-color;
             font-weight: 400;
         }
+    }
+}
+
+@media (max-width:600px) {
+    .search__container {
+        width: 220px;
     }
 }

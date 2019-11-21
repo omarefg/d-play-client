@@ -5,7 +5,6 @@ import { Link, withRouter } from 'react-router-dom'
 import { Search } from './Search'
 import { ListItem } from './ListItem'
 import DplayLogo from '../assets/Logo.png'
-import { ResponsiveIcon } from '../icons/ResponsiveIcon'
 
 import styles from '../styles/components/Header.module.scss'
 import userIcon from '../assets/Containers/Register/user-icon.png'

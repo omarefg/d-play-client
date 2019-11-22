@@ -22,6 +22,10 @@
         justify-content: space-between;
     }
 
+    .header__flex-grow {
+        z-index: 50;
+    }
+
     .header__flex-grow ul {
         padding-left: 0;
     }
@@ -31,12 +35,11 @@
     }
 }
 
-@media (max-width:900px) {
+@media (max-width:1025px) {
     .header__container {
-        height: calc(20vh - 10px);
         padding: 5px 12px;
         align-items: flex-start;
-    
+
         img {
             height: 5.5vh;
         }
@@ -62,10 +65,16 @@
     .header__user-icon {
         margin-left: 0;
     }
+
     .header__container {
-        height: calc(25vh - 10px);
+        position: relative;
         img {
             height: 4.5vh;
         }
+    }
+
+    .header__flex-grow ul {
+        position: absolute;
+        left: 0;
     }
 }

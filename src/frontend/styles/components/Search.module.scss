@@ -30,6 +30,6 @@
 
 @media (max-width:600px) {
     .search__container {
-        width: 220px;
+        width: calc(100% - 20px);
     }
 }

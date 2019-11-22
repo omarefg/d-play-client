@@ -117,11 +117,15 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
                 className='icon__container--player-menu-turned'
                 onClick={nextHandler}
             />
-            <VolumeSlider
-                value={volume}
-                onChange={volumeHandler}
-                volumeClickHandler={volumeClickHandler}
-            />
+
+            <div className='icon__container--menu-slider'>
+                <VolumeSlider
+                    value={volume}
+                    onChange={volumeHandler}
+                    volumeClickHandler={volumeClickHandler}
+                />
+            </div>
+
         </div>
     )
 })

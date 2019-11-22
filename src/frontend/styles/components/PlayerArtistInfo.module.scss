@@ -4,6 +4,7 @@
 
     img {
         height: 40px;
+        margin-right: 21px;
     }
 
     .artist-info {
@@ -20,4 +21,10 @@
             font-size: 0.7em;
         }
     }
+}
+
+@media (max-width:600px) {
+    .player-artist-info__container {
+        display: none;
+        }
 }

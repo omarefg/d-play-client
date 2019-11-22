@@ -1,5 +1,5 @@
 import React from 'react'
-import { CirclePlayIcon } from '../icons'
+import { CirclePlayIcon, DeleteIcon } from '../icons'
 
 import styles from '../styles/components/Card.module.scss'
 
@@ -11,6 +11,8 @@ export const Card = props => {
         title,
         onClick,
         isLoading,
+        canDelete,
+        onDelete,
     } = props
 
     return (
@@ -37,6 +39,15 @@ export const Card = props => {
                     />
                     <p>{artist}</p>
                     <p>{album}</p>
+                    {canDelete && (
+                        <span
+                            className={styles['card__delete-button']}
+                        >
+                            <DeleteIcon
+                                onClick={onDelete}
+                            />
+                        </span>
+                    )}
                 </>
             )}
         </div>

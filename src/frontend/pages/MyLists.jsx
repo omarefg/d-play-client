@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
     setMainIsCreatingPlaylist,
@@ -54,9 +54,25 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
         isCreatingList,
     } = myLists
 
-    const cardClickHandler = card => {
-        setPlayerGroup(card)
+    const [listToDelete, setListToDelete] = useState(null)
+
+    const closeListToDeleteHandler = () => setListToDelete(null)
+
+    const deletePlaylistHandler = event => {
+        event.preventDefault()
+        if (user) {
+            const list = { ...listToDelete }
+            setListToDelete(null)
+            const lists = user.lists.filter(l => l.name !== list.name)
+            const payload = {
+                id: user.id,
+                lists,
+            }
+            setMainMyListsRequest(payload)
+        }
     }
+
+    const cardClickHandler = card => setPlayerGroup(card)
 
     const openPlaylistModal = () => setMainIsCreatingPlaylist({ isCreatingList: true })
 
@@ -128,6 +144,19 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
                 onClose={closePlaylistModal}
                 formID='my-lists--playlists__form-modal'
             />
+            <Modal
+                title='¿Estás seguro de eliminar esta lista de reproducción?'
+                description={(
+                    <form
+                        id='my-lists--delete-list__form-modal'
+                        onSubmit={deletePlaylistHandler}
+                    />
+                )}
+                open={Boolean(listToDelete)}
+                showSubmit
+                onClose={closeListToDeleteHandler}
+                formID='my-lists--delete-list__form-modal'
+            />
             <MainLayout>
                 <CardsSection
                     title='Mis listas'
@@ -135,6 +164,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
                     isForPlaylists
                     addPlaylist={openPlaylistModal}
                     cards={user ? user.lists : []}
+                    onDelete={setListToDelete}
                 />
             </MainLayout>
         </RedirectBoundary>

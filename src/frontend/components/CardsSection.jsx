@@ -13,6 +13,10 @@ export const CardsSection = props => {
     const { width } = useWindowDimensions()
     const numberOfCards = Math.ceil(width / 200) - 1
 
+    let chevronWidth = 60
+
+    if (width <= 600) chevronWidth = 0
+
     const {
         title,
         cards,
@@ -20,6 +24,7 @@ export const CardsSection = props => {
         isForPlaylists,
         addPlaylist,
         isLoading,
+        onDelete,
     } = props
     const { index, checked } = state
 
@@ -37,8 +42,10 @@ export const CardsSection = props => {
                 onMouseLeave={onMouseLeave}
             >
                 <ItemsCarousel
+                    firstAndLastGutter
+                    showSlither
                     gutter={12}
-                    chevronWidth={60}
+                    chevronWidth={chevronWidth}
                     numberOfCards={numberOfCards}
                     slidesToScroll={1}
                     activeItemIndex={index}
@@ -69,12 +76,13 @@ export const CardsSection = props => {
                             <p>Nueva lista</p>
                         </div>
                     )}
-                    {cards.map(card => {
+                    {cards.map((card, index) => {
                         const title = card.name
                         const artist = card.artists ? card.artists[0].name : title
                         const album = card.artists ? card.name : ''
                         const image = card.images ? card.images[0].url : card.image
                         const key = card.id || card.name
+                        const canDelete = isForPlaylists && index !== 0
 
                         return (
                             <Card
@@ -84,6 +92,8 @@ export const CardsSection = props => {
                                 artist={artist}
                                 album={album}
                                 onClick={() => onClick(card)}
+                                canDelete={canDelete}
+                                onDelete={() => onDelete(card)}
                             />
                         )
                     })}

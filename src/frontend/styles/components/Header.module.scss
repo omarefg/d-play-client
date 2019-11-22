@@ -32,6 +32,8 @@
 
     .header__user-icon {
         margin-left: 5vw;
+        cursor: pointer;
+        border-radius: 50%;
     }
 }
 
@@ -51,11 +53,10 @@
     .header__user-icon {
         margin-left: 4vw;
     }
+
     .header__childs-container {
         flex-direction: column;
         align-items: center;
-        cursor: pointer;
-        border-radius: 50%;
     }
 }
 

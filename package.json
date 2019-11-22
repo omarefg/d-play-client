@@ -24,6 +24,7 @@
     "helmet": "^3.21.1",
     "history": "^4.10.1",
     "ignore-styles": "^5.0.1",
+    "intersection-observer": "^0.7.0",
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
     "node-sass": "^4.12.0",

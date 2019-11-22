@@ -4,7 +4,7 @@
 	max-width: 40%;
 	height: auto;
 	margin: 5% auto;
-	
+
 }
 
 .form__title {
@@ -16,7 +16,7 @@
 }
 
 .form__title h2, h3 {
-	font-family: $d-font-family;	
+	font-family: $d-font-family;
 	font-weight: bold;
 	color: $d-fourth-color;
 	font-size: 18px;
@@ -39,7 +39,6 @@
 	margin: .5rem 0;
 	border: none;
 	outline: none;
-	border-bottom: solid .2rem $d-primary-color;
 	transition: all .4s;
 }
 
@@ -49,10 +48,12 @@
 
 .btn__submit {
 	font-family: $d-font-family;
-	width: 35%;
 	border-radius: 10px;
 	background-color: $d-secondary-color;
 	color: $d-fourth-color;
 	display: block;
-	margin: 10px auto;
+}
+
+.user-data-form__accordion-input {
+    width: 100%;
 }

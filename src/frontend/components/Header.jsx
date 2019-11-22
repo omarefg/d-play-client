@@ -52,7 +52,7 @@ export const Header = withRouter(connect(mapStateToProps)(props => {
                 <Link to='/perfil-usuario'>
                     <img
                         className={styles['header__user-icon']}
-                        src={userIcon}
+                        src={user.profilePic || userIcon}
                         alt='icono-usuario'
                     />
                 </Link>

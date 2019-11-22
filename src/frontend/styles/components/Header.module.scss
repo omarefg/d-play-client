@@ -21,7 +21,8 @@
     .header__user-icon {
         align-items: center;
         cursor: pointer;
-      }
+        border-radius: 50%;
+    }
 
     .header__user-icon img{
         margin-right: auto;

@@ -27,7 +27,7 @@ export const SnackbarNotification = props => {
         autoHideDuration,
         anchorOrigin,
     } = props
-    const Icon = variantIcon[variant]
+    const Icon = variant ? variantIcon[variant] : () => <span/>
 
     return (
         <Snackbar

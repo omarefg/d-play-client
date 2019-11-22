@@ -15,6 +15,7 @@ export const TextInput = props => {
         inputClassName,
         required,
         type,
+        disabled,
     } = props
 
     const cx = classNames.bind(styles)
@@ -45,6 +46,7 @@ export const TextInput = props => {
                 name={name}
                 type={type}
                 required={required}
+                disabled={disabled}
             />
             <label
                 className={label}

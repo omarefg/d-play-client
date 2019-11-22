@@ -90,7 +90,7 @@ export const MyLists = connect(mapStateToProps, mapDispatchToProps)(props => {
         const list = {
             name: creatingListTextInputValue,
             description: creatingListTextAreaValue,
-            image: creatingListImageSrc,
+            image: creatingListImageSrc || 'https://picsum.photos/200',
             items: [],
         }
         const playlistExists = user.lists.find(l => l.name.toUpperCase() === list.name.toUpperCase())

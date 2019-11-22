@@ -30,4 +30,46 @@ export const users = app => {
             }
         }
     })
+
+    router.get(
+        '/:id/update-email/:email', async (req, res, next) => {
+            const { id, email } = req.params
+            const { token } = req.cookies
+            const request = payloadToken => axios({
+                url: `${apiUrl}/api/users/${id}/update-email/${email}`,
+                headers: { Authorization: `Bearer ${payloadToken}` },
+                method: 'get',
+            })
+            try {
+                const { status } = await request(token)
+                res.status(status).send()
+            } catch (error) {
+                const response = await localErrorHandler(req, res, next, error, request)
+                if (response) {
+                    const { status } = response
+                    res.status(status).send()
+                }
+            }
+        },
+    )
+
+    router.put(
+        '/:id/update-password', async (req, res, next) => {
+            const { id } = req.params
+            const { token } = req.cookies
+            const { oldP, newP } = req.body
+            const request = payloadToken => axios({
+                url: `${apiUrl}/api/users/${id}/update-password`,
+                headers: { Authorization: `Bearer ${payloadToken}` },
+                method: 'put',
+                data: { oldP, newP },
+            })
+            try {
+                await request(token)
+                res.status(200).send()
+            } catch (error) {
+                await localErrorHandler(req, res, next, error, request)
+            }
+        },
+    )
 }

@@ -63,7 +63,7 @@ export const signInUserRequest = ({ email, password }, cb) => async dispatch => 
     dispatch(setAuthIsLoading({ isLoading: true }))
     try {
         const { data } = await axios(axiosData)
-        dispatch(signInUser(data))
+        dispatch(signInUser({ ...data, id: data.id }))
         cb && cb()
     } catch (error) {
         const errorHandler = error => dispatch(signInUserError(error))

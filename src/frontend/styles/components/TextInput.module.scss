@@ -36,6 +36,11 @@
     &:focus ~ .text-input__label {
         @include label-collected;
     }
+
+    &:disabled {
+        border-bottom: 1.5px solid $d-third-color;
+        cursor: not-allowed;
+    }
 }
 
 .text-input__label {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, UserDataForm, RedirectBoundary, SnackbarNotification } from '../components'
-import { modifyUserRequest, setUserErrorMessage } from '../actions'
+import { modifyUserRequest, setUserMessage, setUserVariant } from '../actions'
 
 import styles from '../styles/pages/UserData.module.scss'
 
@@ -9,11 +9,26 @@ const mapStateToProps = state => ({
     ...state,
 })
 
-export const UserData = connect(mapStateToProps)(props => {
-    const { auth: { user: userGeneralState }, user: { error } } = props
+const mapDispatchToProps = {
+    modifyUserRequest,
+    setUserMessage,
+    setUserVariant,
+}
+
+export const UserData = connect(mapStateToProps, mapDispatchToProps)(props => {
+    const {
+        auth: { user: userGeneralState },
+        user: {
+            variant,
+            message,
+        },
+        modifyUserRequest,
+        setUserMessage,
+        setUserVariant,
+    } = props
     const [isWatchingForm, setIsWatchingForm] = useState(false)
     const [user, modifyUser] = useState(userGeneralState)
-    const { profilePic, name, lastName, email } = user
+    const { profilePic, name, lastName, email, id } = user || {}
 
     const modifyUserHandler = event => {
         const { name, value } = event.target
@@ -51,7 +66,7 @@ export const UserData = connect(mapStateToProps)(props => {
 
     const onSubmit = event => {
         event.preventDefault()
-        modifyUserRequest(user)
+        modifyUserRequest({ profilePic, name, lastName, id })
     }
 
     const closeSnackbarHandler = (_event, reason) => {
@@ -59,16 +74,17 @@ export const UserData = connect(mapStateToProps)(props => {
             return
         }
 
-        setUserErrorMessage({ message: '' })
+        setUserMessage({ message: '' })
+        setUserVariant({ variant: '' })
     }
 
     return (
         <RedirectBoundary>
             <SnackbarNotification
-                variant='error'
-                message={error}
+                variant={variant}
+                message={message}
                 onClose={closeSnackbarHandler}
-                open={!!error}
+                open={!!message}
             />
             <div className={styles['user--data-container']}>
                 <div className={styles['user--data-container-profile']}>
@@ -79,6 +95,7 @@ export const UserData = connect(mapStateToProps)(props => {
                             className={styles['img-profile']}
                             src={profilePic}
                             alt='user-form'
+                            style={{ cursor: isWatchingForm ? 'pointer' : null }}
                         />
                         {isWatchingForm && (
                             <input

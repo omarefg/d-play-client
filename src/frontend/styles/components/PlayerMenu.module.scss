@@ -3,3 +3,16 @@
     justify-content: space-evenly;
     flex: .5;
 }
+
+@media (max-width: 600px) {
+    .player-menu__container {
+        display: inline;
+        justify-content: center;
+    }
+}
+
+@media (max-width:600px) {
+    .player-menu__container {
+        flex: 0;
+    }
+}

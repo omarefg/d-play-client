@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useWindowDimensions } from '../hooks'
 import { Card } from './Card'
 import { CarouselChevron } from './CarouselChevron'
-import { AddIcon } from '../icons'
+import { AddIcon, RightChevron, LeftChevron } from '../icons'
 
 import styles from '../styles/components/CardsSection.module.scss'
 
@@ -50,8 +50,8 @@ export const CardsSection = props => {
                     slidesToScroll={1}
                     activeItemIndex={index}
                     requestToChangeActive={requestToChangeActive}
-                    rightChevron={<CarouselChevron checked={checked} chevron='>'/>}
-                    leftChevron={<CarouselChevron checked={checked} chevron='<'/>}
+                    rightChevron={<CarouselChevron checked={checked} chevron={<RightChevron/>}/>}
+                    leftChevron={<CarouselChevron checked={checked} chevron={<LeftChevron/>}/>}
                     classes={{
                         itemsWrapper: styles['cards-section__itemsWrapper'],
                         itemsInnerWrapper: styles['cards-section__itemsInnerWrapper'],

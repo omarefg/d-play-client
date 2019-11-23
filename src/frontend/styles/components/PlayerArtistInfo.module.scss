@@ -10,11 +10,11 @@
     .artist-info {
         display: flex;
         flex-direction: column;
-        margin: 0 20px;
+        margin-right:20px;
         p {
             color: white;
             margin: 0;
-            max-width: 150px;
+            max-width: 100px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -25,6 +25,11 @@
 
 @media (max-width:600px) {
     .player-artist-info__container {
-        display: none;
-        }
+        flex-direction: column;
+    }
+
+    .player-artist-info__container img {
+        margin-top: 5px;
+    }
+
 }

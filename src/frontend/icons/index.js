@@ -18,3 +18,6 @@ export * from './SadFaceIcon'
 export * from './FilledLikeIcon'
 export * from './AddToPlaylistIcon'
 export * from './DeleteIcon'
+export * from './RightChevron'
+export * from './LeftChevron'
+

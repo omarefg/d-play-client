@@ -66,6 +66,11 @@ export const UserDataForm = connect(mapStateToProps, mapDispatchToProps)(props =
 
     const passwordSubmitHandler = event => {
         event.preventDefault()
+        if (!newPassword || !confirmPassword) {
+            setUserVariant({ variant: 'warning' })
+            setUserMessage({ message: 'Debes elegir una contraseña' })
+            return
+        }
         if (newPassword !== confirmPassword) {
             setUserVariant({ variant: 'warning' })
             setUserMessage({ message: 'Las contraseñas no coinciden' })

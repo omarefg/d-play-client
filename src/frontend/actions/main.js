@@ -17,6 +17,8 @@ import {
     SET_MAIN_SEARCH_RESULTS,
     SET_MAIN_SEARCH_IS_LOADING,
     SET_MAIN_GENRES_IS_LOADING_OBSERVER,
+    SET_MAIN_IS_EDITING_PLAYLIST,
+    SET_MAIN_PLAYLIST_FORM_ID,
 } from './types'
 import { signInUser, updateUser } from './auth'
 import { errorDispatcher } from '../utils/error-handler'
@@ -62,6 +64,10 @@ export const setMainIsCreatingPlaylist = payload => ({
     type: SET_MAIN_IS_CREATING_PLAYLIST,
     payload,
 })
+export const setMainIsEditingPlaylist = payload => ({
+    type: SET_MAIN_IS_EDITING_PLAYLIST,
+    payload,
+})
 export const setMainPlaylistFormInputValue = payload => ({
     type: SET_MAIN_PLAYLIST_FORM_INPUT_VALUE,
     payload,
@@ -72,6 +78,10 @@ export const setMainPlaylistFormTextAreaValue = payload => ({
 })
 export const setMainPlaylistFormImgSrc = payload => ({
     type: SET_MAIN_PLAYLIST_FORM_IMG_SRC,
+    payload,
+})
+export const setMainPlaylistFormId = payload => ({
+    type: SET_MAIN_PLAYLIST_FORM_ID,
     payload,
 })
 export const setMainSearchValue = payload => ({

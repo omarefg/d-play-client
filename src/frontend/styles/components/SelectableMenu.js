@@ -3,11 +3,11 @@ import Color from 'color'
 
 const styles = makeStyles(theme => ({
     paper: {
-        backgroundColor: '#292828',
+        backgroundColor: theme.dContrastBackground,
         padding: theme.spacing(1),
     },
     item: {
-        backgroundColor: '#292828',
+        backgroundColor: theme.dContrastBackground,
         color: 'white',
         padding: '6px',
         minWidth: '200px',

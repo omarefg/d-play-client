@@ -22,7 +22,6 @@ export const CardsSection = props => {
         cards,
         onClick,
         withMenu,
-        onDelete,
     } = props
     const { index, checked } = state
 
@@ -64,6 +63,7 @@ export const CardsSection = props => {
                         const album = card.artists ? card.name : ''
                         const image = card.images ? card.images[0].url : card.image
                         const key = card.id || card.name
+                        const canDelete = index > 0
 
                         return (
                             <Card
@@ -73,8 +73,9 @@ export const CardsSection = props => {
                                 artist={artist}
                                 album={album}
                                 onClick={() => onClick(card)}
-                                onDelete={() => onDelete(card)}
                                 withMenu={withMenu}
+                                canDelete={canDelete}
+                                card={card}
                             />
                         )
                     })}

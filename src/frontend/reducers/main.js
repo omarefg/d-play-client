@@ -14,6 +14,8 @@ import {
     SET_MAIN_SEARCH_RESULTS,
     SET_MAIN_SEARCH_IS_LOADING,
     SET_MAIN_GENRES_IS_LOADING_OBSERVER,
+    SET_MAIN_IS_EDITING_PLAYLIST,
+    SET_MAIN_PLAYLIST_FORM_ID,
 } from '../actions/types'
 
 const initialState = {
@@ -30,9 +32,11 @@ const initialState = {
     },
     myLists: {
         isCreatingList: false,
+        isEditingList: false,
         creatingListTextInputValue: '',
         creatingListTextAreaValue: '',
         creatingListImageSrc: null,
+        creatingListId: null,
         isLoading: false,
     },
     search: {
@@ -151,6 +155,15 @@ const main = (state = initialState, action) => {
             },
         }
     }
+    case SET_MAIN_PLAYLIST_FORM_ID: {
+        return {
+            ...state,
+            myLists: {
+                ...state.myLists,
+                creatingListId: action.payload.creatingListId,
+            },
+        }
+    }
     case SET_MAIN_SEARCH_VALUE: {
         return {
             ...state,
@@ -175,6 +188,15 @@ const main = (state = initialState, action) => {
             search: {
                 ...state.search,
                 searchResults: action.payload.searchResults,
+            },
+        }
+    }
+    case SET_MAIN_IS_EDITING_PLAYLIST: {
+        return {
+            ...state,
+            myLists: {
+                ...state.myLists,
+                isEditingList: action.payload.isEditingList,
             },
         }
     }

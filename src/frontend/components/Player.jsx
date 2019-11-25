@@ -14,6 +14,7 @@ import {
     setMainPlaylistFormInputValue,
     setMainPlaylistFormTextAreaValue,
     setMainPlaylistFormImgSrc,
+    setMainIsEditingPlaylist,
 } from '../actions'
 import { PlayerArtistInfo } from './PlayerArtistInfo'
 import { PlayerMenu } from './PlayerMenu'
@@ -45,6 +46,7 @@ const mapDispatchToProps = {
     setMainPlaylistFormInputValue,
     setMainPlaylistFormTextAreaValue,
     setMainPlaylistFormImgSrc,
+    setMainIsEditingPlaylist,
 }
 
 export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(props => {
@@ -71,6 +73,7 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         setMainPlaylistFormInputValue,
         setMainPlaylistFormTextAreaValue,
         setMainPlaylistFormImgSrc,
+        setMainIsEditingPlaylist,
     } = props
 
     const {
@@ -78,6 +81,8 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         creatingListTextAreaValue,
         creatingListImageSrc,
         isCreatingList,
+        isEditingList,
+        creatingListId,
     } = myLists
 
     const track = playerGroup.items[playerTrackIndex] || { preview_url: null, artists: [{ name: null }], isMock: true }
@@ -230,6 +235,7 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         setMainPlaylistFormInputValue({ creatingListTextInputValue: '' })
         setMainPlaylistFormTextAreaValue({ creatingListTextAreaValue: '' })
         setMainPlaylistFormImgSrc({ creatingListImageSrc: '' })
+        setMainIsEditingPlaylist({ isEditingList: false })
     }
 
     const onTextInputChange = event => setMainPlaylistFormInputValue({ creatingListTextInputValue: event.target.value })
@@ -252,24 +258,39 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
 
     const onModalSubmit = event => {
         event.preventDefault()
-        const list = {
-            name: creatingListTextInputValue,
-            description: creatingListTextAreaValue,
-            image: creatingListImageSrc || `https://picsum.photos/200?t=${Date.now()}`,
-            items: [],
+        if (user) {
+            const playlistExists = user.lists.find(l => l.name.toUpperCase() === creatingListTextInputValue.toUpperCase())
+            if (playlistExists && !isEditingList) {
+                setMainErrorMessage({ message: `La lista ${creatingListTextInputValue} ya existe` })
+                return
+            }
+            const list = {
+                name: creatingListTextInputValue,
+                description: creatingListTextAreaValue,
+                image: creatingListImageSrc || `https://picsum.photos/200?t=${Date.now()}`,
+                items: [],
+                id: creatingListId || creatingListId === 0 ? creatingListId : Math.max(...user.lists.map(l => l.id)) + 1,
+            }
+            let lists = [...user.lists]
+            if (isEditingList) {
+                lists = lists.map(l => {
+                    let immutableList = { ...l }
+                    console.log(list.id, l.id, creatingListId)
+                    if (list.id === l.id) {
+                        immutableList = { ...list }
+                    }
+                    return immutableList
+                })
+            } else {
+                lists = [...user.lists, list]
+            }
+            const payload = {
+                id: user.id,
+                lists,
+            }
+            setMainMyListsRequest(payload)
+            closePlaylistModal()
         }
-        const playlistExists = user.lists.find(l => l.name.toUpperCase() === list.name.toUpperCase())
-        if (playlistExists) {
-            setMainErrorMessage({ message: `La lista ${list.name} ya existe` })
-            return
-        }
-        const lists = [...user.lists, list]
-        const payload = {
-            id: user.id,
-            lists,
-        }
-        setMainMyListsRequest(payload)
-        closePlaylistModal()
     }
 
     if (user) {

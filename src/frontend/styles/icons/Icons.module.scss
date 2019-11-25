@@ -10,10 +10,15 @@
 .icon__container--card-control {
     font-size: 3em;
     transition: .5s;
+    margin-right: 0;
     &:hover {
         font-size: 4em;
         transition: .5s;
     }
+}
+
+.icon__container--more {
+    margin-right: 0;
 }
 
 .icon__container--player-menu-play {

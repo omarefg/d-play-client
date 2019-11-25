@@ -1,10 +1,20 @@
 @import '../lib/Vars.scss';
 
 .container {
-	max-width: 350px;
+	width: 40vw;
 	height: auto;
-	margin: 5% auto;
+	margin: 20px auto;
+	@media screen and (max-width: $d-media-m) {
+        width: 60vw;
+    }
 
+    @media screen and (max-width: $d-media-s) {
+        width: 80vw;
+    }
+
+    @media screen and (max-width: $d-media-xs) {
+        width: 90vw;
+    }
 }
 
 .form__title {

@@ -9,11 +9,18 @@ import {
     setPlayerVolume,
     setMainMyListsRequest,
     setSongIsInFavorites,
+    setMainErrorMessage,
+    setMainIsCreatingPlaylist,
+    setMainPlaylistFormInputValue,
+    setMainPlaylistFormTextAreaValue,
+    setMainPlaylistFormImgSrc,
 } from '../actions'
 import { PlayerArtistInfo } from './PlayerArtistInfo'
 import { PlayerMenu } from './PlayerMenu'
 import { SnackbarNotification } from './SnackbarNotification'
 import { ProgressBar } from './ProgressBar'
+import { Modal } from './Modal'
+import { PlaylistForm } from './PlaylistsForm'
 
 import styles from '../styles/components/Player.module.scss'
 
@@ -21,6 +28,7 @@ const mapStateToProps = state => {
     return {
         ...state.player,
         user: state.auth.user,
+        myLists: state.main.myLists,
     }
 }
 
@@ -32,6 +40,11 @@ const mapDispatchToProps = {
     setPlayerVolume,
     setMainMyListsRequest,
     setSongIsInFavorites,
+    setMainErrorMessage,
+    setMainIsCreatingPlaylist,
+    setMainPlaylistFormInputValue,
+    setMainPlaylistFormTextAreaValue,
+    setMainPlaylistFormImgSrc,
 }
 
 export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(props => {
@@ -53,7 +66,19 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         songIsInFavorites,
         user,
         isLoading,
+        myLists,
+        setMainIsCreatingPlaylist,
+        setMainPlaylistFormInputValue,
+        setMainPlaylistFormTextAreaValue,
+        setMainPlaylistFormImgSrc,
     } = props
+
+    const {
+        creatingListTextInputValue,
+        creatingListTextAreaValue,
+        creatingListImageSrc,
+        isCreatingList,
+    } = myLists
 
     const track = playerGroup.items[playerTrackIndex] || { preview_url: null, artists: [{ name: null }], isMock: true }
     const { preview_url: src } = track
@@ -200,6 +225,53 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         }
     }
 
+    const closePlaylistModal = () => {
+        setMainIsCreatingPlaylist({ isCreatingList: false })
+        setMainPlaylistFormInputValue({ creatingListTextInputValue: '' })
+        setMainPlaylistFormTextAreaValue({ creatingListTextAreaValue: '' })
+        setMainPlaylistFormImgSrc({ creatingListImageSrc: '' })
+    }
+
+    const onTextInputChange = event => setMainPlaylistFormInputValue({ creatingListTextInputValue: event.target.value })
+
+    const onTextAreaChange = event => setMainPlaylistFormTextAreaValue({ creatingListTextAreaValue: event.target.value })
+
+    const onFileInputChange = event => {
+        const { files } = event.target
+        const file = files[0]
+        const { type } = file
+        if (type.includes('image')) {
+            const FR = new FileReader()
+            FR.addEventListener('load', fileReaderEvent => {
+                const { result } = fileReaderEvent.target
+                setMainPlaylistFormImgSrc({ creatingListImageSrc: result })
+            })
+            FR.readAsDataURL(file)
+        }
+    }
+
+    const onModalSubmit = event => {
+        event.preventDefault()
+        const list = {
+            name: creatingListTextInputValue,
+            description: creatingListTextAreaValue,
+            image: creatingListImageSrc || `https://picsum.photos/200?t=${Date.now()}`,
+            items: [],
+        }
+        const playlistExists = user.lists.find(l => l.name.toUpperCase() === list.name.toUpperCase())
+        if (playlistExists) {
+            setMainErrorMessage({ message: `La lista ${list.name} ya existe` })
+            return
+        }
+        const lists = [...user.lists, list]
+        const payload = {
+            id: user.id,
+            lists,
+        }
+        setMainMyListsRequest(payload)
+        closePlaylistModal()
+    }
+
     if (user) {
         return (
             <div
@@ -210,6 +282,25 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
                     message={error}
                     onClose={closeSnackbarHandler}
                     open={!!error}
+                />
+                <Modal
+                    title='Crear Lista de Reproducción'
+                    description={(
+                        <PlaylistForm
+                            textInputValue={creatingListTextInputValue}
+                            onTextInputChange={onTextInputChange}
+                            textAreaValue={creatingListTextAreaValue}
+                            onTextAreaChange={onTextAreaChange}
+                            onFileInputChange={onFileInputChange}
+                            src={creatingListImageSrc}
+                            onSubmit={onModalSubmit}
+                            formID='player--playlists__form-modal'
+                        />
+                    )}
+                    open={isCreatingList}
+                    showSubmit
+                    onClose={closePlaylistModal}
+                    formID='player--playlists__form-modal'
                 />
                 <audio
                     hidden
@@ -252,5 +343,4 @@ export const Player = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
     }
 
     return null
-
 }))

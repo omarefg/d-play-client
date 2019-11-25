@@ -27,19 +27,19 @@
 
     .card__delete-button {
         position: absolute;
-        right: -15px;
+        right: 0;
         top: 5px;
         z-index: 100;
     }
 
     img {
-        max-width: 300px;
+        max-width: 240px;
         width: 100%;
         height: 100%;
     }
 
     .card__loading--square {
-        max-width: 300px;
+        max-width: 240px;
         width: 100%;
         height: 100%;
         background: linear-gradient(90deg, #c1c1c1, #fafafa, #c1c1c1, #fafafa);

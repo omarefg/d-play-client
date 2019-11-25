@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import { useWindowDimensions } from '../hooks'
 import { Card } from './Card'
 import { CarouselChevron } from './CarouselChevron'
-import { AddIcon, RightChevron, LeftChevron } from '../icons'
+import { RightChevron, LeftChevron } from '../icons'
 
 import styles from '../styles/components/CardsSection.module.scss'
 
 export const CardsSection = props => {
     const [state, setState] = useState({ index: 0, checked: false })
     const { width } = useWindowDimensions()
-    const numberOfCards = Math.ceil(width / 200) - 1
+    const numberOfCards = Math.ceil(width / 140) - 1
 
     let chevronWidth = 60
 
@@ -21,9 +21,7 @@ export const CardsSection = props => {
         title,
         cards,
         onClick,
-        isForPlaylists,
-        addPlaylist,
-        isLoading,
+        withMenu,
         onDelete,
     } = props
     const { index, checked } = state
@@ -42,9 +40,8 @@ export const CardsSection = props => {
                 onMouseLeave={onMouseLeave}
             >
                 <ItemsCarousel
-                    firstAndLastGutter
                     showSlither
-                    gutter={12}
+                    gutter={3}
                     chevronWidth={chevronWidth}
                     numberOfCards={numberOfCards}
                     slidesToScroll={1}
@@ -57,32 +54,16 @@ export const CardsSection = props => {
                         itemsInnerWrapper: styles['cards-section__itemsInnerWrapper'],
                         itemWrapper: styles['cards-section__itemWrapper'],
                     }}
+                    enablePlaceholder
+                    placeholderItem={<Card isLoading/>}
+                    numberOfPlaceholderItems={50}
                 >
-                    {isLoading && [0, 1, 2, 3, 4, 5, 6, 7].map(key => {
-                        return (
-                            <Card
-                                key={key}
-                                isLoading
-                            />
-                        )
-                    })}
-
-                    {isForPlaylists && (
-                        <div className={styles['cards-section__add-playlist-container']}>
-                            <AddIcon
-                                className='icon__container--add-playlist-control'
-                                onClick={addPlaylist}
-                            />
-                            <p>Nueva lista</p>
-                        </div>
-                    )}
                     {cards.map((card, index) => {
                         const title = card.name
                         const artist = card.artists ? card.artists[0].name : title
                         const album = card.artists ? card.name : ''
                         const image = card.images ? card.images[0].url : card.image
                         const key = card.id || card.name
-                        const canDelete = isForPlaylists && index !== 0
 
                         return (
                             <Card
@@ -92,8 +73,8 @@ export const CardsSection = props => {
                                 artist={artist}
                                 album={album}
                                 onClick={() => onClick(card)}
-                                canDelete={canDelete}
                                 onDelete={() => onDelete(card)}
+                                withMenu={withMenu}
                             />
                         )
                     })}

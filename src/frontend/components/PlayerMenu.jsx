@@ -9,7 +9,7 @@ import {
     FilledLikeIcon,
     AddToPlaylistIcon,
 } from '../icons'
-import { setMainMyListsRequest } from '../actions'
+import { setMainMyListsRequest, setMainIsCreatingPlaylist } from '../actions'
 import { VolumeSlider } from './VolumeSlider'
 import { SelectableMenu } from './SelectableMenu'
 import { Loader } from './Loader'
@@ -24,6 +24,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     setMainMyListsRequest,
+    setMainIsCreatingPlaylist,
 }
 
 export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => {
@@ -45,11 +46,17 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
         setMainMyListsRequest,
         track,
         isLoading,
+        setMainIsCreatingPlaylist,
     } = props
 
     const closeSelectableMenu = () => setAnchorEl(null)
 
-    const openSelectableMenu = event => !track.isMock && setAnchorEl(event.target)
+    const openSelectableMenu = event => setAnchorEl(event.target)
+
+    const openPlaylistModal = () => {
+        setMainIsCreatingPlaylist({ isCreatingList: true })
+        closeSelectableMenu()
+    }
 
     const addToPlaylist = index => {
         if (!track.isMock) {
@@ -96,6 +103,9 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
                 id='player-menu__selectable--menu'
                 onClose={closeSelectableMenu}
                 onItemClick={addToPlaylist}
+                showPrincipal
+                principalTitle='Nueva Lista'
+                onPrincipalClick={openPlaylistModal}
             />
             <PrevNextIcon
                 className='icon__container--player-menu'

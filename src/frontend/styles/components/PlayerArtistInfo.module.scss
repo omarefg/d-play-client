@@ -1,10 +1,22 @@
+@import '../lib/Vars.scss';
+
 .player-artist-info__container {
     display: flex;
     justify-content: space-around;
+    width: 190px;
+
+    @media screen and (max-width: $d-media-xs) {
+        flex-direction: column;
+        width: 100px;
+    }
 
     img {
         height: 40px;
         margin-right: 21px;
+
+        @media screen and (max-width: $d-media-xs) {
+            margin-top: 5px;
+        }
     }
 
     .artist-info {
@@ -21,15 +33,4 @@
             font-size: 0.7em;
         }
     }
-}
-
-@media (max-width:600px) {
-    .player-artist-info__container {
-        flex-direction: column;
-    }
-
-    .player-artist-info__container img {
-        margin-top: 5px;
-    }
-
 }

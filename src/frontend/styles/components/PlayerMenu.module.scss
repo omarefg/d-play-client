@@ -2,7 +2,13 @@
     display: flex;
     justify-content: space-evenly;
     flex: .5;
+
+    .player-menu__loader {
+        display: inline-block;
+        margin-right: 21px;
+    }
 }
+
 
 @media (max-width: 600px) {
     .player-menu__container {

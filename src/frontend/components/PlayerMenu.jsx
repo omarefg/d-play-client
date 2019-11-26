@@ -112,10 +112,12 @@ export const PlayerMenu = connect(mapStateToProps, mapDispatchToProps)(props => 
                 onClick={prevHandler}
             />
             {isLoading ? (
-                <Loader
-                    size={20}
-                    color='#fff'
-                />
+                <div className={styles['player-menu__loader']}>
+                    <Loader
+                        size={20}
+                        color='#fff'
+                    />
+                </div>
             ) : !isPlaying ?
                 ((!trackName && !audio) || (trackName && audio)) ? (
                     <PlayIcon

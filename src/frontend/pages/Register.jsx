@@ -21,7 +21,13 @@ countries = Object.keys(countries).map(key => {
     const country = countries[key]
     const value = country.code
     const label = `${country.emoji} ${country.name}`
-    return { value, label }
+    return { value, label, orderBy: country.name }
+}).sort((a, b) => {
+    const aValue = a.orderBy.toUpperCase()
+    const bValue = b.orderBy.toUpperCase()
+    if (aValue < bValue) return -1
+    if (aValue > bValue) return 1
+    return 0
 })
 
 const mapStateToProps = state => {

@@ -4,6 +4,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
+import multer from 'multer'
 import passport from 'passport'
 import https from 'https'
 import http from 'http'
@@ -22,6 +23,8 @@ import {
 import { config } from '../../config'
 import webpackConfig from '../../webpack.config'
 
+const upload = multer()
+
 const {
     errorHandler,
     errorTypeHandler,
@@ -38,6 +41,8 @@ app.use(helmet())
 app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session({ secret: config.sessionSecret }))
+app.use(express.urlencoded({ extended: true, limit: '50mb' }))
+app.use(upload.array())
 app.use(express.static(`${__dirname}/public`))
 
 if (isDev) {

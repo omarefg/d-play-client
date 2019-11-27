@@ -19,12 +19,17 @@ import {
     SET_MAIN_GENRES_IS_LOADING_OBSERVER,
     SET_MAIN_IS_EDITING_PLAYLIST,
     SET_MAIN_PLAYLIST_FORM_ID,
+    SET_MAIN_AUDIO_SEARCH_IS_LOADING,
 } from './types'
 import { signInUser, updateUser } from './auth'
 import { errorDispatcher } from '../utils/error-handler'
 
 export const setMainRecomendationIsLoading = payload => ({
     type: SET_MAIN_RECOMENDATION_IS_LOADING,
+    payload,
+})
+export const setMainAudioSearchIsLoading = payload => ({
+    type: SET_MAIN_AUDIO_SEARCH_IS_LOADING,
     payload,
 })
 export const setMainGenresIsLoading = payload => ({
@@ -157,4 +162,23 @@ export const setMainSearchResultsRequest = ({ query }, setLoading = true) => asy
         errorDispatcher(error, unauthorizedErrorCalback, errorHandler)
     }
     setLoading && dispatch(setMainSearchIsLoading({ isLoading: false }))
+}
+
+export const setMainAudioSearchResultsRequest = (b64, cb) => async dispatch => {
+    dispatch(setMainAudioSearchIsLoading({ isLoading: true }))
+    try {
+        const { data } = await axios({
+            url: 'server/search/audio-search',
+            method: 'post',
+            data: { sample: b64 },
+        })
+        const query = Object.keys(data).map(key => data[key]).join('%20')
+        cb && cb()
+        dispatch(setMainSearchResultsRequest({ query }))
+    } catch (error) {
+        const unauthorizedErrorCalback = _err => dispatch(signInUser(null))
+        const errorHandler = error => dispatch(setMainErrorMessage(error))
+        errorDispatcher(error, unauthorizedErrorCalback, errorHandler)
+    }
+    dispatch(setMainAudioSearchIsLoading({ isLoading: false }))
 }

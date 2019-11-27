@@ -32,7 +32,13 @@ export const Header = withRouter(connect(mapStateToProps)(props => {
 
                 <div className={styles['header__childs-container']}>
                     <div className={styles['header__search']}>
-                        <Search/>
+                        <Search>
+                            <ListItem
+                                title='Escuchar y buscar'
+                                to='/buscar-audio'
+                                active={pathname === '/buscar-audio'}
+                            />
+                        </Search>
                     </div>
 
                     <div className={styles['header__flex-grow']}>

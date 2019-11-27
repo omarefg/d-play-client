@@ -53,28 +53,28 @@ export const SearchPage = connect(mapStateToProps, mapDispatchToProps)(props => 
                 isLoading={isLoading}
                 loadingRows={[0, 1]}
             >
-                {albums && Object.keys(albums).length && albums.items.length && (
+                {albums && Object.keys(albums).length > 0 && albums.items.length > 0 && (
                     <CardsSection
                         title='Albumes'
                         cards={albums.items.filter(item => item.images.length)}
                         onClick={cardClickHandler}
                     />
                 )}
-                {artists && Object.keys(artists).length && artists.items.length && artists.items.filter(item => item.images.length).length && (
+                {artists && Object.keys(artists).length > 0 && artists.items.length > 0 && artists.items.filter(item => item.images.length).length > 0 && (
                     <CardsSection
                         title='Artistas'
                         cards={artists.items.filter(item => item.images.length)}
                         onClick={cardClickHandler}
                     />
                 )}
-                {tracks && Object.keys(tracks).length && tracks.items.length && tracks.items.filter(item => item.album.images.length).length && (
+                {tracks && Object.keys(tracks).length > 0 && tracks.items.length > 0 && tracks.items.filter(item => item.album.images.length).length > 0 && (
                     <CardsSection
                         title='Canciones'
                         cards={tracks.items.map(item => ({ ...item, images: item.album.images })).filter(item => item.images.length)}
                         onClick={cardClickHandler}
                     />
                 )}
-                {playlists && Object.keys(playlists).length && playlists.items.length && (
+                {playlists && Object.keys(playlists).length > 0 && playlists.items.length > 0 && (
                     <CardsSection
                         title='Playlists'
                         cards={playlists.items.filter(item => item.images.length)}

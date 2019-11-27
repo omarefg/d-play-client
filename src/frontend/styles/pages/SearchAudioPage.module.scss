@@ -1,0 +1,19 @@
+@import '../lib/Vars.scss';
+
+.search-audio__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 200px);
+    padding: 30px 0;
+
+    .search-audio__wave {
+        width: 60vh;
+        margin: 30px;
+    }
+
+    .search-audio__button {
+        width: 40vw;
+    }
+}

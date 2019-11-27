@@ -16,6 +16,7 @@ import {
     SET_MAIN_GENRES_IS_LOADING_OBSERVER,
     SET_MAIN_IS_EDITING_PLAYLIST,
     SET_MAIN_PLAYLIST_FORM_ID,
+    SET_MAIN_AUDIO_SEARCH_IS_LOADING,
 } from '../actions/types'
 
 const initialState = {
@@ -42,6 +43,9 @@ const initialState = {
     search: {
         searchValue: '',
         searchResults: {},
+        isLoading: false,
+    },
+    audioSearch: {
         isLoading: false,
     },
     error: '',
@@ -81,6 +85,15 @@ const main = (state = initialState, action) => {
             ...state,
             myLists: {
                 ...state.myLists,
+                isLoading: action.payload.isLoading,
+            },
+        }
+    }
+    case SET_MAIN_AUDIO_SEARCH_IS_LOADING: {
+        return {
+            ...state,
+            audioSearch: {
+                ...state.audioSearch,
                 isLoading: action.payload.isLoading,
             },
         }

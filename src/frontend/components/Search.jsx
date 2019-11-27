@@ -25,6 +25,7 @@ export const Search = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
         setMainSearchValue,
         location,
         setMainSearchResultsRequest,
+        children,
     } = props
 
     const { pathname } = location
@@ -64,16 +65,19 @@ export const Search = withRouter(connect(mapStateToProps, mapDispatchToProps)(pr
     }
 
     return (
-        <div className={styles['search__container']}>
-            <SearchIcon/>
-            <input
-                placeholder='Buscar...'
-                value={searchValue}
-                onChange={onChange}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onKeyPress={onKeyPress}
-            />
+        <div className={styles['hear-and-search--container']}>
+            <div className={styles['search__container']}>
+                <SearchIcon/>
+                <input
+                    placeholder='Buscar...'
+                    value={searchValue}
+                    onChange={onChange}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onKeyPress={onKeyPress}
+                />
+            </div>
+            {children}
         </div>
     )
 }))

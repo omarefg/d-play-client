@@ -28,4 +28,25 @@ export const search = app => {
             }
         }
     })
+
+    router.post('/audio-search', async (req, res, next) => {
+        const { sample } = req.body
+        const { token } = req.cookies
+        const request = payloadToken => axios({
+            url: `${apiUrl}/api/search/audio-search`,
+            headers: { Authorization: `Bearer ${payloadToken}` },
+            method: 'post',
+            data: { sample },
+        })
+        try {
+            const { data: { data }, status } = await request(token)
+            res.status(status).json(data)
+        } catch (error) {
+            const response = await localErrorHandler(req, res, next, error, request)
+            if (response) {
+                const { data: { data }, status } = response
+                res.status(status).json(data)
+            }
+        }
+    })
 }

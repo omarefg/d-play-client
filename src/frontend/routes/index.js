@@ -7,6 +7,7 @@ import {
     UserData,
     Artist,
     SearchPage,
+    SearchAudioPage,
 } from '../pages'
 
 export const serverRoutes = [
@@ -48,6 +49,11 @@ export const serverRoutes = [
     {
         path: '/buscar',
         component: SearchPage,
+        exact: true,
+    },
+    {
+        path: '/buscar-audio',
+        component: SearchAudioPage,
         exact: true,
     },
 ]

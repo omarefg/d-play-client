@@ -1,5 +1,9 @@
 @import '../lib/Vars.scss';
 
+.hear-and-search--container {
+    display: flex;
+}
+
 .search__container {
     background-color: $d-sixth-color;
     border-radius: 16px;

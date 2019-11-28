@@ -155,7 +155,12 @@ export const setMainSearchResultsRequest = ({ query }, setLoading = true) => asy
     setLoading && dispatch(setMainSearchIsLoading({ isLoading: true }))
     try {
         const { data: searchResults } = await axios.get(`server/search?q=${query}`)
-        dispatch(setMainSearchResults({ searchResults }))
+        const noResults = Object.keys(searchResults).filter(key => searchResults[key].items.length > 0).length === 0
+        if (noResults) {
+            dispatch(setMainErrorMessage({ message: 'No hubo resultados' }))
+        } else {
+            dispatch(setMainSearchResults({ searchResults }))
+        }
     } catch (error) {
         const unauthorizedErrorCalback = _err => dispatch(signInUser(null))
         const errorHandler = error => dispatch(setMainErrorMessage(error))
@@ -167,12 +172,13 @@ export const setMainSearchResultsRequest = ({ query }, setLoading = true) => asy
 export const setMainAudioSearchResultsRequest = (b64, cb) => async dispatch => {
     dispatch(setMainAudioSearchIsLoading({ isLoading: true }))
     try {
-        const { data } = await axios({
+        const { data: { artist, song } } = await axios({
             url: 'server/search/audio-search',
             method: 'post',
             data: { sample: b64 },
         })
-        const query = Object.keys(data).map(key => data[key]).join('%20')
+        const meta = { artist, song }
+        const query = Object.keys(meta).map(key => meta[key].normalize('NFD').replace(/[\u0300-\u036f]/g, '')).join('%20')
         cb && cb()
         dispatch(setMainSearchResultsRequest({ query }))
     } catch (error) {

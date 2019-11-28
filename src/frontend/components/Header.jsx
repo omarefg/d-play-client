@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { Search } from './Search'
 import { ListItem } from './ListItem'
+import { AudioSearchIcon } from '../icons'
 import DplayLogo from '../assets/Logo.png'
 
 import styles from '../styles/components/Header.module.scss'
@@ -33,11 +34,13 @@ export const Header = withRouter(connect(mapStateToProps)(props => {
                 <div className={styles['header__childs-container']}>
                     <div className={styles['header__search']}>
                         <Search>
-                            <ListItem
-                                title='Escuchar y buscar'
+                            <Link
                                 to='/buscar-audio'
-                                active={pathname === '/buscar-audio'}
-                            />
+                            >
+                                <AudioSearchIcon
+                                    className={styles['header__search-audio--icon']}
+                                />
+                            </Link>
                         </Search>
                     </div>
 

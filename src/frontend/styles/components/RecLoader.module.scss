@@ -1,0 +1,63 @@
+@import '../lib/Vars.scss';
+
+.rec-loader__container {
+    position: absolute;
+    top: 25%;
+    left: calc(31% + 1px);
+}
+
+.rec-loader__children {
+    display: block;
+    bottom: 0px;
+    width: 9px;
+    height: 5px;
+    background: $d-secondary-color;
+    position: absolute;
+}
+
+.rec-loader__childre-animated {
+    animation: audio-wave 1.5s infinite ease-in-out;
+}
+
+.rec-loader__children:nth-child(2) {
+    left: 11px;
+    animation-delay: 0.2s;
+}
+
+.rec-loader__children:nth-child(3) {
+    left: 22px;
+    animation-delay: 0.4s;
+}
+
+.rec-loader__children:nth-child(4) {
+    left: 33px;
+    animation-delay: 0.6s;
+}
+
+.rec-loader__children:nth-child(5) {
+    left: 44px;
+    animation-delay: 0.8s;
+}
+
+@keyframes audio-wave {
+    0% {
+        height: 5px;
+        transform: translateY(0px);
+        background: $d-secondary-color;
+    }
+    25% {
+        height: 40px;
+        transform: translateY(20px);
+        background: $d-third-color;
+    }
+    50% {
+        height: 5px;
+        transform: translateY(0px);
+        background: $d-secondary-color;
+    }
+    100% {
+        height: 5px;
+        transform: translateY(0px);
+        background: $d-secondary-color;
+    }
+}

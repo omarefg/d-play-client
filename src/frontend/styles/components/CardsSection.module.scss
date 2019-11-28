@@ -25,4 +25,24 @@
     .cards-section__itemsWrapper {
         height: 200px;
     }
+
+    .cards-section__rightChevronWrapper {
+        position: absolute;
+        height: 100%;
+        width: 61px;
+        cursor: pointer;
+        top: 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
 }

@@ -11,11 +11,11 @@ $d-seventh-color: #7e7e7e;
 
 $d-font-family: 'Verdana', sans-serif;
 
-
-$d-media-l: 1200px;
+$d-media-l: 1225px;
 $d-media-m: 1024px;
 $d-media-s: 800px;
 $d-media-xs: 600px;
+$d-media-xxs: 400px;
 
 @mixin scrollbar {
     &::-webkit-scrollbar {

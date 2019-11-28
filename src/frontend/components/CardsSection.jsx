@@ -52,6 +52,7 @@ export const CardsSection = props => {
                         itemsWrapper: styles['cards-section__itemsWrapper'],
                         itemsInnerWrapper: styles['cards-section__itemsInnerWrapper'],
                         itemWrapper: styles['cards-section__itemWrapper'],
+                        rightChevronWrapper: styles['cards-section__rightChevronWrapper'],
                     }}
                     enablePlaceholder
                     placeholderItem={<Card isLoading/>}

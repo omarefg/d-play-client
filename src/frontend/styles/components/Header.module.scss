@@ -38,9 +38,20 @@
         height: 50px;
         object-fit: cover;
     }
+
+    .header__search-audio--icon {
+        margin-right: 0;
+        height: 1.5em;
+        width: 1.5em;
+        margin-left: 10px;
+
+        &:hover {
+            fill: $d-third-color;
+        }
+    }
 }
 
-@media (max-width:1025px) {
+@media (max-width: $d-media-l) {
     .header__container {
         padding: 5px 12px;
         align-items: flex-start;
@@ -67,7 +78,7 @@
     }
 }
 
-@media (max-width:600px) {
+@media (max-width: $d-media-xs) {
     .header__logo {
         margin-right: 0;
     }

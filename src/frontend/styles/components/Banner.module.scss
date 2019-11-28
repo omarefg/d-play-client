@@ -1,0 +1,59 @@
+@import '../lib/Vars.scss';
+
+.banner__link {
+    text-decoration: none;
+}
+
+.banner__container {
+    background-image: url('../../assets/Components/Banner/background1.jpeg');
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    margin-top: 30px;
+    cursor: pointer;
+    flex-direction: column;
+
+    h3 {
+        color: white;
+        margin: 0 0 0 40px;
+        font-size: 1.3em;
+        font-weight: bolder;
+        width: 32%;
+        display: block;
+        user-select: none;
+        text-decoration: none;
+
+        @media screen and (max-width: $d-media-s) {
+            width: 52%;
+        }
+
+        @media screen and (max-width: $d-media-xs) {
+           margin: 0 0 0 20px;
+        }
+
+        @media screen and (max-width: $d-media-xxs) {
+           width: 82%;
+        }
+    }
+
+    h6 {
+        width: 30%;
+        margin: 10px 0 0 40px;
+        color: $d-sixth-color;
+        font-size: .9em;
+        text-decoration: none;
+
+        @media screen and (max-width: $d-media-s) {
+            width: 50%;
+        }
+
+        @media screen and (max-width: $d-media-xs) {
+           margin: 0 0 0 20px;
+        }
+
+        @media screen and (max-width: $d-media-xxs) {
+           width: 80%;
+        }
+    }
+}

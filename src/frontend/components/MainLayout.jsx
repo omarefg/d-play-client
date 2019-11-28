@@ -5,6 +5,7 @@ import { setMainErrorMessage } from '../actions'
 
 import { SnackbarNotification } from './SnackbarNotification'
 import { CardsSection } from './CardsSection'
+import { Banner } from './Banner'
 
 import styles from '../styles/components/MainLayout.module.scss'
 
@@ -41,6 +42,11 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
         <div
             className={styles['main-layout__container']}
         >
+            <Banner
+                title='¡Prueba lo último, encuentra esa canción que estás escuchando en segundos!'
+                subtitle='Haciendo click en éste banner'
+                to='/buscar-audio'
+            />
             <SnackbarNotification
                 variant='error'
                 message={error}
@@ -52,7 +58,6 @@ export const MainLayout = connect(mapStateToProps, mapDispatchToProps)(props => 
                     return (
                         <CardsSection
                             key={key}
-                            isLoading
                         />
                     )
                 })}

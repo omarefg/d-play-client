@@ -29,7 +29,7 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
         recommendations,
     } = props
 
-    const { newReleases, featuredPlaylists, isLoading } = recommendations
+    const { newReleases, featuredPlaylists } = recommendations
 
     useEffect(() => {
         if (user) {
@@ -45,10 +45,7 @@ export const Recommendations = connect(mapStateToProps, mapDispatchToProps)(prop
 
     return (
         <RedirectBoundary>
-            <MainLayout
-                isLoading={isLoading}
-                loadingRows={[0, 1]}
-            >
+            <MainLayout>
                 <CardsSection
                     title='Nuevos lanzamientos'
                     cards={newReleases.items}

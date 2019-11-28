@@ -35,6 +35,7 @@ export const render = (html, preloadedState, css) => {
         </head>
         <body>
             <div id="root">${html}</div>
+            <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
             <script>
                 // WARNING: See the following for security issues around embedding JSON in HTML:
                 // http://redux.js.org/recipes/ServerRendering.html#security-considerations

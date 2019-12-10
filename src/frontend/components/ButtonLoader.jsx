@@ -5,7 +5,7 @@ import { Loader } from './Loader'
 export const ButtonLoader = props => {
     const { message } = props
     return (
-        <>
+        <span>
             <span
                 role='img'
                 aria-label='magic'
@@ -16,7 +16,7 @@ export const ButtonLoader = props => {
                 size={30}
                 color='white'
             />
-        </>
+        </span>
     )
 }
 
